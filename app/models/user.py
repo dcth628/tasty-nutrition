@@ -10,9 +10,20 @@ class User(db.Model, UserMixin):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String, nullable=False)
+    last_name = db.Column(db.String, nullable=False)
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+    user_image = db.Column(db.String)
+
+    images = db.relationship('Image', back_populates='owner')
+
+    recipes = db.relationship('Recipe', back_populates='owner')
+
+    cookbooks = db.relationship('Cookbook', back_populates='owner')
+
+    reviews = db.relationship('Review', back_populates='owner')
 
     @property
     def password(self):
@@ -29,5 +40,8 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'user_image': self.user_image,
         }
