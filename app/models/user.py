@@ -25,6 +25,8 @@ class User(db.Model, UserMixin):
 
     reviews = db.relationship('Review', back_populates='owner')
 
+    likes = db.relationship('Like', back_populates='owner')
+
     @property
     def password(self):
         return self.hashed_password

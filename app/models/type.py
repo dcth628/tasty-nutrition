@@ -8,5 +8,13 @@ class Type(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     type = db.Column(db.String, nullable=False)
+    recipe_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('recipe.id')), nullable=False)
 
     recipes = db.relationship('Recipe', back_populates='types')
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "type": self.type,
+            "recipes": [recipe.id for recipe in self.recipes] if self.recipes else []
+        }

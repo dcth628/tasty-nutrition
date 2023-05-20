@@ -14,7 +14,6 @@ class Recipe(db.Model):
     instruction = db.Column(db.String, nullable=False)
     serving = db.Column(db.Integer, nullable=False)
     cooktime = db.Column(db.Integer, nullable=False)
-    type_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('types.id')), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
 
     owner = db.relationship('User', back_populates='recipes')
