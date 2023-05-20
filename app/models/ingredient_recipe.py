@@ -13,3 +13,9 @@ class IngredientRecipe(db.Model):
     ingredients = db.relationship('Ingredient', back_populates='recipe_ingredient')
 
     recipes = db.relationship('Recipe', back_populates='ingredient_recipe')
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "ingredients": self.ingredients.to_dict()
+        }

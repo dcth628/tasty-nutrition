@@ -1,4 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from .type import Type
 
 class Recipe(db.Model):
     __tablename__ = 'recipes'
@@ -11,9 +12,9 @@ class Recipe(db.Model):
     type = db.Column(db.String, nullable=False)
     description = db.Column(db.String, nullable=False)
     instruction = db.Column(db.String, nullable=False)
-    type = db.Column(db.String, nullable=False)
     serving = db.Column(db.Integer, nullable=False)
     cooktime = db.Column(db.Integer, nullable=False)
+    type_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('types.id')), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
 
     owner = db.relationship('User', back_populates='recipes')
@@ -24,15 +25,29 @@ class Recipe(db.Model):
 
     reviews = db.relationship('Review', back_populates='recipes', cascade="all, delete-orphan")
 
+    types = db.relationship('Type', back_populates='recipes', cascade="all, delete-orphan")
+
     images = db.relationship('Image', lazy=True, primaryjoin='and_(Image.imageable_type=="recipe", foreign(Image.imageable_id)==Recipe.id)', back_populates='recipes', cascade="all, delete-orphan")
 
     def to_dict(self):
         return {
             "id": self.id,
             "name": self.name,
-            "type": self.type,
+            "type": [type.to_dict() for type in self.types] if self.types else [],
             "description": self.description,
             "instruction": self.instruction,
             "serving": self.serving,
             "cooktime": self.cooktime
+        }
+
+    def ing_to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "type": [type.to_dict() for type in self.types] if self.types else [],
+            "description": self.description,
+            "instruction": self.instruction,
+            "serving": self.serving,
+            "cooktime": self.cooktime,
+            "ingredients": [ingred.to_dict() for ingred in self.ingredient_recipe] if self.ingredient_recipe else []
         }
