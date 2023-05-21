@@ -1,5 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
-from .type import Type
+from .recipe_type import RecipeType
 
 class Recipe(db.Model):
     __tablename__ = 'recipes'
@@ -9,7 +9,6 @@ class Recipe(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
-    type = db.Column(db.String, nullable=False)
     description = db.Column(db.String, nullable=False)
     instruction = db.Column(db.String, nullable=False)
     serving = db.Column(db.Integer, nullable=False)
@@ -24,15 +23,15 @@ class Recipe(db.Model):
 
     reviews = db.relationship('Review', back_populates='recipes', cascade="all, delete-orphan")
 
-    types = db.relationship('Type', back_populates='recipes', cascade="all, delete-orphan")
+    recipe_type = db.relationship('RecipeType', back_populates='recipes', cascade="all, delete-orphan")
 
-    images = db.relationship('Image', lazy=True, primaryjoin='and_(Image.imageable_type=="recipe", foreign(Image.imageable_id)==Recipe.id)', back_populates='recipes', cascade="all, delete-orphan")
+    images = db.relationship('Image', back_populates='recipes', cascade="all, delete-orphan")
 
     def to_dict(self):
         return {
             "id": self.id,
             "name": self.name,
-            "type": [type.to_dict() for type in self.types] if self.types else [],
+            "types": [type.to_dict() for type in self.recipe_type] if self.recipe_type else [],
             "description": self.description,
             "instruction": self.instruction,
             "serving": self.serving,
@@ -43,7 +42,7 @@ class Recipe(db.Model):
         return {
             "id": self.id,
             "name": self.name,
-            "type": [type.to_dict() for type in self.types] if self.types else [],
+            "types": [type.to_dict() for type in self.recipe_type] if self.recipe_type else [],
             "description": self.description,
             "instruction": self.instruction,
             "serving": self.serving,
