@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 209a2754ca97
+Revision ID: 139d56292e9f
 Revises: 
-Create Date: 2023-05-21 12:11:22.742107
+Create Date: 2023-05-21 23:07:47.711226
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '209a2754ca97'
+revision = '139d56292e9f'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -24,10 +24,10 @@ def upgrade():
     sa.Column('name', sa.String(), nullable=False),
     sa.Column('type', sa.String(), nullable=False),
     sa.Column('measurement', sa.Integer(), nullable=False),
-    sa.Column('calorie', sa.Numeric(precision=6, scale=2), nullable=False),
-    sa.Column('carb', sa.Numeric(precision=6, scale=2), nullable=False),
-    sa.Column('protein', sa.Numeric(precision=6, scale=2), nullable=False),
-    sa.Column('fat', sa.Numeric(precision=6, scale=2), nullable=False),
+    sa.Column('calorie', sa.Integer(), nullable=False),
+    sa.Column('carb', sa.Integer(), nullable=False),
+    sa.Column('protein', sa.Integer(), nullable=False),
+    sa.Column('fat', sa.Integer(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('types',
@@ -47,6 +47,13 @@ def upgrade():
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
     )
+    op.create_table('cookbooks',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('name', sa.String(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
     op.create_table('likes',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
@@ -63,20 +70,14 @@ def upgrade():
     sa.Column('serving', sa.Integer(), nullable=False),
     sa.Column('cooktime', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('id')
-    )
-    op.create_table('cookbooks',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(), nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('recipe_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['recipe_id'], ['recipes.id'], ),
+    sa.Column('cookbook_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['cookbook_id'], ['cookbooks.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('images',
     sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('url', sa.String(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('recipe_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['recipe_id'], ['recipes.id'], ),
@@ -118,9 +119,9 @@ def downgrade():
     op.drop_table('recipe_types')
     op.drop_table('ingredient_recipe')
     op.drop_table('images')
-    op.drop_table('cookbooks')
     op.drop_table('recipes')
     op.drop_table('likes')
+    op.drop_table('cookbooks')
     op.drop_table('users')
     op.drop_table('types')
     op.drop_table('ingredients')

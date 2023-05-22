@@ -65,3 +65,5 @@ def undo_recipes():
         db.session.delete(recipe_1)
         db.session.delete(recipe_1)
         db.session.execute(text("DELETE FROM recipes"))
+
+    db.session.commit()

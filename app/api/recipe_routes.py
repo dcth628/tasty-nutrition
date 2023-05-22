@@ -1,7 +1,10 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
-from app.models import db, Recipe, Type, Image, Like, Ingredient, IngredientRecipe
+from app.models import db, Recipe, Type, Image, Like, Ingredient, IngredientRecipe, Review
+from app.models.recipe_type import RecipeType
 from app.forms.recipe_form import CreateRecipeForm
+from app.forms.image_form import CreateImageForm
+from app.forms.review_form import CreateReviewForm
 
 recipes_routes = Blueprint('recipes', __name__)
 
@@ -19,7 +22,7 @@ def user_recipes():
     Queries for all recipes for the user and return in a list
     """
     user_id = current_user.get_id()
-    recipes = Recipe.query.filter_by(user_id == user_id)
+    recipes = Recipe.query.filter_by(user_id = user_id)
     return {recipe.id: recipe.to_dict() for recipe in recipes}
 
 #Get details of a recipe by the id
@@ -28,7 +31,7 @@ def recipe_detail(id):
     recipe = Recipe.query.filter(Recipe.id == id).first()
     if recipe:
         return recipe.to_dict()
-    return {"error": "Recipe can not find"}
+    return jsonify({"error": "Recipe not found"}), 404
 
 #Create a recipe
 @recipes_routes.route('', methods=['POST'])
@@ -45,6 +48,7 @@ def create_recipe():
             instruction = form.data['instruction'],
             serving = form.data['serving'],
             cooktime = form.data['cooktime'],
+            user_id = user_id
         )
         db.session.add(new_recipe)
         db.session.commit()
@@ -55,7 +59,9 @@ def create_recipe():
 @login_required
 def edit_recipe(id):
     form = CreateRecipeForm()
-    recipe = Recipe.query.get_or_404(id)
+    recipe = Recipe.query.get(id)
+    if not recipe:
+        return jsonify({"error": "Recipe not found"}), 404
 
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
@@ -80,15 +86,18 @@ def edit_recipe(id):
 @login_required
 def delete_recipe(id):
     recipe = Recipe.query.get(id)
+    if not recipe:
+        return jsonify({"error": "Recipe not found"}), 404
     db.session.delete(recipe)
     db.session.commit()
 
-    return recipe.to_dict()
+    return jsonify({'message':'Sucessfully Deleted'})
 
 
 #Add an ingredient to a recipe
 @recipes_routes.route('/<int:recipe_id>/ingredients/<int:ingredient_id>', methods=['POST'])
-def ingred_add_recipe(recipe_id, ingredient_id):
+@login_required
+def add_ingred_recipe(recipe_id, ingredient_id):
     recipe = Recipe.query.get(recipe_id)
     ingredient = Ingredient.query.get(ingredient_id)
 
@@ -111,3 +120,121 @@ def ingred_add_recipe(recipe_id, ingredient_id):
     db.session.add(new_ingredient)
     db.session.commit()
     return recipe.to_dict()
+
+#Delete an ingredient from a recipe
+@recipes_routes.route('/<int:recipe_id>/ingredients/<int:ingredient_id>', methods=["DELETE"])
+@login_required
+def delete_ingred_recipe(recipe_id, ingredient_id):
+    recipe_ingred = IngredientRecipe.query.filter_by(
+        recipe_id=recipe_id, ingredient_id=ingredient_id
+    ).first()
+
+    if not recipe_ingred:
+        return jsonify({"error": "Ingredient was not found"}), 404
+    db.session.delete(recipe_ingred)
+    db.session.commit()
+    return jsonify({'message':'Sucessfully Deleted'})
+
+#Add types to a recipe
+@recipes_routes.route('/<int:recipe_id>/types/<int:type_id>', methods=["POST"])
+@login_required
+def add_type_recipe(recipe_id, type_id):
+    recipe = Recipe.query.get(recipe_id)
+    type = Type.query.get(type_id)
+
+    if not recipe or not type:
+        return jsonify({"error": "Recipe or type not found"}), 404
+
+    recipe_type = RecipeType.query.filter_by(
+        recipe_id = recipe_id, type_id = type_id
+    ).first()
+
+    if recipe_type:
+        return jsonify({"error": "Type was already added"})
+
+    new_type = RecipeType(
+        recipe_id = recipe_id,
+        type_id = type_id
+    )
+
+    db.session.add(new_type)
+    db.session.commit()
+    return new_type.to_dict()
+
+#Delete type from a recipe
+@recipes_routes.route('/<int:recipe_id>/types/<int:type_id>', methods=["DELETE"])
+@login_required
+def delete_type_recipe(recipe_id, type_id):
+    recipe_type = RecipeType.query.filter_by(
+        recipe_id = recipe_id, type_id = type_id
+    ).first()
+
+    if not recipe_type:
+        return jsonify({"error":"Type was not found"}), 404
+    db.session.delete(recipe_type)
+    db.session.commit()
+    return jsonify({'message':'Sucessfully Deleted'})
+
+
+#Add an image to a recipe
+@recipes_routes.route('/<int:recipe_id>/images', methods=["POST"])
+@login_required
+def add_image(recipe_id):
+    form = CreateImageForm()
+    user_id = current_user.get_id()
+    recipe = Recipe.query.filter(Recipe.id == recipe_id).first()
+    if not recipe:
+        return jsonify({"error":"Recipe not found"}), 404
+
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        new_image = Image(
+            url = form.data['url'],
+            user_id = user_id,
+            recipe_id = recipe_id
+        )
+        db.session.add(new_image)
+        db.session.commit()
+        return new_image.to_dict()
+
+#Delete an image
+@recipes_routes.route('/images/<int:image_id>', methods=['DELETE'])
+@login_required
+def delete_image(image_id):
+    image = Image.query.get(image_id)
+    if not image:
+        return jsonify({"error":"Image not found"}), 404
+    db.session.delete(image)
+    db.session.commit()
+
+    return jsonify({'message':'Sucessfully Deleted'})
+
+#Create a review
+@recipes_routes.route('/<int:id>/reviews', methods=['POST'])
+@login_required
+def create_review(id):
+    user_id = current_user.get_id()
+    recipe = Recipe.query.get(id)
+    form = CreateReviewForm()
+
+    if not recipe:
+        return jsonify({"error":"Recipe not found"}), 404
+
+    new_review = Review.query.filter_by(
+        recipe_id = id, user_id = user_id
+    ).first()
+
+    if new_review:
+        return jsonify({"error": "Review was already exist"})
+    else:
+        form['csrf_token'].data = request.cookies['csrf_token']
+        if form.validate_on_submit():
+            new_review = Review(
+                review = form.data['review'],
+                star = form.data['star'],
+                recipe_id = id,
+                user_id = user_id
+            )
+            db.session.add(new_review)
+            db.session.commit()
+            return new_review.to_dict()

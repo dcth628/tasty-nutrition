@@ -53,7 +53,9 @@ def edit_ingred(id):
     edit an ingredient
     """
     form = CreateIngredientForm()
-    ingredient = Ingredient.query.get_or_404(id)
+    ingredient = Ingredient.query.get(id)
+    if not ingred_detail:
+        return jsonify({"error": "Ingredient not found"}), 404
 
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():

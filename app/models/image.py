@@ -7,6 +7,7 @@ class Image(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
+    url = db.Column(db.String, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     recipe_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('recipes.id')), nullable=False)
 
@@ -18,6 +19,7 @@ class Image(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
+            "url": self.url,
             'user_id': self.user_id,
-            'recipe_id': [recipe.id for recipe in self.recipes] if self.recipes else []
+            'recipe_id': self.recipes.id
         }

@@ -14,12 +14,13 @@ class Recipe(db.Model):
     serving = db.Column(db.Integer, nullable=False)
     cooktime = db.Column(db.Integer, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    cookbook_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('cookbooks.id')))
 
     owner = db.relationship('User', back_populates='recipes')
 
-    ingredient_recipe = db.relationship('IngredientRecipe', back_populates='recipes', cascade="all, delete-orphan")
+    cookbooks = db.relationship('Cookbook', back_populates='recipes')
 
-    cookbooks = db.relationship('Cookbook', back_populates='recipes', cascade="all, delete-orphan")
+    ingredient_recipe = db.relationship('IngredientRecipe', back_populates='recipes', cascade="all, delete-orphan")
 
     reviews = db.relationship('Review', back_populates='recipes', cascade="all, delete-orphan")
 
@@ -35,7 +36,12 @@ class Recipe(db.Model):
             "description": self.description,
             "instruction": self.instruction,
             "serving": self.serving,
-            "cooktime": self.cooktime
+            "cooktime": self.cooktime,
+            "user_id": self.owner.username,
+            "ingredients": [ingred.to_dict() for ingred in self.ingredient_recipe] if self.ingredient_recipe else [],
+            "images": [image.to_dict() for image in self.images] if self.images else [],
+            "cookbook": self.cookbooks.name if self.cookbooks else [],
+            "reviews": [review.to_dict() for review in self.reviews] if self.reviews else []
         }
 
     def ing_to_dict(self):
