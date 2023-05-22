@@ -1,4 +1,4 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 from flask_login import login_required
 from app.models import db, Ingredient
 from app.forms.ingredient_form import CreateIngredientForm
@@ -17,7 +17,7 @@ def ingred_detail(id):
     ingredient = Ingredient.query.filter(Ingredient.id == id).first()
     if ingredient:
         return ingredient.to_dict()
-    return {"error": "can't find ingredient"}
+    return jsonify({"error": "can't find ingredient"}),404
 
 # Create an Ingredient
 @ingredients_routes.route('', methods=['POST'])
@@ -82,6 +82,8 @@ def edit_ingred(id):
 @ingredients_routes.route('/<int:id>', methods=['DELETE'])
 def delete_ingred(id):
     ingredient = Ingredient.query.get(id)
-    db.session.delete(ingredient)
-    db.session.commit()
-    return ingredient.to_dict()
+    if ingredient:
+        db.session.delete(ingredient)
+        db.session.commit()
+        return ingredient.to_dict()
+    return jsonify({"error":"Ingredient not found"}), 404

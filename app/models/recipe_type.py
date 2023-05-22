@@ -17,5 +17,5 @@ class RecipeType(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
-            "types": self.types.to_dict()
+            "types": self.types.type
         }

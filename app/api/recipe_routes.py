@@ -1,6 +1,6 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
-from app.models import db, Recipe, Type, Image, Like
+from app.models import db, Recipe, Type, Image, Like, Ingredient, IngredientRecipe
 from app.forms.recipe_form import CreateRecipeForm
 
 recipes_routes = Blueprint('recipes', __name__)
@@ -77,9 +77,37 @@ def edit_recipe(id):
 
 #Delete a recipe
 @recipes_routes.route('/<int:id>/', methods=['DELETE'])
+@login_required
 def delete_recipe(id):
     recipe = Recipe.query.get(id)
     db.session.delete(recipe)
     db.session.commit()
 
+    return recipe.to_dict()
+
+
+#Add an ingredient to a recipe
+@recipes_routes.route('/<int:recipe_id>/ingredients/<int:ingredient_id>', methods=['POST'])
+def ingred_add_recipe(recipe_id, ingredient_id):
+    recipe = Recipe.query.get(recipe_id)
+    ingredient = Ingredient.query.get(ingredient_id)
+
+    if not recipe or not ingredient:
+        return jsonify({'error': 'Recipe or ingredient not found'}), 404
+
+    recipe_ingred = IngredientRecipe.query.filter_by(
+        recipe_id=recipe_id, ingredient_id=ingredient_id
+    ).first()
+
+    if recipe_ingred:
+        return jsonify({"error": "Ingredient was already added"})
+
+    new_ingredient = IngredientRecipe(
+        recipe_id = recipe_id,
+        ingredient_id = ingredient_id
+    )
+
+    # recipe.ingredient_recipe.append(new_ingredient)
+    db.session.add(new_ingredient)
+    db.session.commit()
     return recipe.to_dict()
