@@ -11,10 +11,10 @@ class Ingredient(db.Model):
     name = db.Column(db.String, nullable=False)
     type = db.Column(db.String, nullable=False)
     measurement = db.Column(db.Integer, nullable=False)
-    calorie = db.Column(db.Integer, nullable=False)
-    carb = db.Column(db.Integer, nullable=False)
-    protein = db.Column(db.Integer, nullable=False)
-    fat = db.Column(db.Integer, nullable=False)
+    calorie = db.Column(db.FLOAT, nullable=False)
+    carb = db.Column(db.FLOAT, nullable=False)
+    protein = db.Column(db.FLOAT, nullable=False)
+    fat = db.Column(db.FLOAT, nullable=False)
 
     recipe_ingredient = db.relationship('IngredientRecipe', back_populates='ingredients', cascade="all, delete-orphan")
 

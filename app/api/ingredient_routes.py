@@ -21,7 +21,6 @@ def ingred_detail(id):
 
 # Create an Ingredient
 @ingredients_routes.route('', methods=['POST'])
-@login_required
 def create_ingred():
     """
     create an ingredient
@@ -41,13 +40,12 @@ def create_ingred():
         )
         db.session.add(new_ingredient)
         db.session.commit()
-
         return new_ingredient.to_dict()
+    return {"error" : "Error form did not validate"}
 
 
 # Update an ingredient
 @ingredients_routes.route('/<int:id>/', methods=['PUT'])
-@login_required
 def edit_ingred(id):
     """
     edit an ingredient
@@ -79,6 +77,7 @@ def edit_ingred(id):
 
         db.session.commit()
         return ingredient.to_dict()
+    return {"error" : "Error form did not validate"}
 
 #Delete an ingredient
 @ingredients_routes.route('/<int:id>', methods=['DELETE'])
