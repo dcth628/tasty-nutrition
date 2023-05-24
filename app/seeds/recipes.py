@@ -4,7 +4,7 @@ from sqlalchemy.sql import text
 recipe_1 = Recipe(
     name='Roast beef',
     description='Roast beef is a classic dish made from a beef roast that is seasoned, seared, and then cooked in the oven until tender and flavorful.',
-    instruction='1.Preheat your oven to 325°F\n2.Take the beef roast out of the refrigerator and let it sit at room temperature for about 30 minutes.\n3.Pat the roast dry with paper towels, then season it generously with salt and pepper on all sides.-4.Slice the roast beef against the grain into thin slices. Serve it with your favorite side dishes and enjoy!',
+    instruction='1.Preheat your oven to 325°F\n2.Take the beef roast out of the refrigerator and let it sit at room temperature for about 30 minutes.\n3.Pat the roast dry with paper towels, then season it generously with salt and pepper on all sides.\n4.Slice the roast beef against the grain into thin slices. Serve it with your favorite side dishes and enjoy!',
     serving=2,
     cooktime=50,
     user_id=1,

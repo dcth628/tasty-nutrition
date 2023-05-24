@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import { useModal } from "../../../context/Modal";
 import { editIngredient } from "../../../store/ingredient";
 import { getIngredientDetail } from "../../../store/ingredient";
@@ -8,7 +8,7 @@ import { getIngredientDetail } from "../../../store/ingredient";
 
 const EditIngredientModal = ({ingredient}) => {
     const dispatch = useDispatch()
-    const history = useHistory()
+    // const history = useHistory()
 
     const [name, setName] = useState(ingredient.name)
     const [type, setType] = useState(ingredient.type)
@@ -64,7 +64,7 @@ const EditIngredientModal = ({ingredient}) => {
     const handleCancelClick = (e) => {
         e.preventDefault();
         closeModal();
-    }
+    };
 
     return (
         // <>Test</>

@@ -7,6 +7,8 @@ import AllIngredients from "./components/Ingredient/IngredientAll/IngredientAll"
 import IngredientDetail from "./components/Ingredient/IngredientDetail/IngredientDetail";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
+import AllRecipes from "./components/recipe/RecipeAll/RecipeAll";
+import RecipeDetail from "./components/recipe/RecipeDetail/RecipeDetail";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,6 +33,12 @@ function App() {
           </Route>
           <Route path="/ingredients/:ingredientId">
             <IngredientDetail />
+          </Route>
+          <Route exact path='/recipes'>
+            <AllRecipes />
+          </Route>
+          <Route path='/recipes/:recipeId'>
+            <RecipeDetail />
           </Route>
         </Switch>
       )}

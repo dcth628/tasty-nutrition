@@ -5,6 +5,7 @@ import ProfileButton from './ProfileButton';
 import CreateIngredientFormModal from '../Ingredient/IngredientCreate/IngredientCreate';
 import OpenModalButton from '../OpenModalButton';
 import './Navigation.css';
+import CreateRecipeModal from '../recipe/RecipeCreate/RecipeCreate';
 
 function Navigation({ isLoaded }) {
 	const sessionUser = useSelector(state => state.session.user);
@@ -24,6 +25,18 @@ function Navigation({ isLoaded }) {
 							buttonText="Ingredient"
 							modalComponent={<CreateIngredientFormModal />}
 						/> Create Ingredient
+					</div>
+					<div>
+						<OpenModalButton
+							buttonText="Recipe"
+							modalComponent={<CreateRecipeModal />}
+						/> Create Recipe
+					</div>
+					<div>
+						<NavLink exact to="/recipes">Recipes</NavLink>
+					</div>
+					<div>
+						<NavLink exact to="/ingredients">Ingredients</NavLink>
 					</div>
 				</>
 			)}

@@ -8,14 +8,14 @@ const CreateIngredientFormModal = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const [name, setName] = useState("")
-    const [type, setType] = useState("")
-    const [measurement, setMeasurement] = useState("")
-    const [img, setImg] = useState("")
-    const [calorie, setCalorie] = useState("")
-    const [carb, setCarb] = useState("")
-    const [protein, setProtein] = useState("")
-    const [fat, setFat] = useState("")
+    const [name, setName] = useState("");
+    const [type, setType] = useState("");
+    const [measurement, setMeasurement] = useState("");
+    const [img, setImg] = useState("");
+    const [calorie, setCalorie] = useState("");
+    const [carb, setCarb] = useState("");
+    const [protein, setProtein] = useState("");
+    const [fat, setFat] = useState("");
     const [errors, setErrors] = useState([]);
     const { closeModal } = useModal();
 

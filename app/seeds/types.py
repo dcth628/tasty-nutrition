@@ -14,7 +14,7 @@ type_3 = Type(
 )
 
 type_4 = Type(
-    type='vegan'
+    type='Vegan'
 )
 
 type_5 = Type(
