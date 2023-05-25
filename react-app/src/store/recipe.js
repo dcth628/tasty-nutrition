@@ -111,7 +111,7 @@ export const deleteRecipe = (recipeId) => async (dispatch) => {
 
 const initialState = {}
 
-const recipeReduce = (state = initialState, action) => {
+const recipeReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_RECIPE:
             return {...state, ...action.recipe}
@@ -130,4 +130,4 @@ const recipeReduce = (state = initialState, action) => {
     }
 };
 
-export default recipeReduce
+export default recipeReducer

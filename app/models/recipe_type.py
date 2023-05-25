@@ -18,5 +18,6 @@ class RecipeType(db.Model):
         return {
             "id": self.id,
             "type_id": self.types.id,
-            "types": self.types.type
+            "types": self.types.type,
+            "img":self.types.img
         }

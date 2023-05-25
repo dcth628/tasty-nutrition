@@ -9,6 +9,7 @@ class Type(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     type = db.Column(db.String, nullable=False)
+    img = db.Column(db.String, nullable=False)
 
     recipe_type = db.relationship('RecipeType', back_populates='types', cascade="all, delete-orphan")
 
@@ -16,4 +17,5 @@ class Type(db.Model):
         return {
             "id": self.id,
             "type": self.type,
+            "img": self.img
         }

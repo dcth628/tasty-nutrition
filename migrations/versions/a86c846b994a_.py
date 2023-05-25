@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 139d56292e9f
+Revision ID: a86c846b994a
 Revises: 
-Create Date: 2023-05-21 23:07:47.711226
+Create Date: 2023-05-24 22:55:31.550632
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '139d56292e9f'
+revision = 'a86c846b994a'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -24,15 +24,16 @@ def upgrade():
     sa.Column('name', sa.String(), nullable=False),
     sa.Column('type', sa.String(), nullable=False),
     sa.Column('measurement', sa.Integer(), nullable=False),
-    sa.Column('calorie', sa.Integer(), nullable=False),
-    sa.Column('carb', sa.Integer(), nullable=False),
-    sa.Column('protein', sa.Integer(), nullable=False),
-    sa.Column('fat', sa.Integer(), nullable=False),
+    sa.Column('calorie', sa.FLOAT(), nullable=False),
+    sa.Column('carb', sa.FLOAT(), nullable=False),
+    sa.Column('protein', sa.FLOAT(), nullable=False),
+    sa.Column('fat', sa.FLOAT(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('types',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('type', sa.String(), nullable=False),
+    sa.Column('img', sa.String(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('users',
