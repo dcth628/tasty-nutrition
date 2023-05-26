@@ -177,7 +177,7 @@ def delete_type_recipe(recipe_id, type_id):
 
 
 #Add an image to a recipe
-@recipes_routes.route('/<int:recipe_id>/images', methods=["POST"])
+@recipes_routes.route('/<int:recipe_id>/images/', methods=["POST"])
 @login_required
 def add_image(recipe_id):
     form = CreateImageForm()
@@ -187,7 +187,8 @@ def add_image(recipe_id):
         return jsonify({"error":"Recipe not found"}), 404
 
     form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit():
+    print(form.data['url'], '!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+    if form:
         new_image = Image(
             url = form.data['url'],
             user_id = user_id,
@@ -196,6 +197,7 @@ def add_image(recipe_id):
         db.session.add(new_image)
         db.session.commit()
         return new_image.to_dict()
+
 
 #Delete an image
 @recipes_routes.route('/images/<int:image_id>', methods=['DELETE'])

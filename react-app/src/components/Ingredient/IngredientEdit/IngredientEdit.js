@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { editIngredient } from "../../../store/ingredient";
 import { getIngredientDetail } from "../../../store/ingredient";
+import { Autocomplete, Button, TextField } from "@mui/material";
 
 
 const EditIngredientModal = ({ingredient}) => {
@@ -31,12 +32,11 @@ const EditIngredientModal = ({ingredient}) => {
     const updateFat = (e) => setFat(e.target.value);
 
     const types = [
-        { label: "--Select--", value: "--Select--", },
-        { label: "Fruit", value: "Fruit",},
-        { label: "Vegetable", value: "Vegetable",},
-        { label: "Protein", value: "Protein",},
-        { label: "Grains", value: "Grains",},
-        { label: "Dairy",value: "Dairy",},
+        { value: "Fruit",},
+        { value: "Vegetable",},
+        { value: "Protein",},
+        { value: "Grains",},
+        { value: "Dairy",},
     ];
 
     const handleSubmit = async (e) => {
@@ -86,20 +86,17 @@ const EditIngredientModal = ({ingredient}) => {
                     onChange={updateName} />
             </div>
             <div>
-                <select value={type} onChange={updateType}>
-                    {types.map((type) => (
-                        <option key={type.value} value={type.value}>{type.label}</option>
-                    ))}
-                </select>
-            </div>
-            {/* <div>
-                <input
-                    type='text'
-                    placeholder="Type"
-                    required
+                <Autocomplete
+                    disablePortal
+                    id="combo-box-demo"
+                    options={(types).map(type => type.value)}
                     value={type}
-                    onChange={updateType} />
-            </div> */}
+                    sx={{ width: 150}}
+                    size='small'
+                    onChange={((event, type) => {setType(type)})}
+                    renderInput={(params) => <TextField {...params} label="Type" />}
+                />
+            </div>
             <div>
                 <input
                     type='text'
@@ -148,8 +145,8 @@ const EditIngredientModal = ({ingredient}) => {
                     value={fat}
                     onChange={updateFat} />
             </div>
-            <button type="submit">Create</button>
-            <button type="button" onClick={handleCancelClick}>Cancel</button>
+            <Button variant="contained" size="small" type="submit">Create</Button>
+            <Button variant="outlined" size="small" type="button" onClick={handleCancelClick}>Cancel</Button>
         </form>
     )
 };

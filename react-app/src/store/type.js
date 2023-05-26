@@ -22,7 +22,6 @@ export const getAllTypes = () => async (dispatch) => {
 };
 
 export const AddTypesToRecipe = (typeArr, recipeId) => async (dispatch) => {
-    console.log(typeArr, 'this is typearr')
     typeArr.forEach( async(type) => {
         const response = await fetch(`/api/recipes/${recipeId}/types/${type}`, {
             method: 'POST',
@@ -31,6 +30,7 @@ export const AddTypesToRecipe = (typeArr, recipeId) => async (dispatch) => {
                 recipe_id: recipeId
             })
         });
+        console.log(response, 'this is respoonse in type')
         const addType = await response.json();
         dispatch(add(addType))
 

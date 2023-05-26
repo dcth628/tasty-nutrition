@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../../context/Modal";
 import { createIngredient } from "../../../store/ingredient";
+import { Autocomplete, Button } from "@mui/material";
+import { TextField } from "@mui/material";
 
 const CreateIngredientFormModal = () => {
     const dispatch = useDispatch();
@@ -30,27 +32,18 @@ const CreateIngredientFormModal = () => {
 
     const types = [
         {
-            label: "--Select--",
-            value: "--Select--",
-        },
-        {
-            label: "Fruit",
             value: "Fruit",
         },
         {
-            label: "Vegetable",
             value: "Vegetable",
         },
         {
-            label: "Protein",
             value: "Protein",
         },
         {
-            label: "Grains",
             value: "Grains",
         },
         {
-            label: "Dairy",
             value: "Dairy",
         },
     ];
@@ -66,7 +59,7 @@ const CreateIngredientFormModal = () => {
         let createdIngredient = await dispatch(createIngredient(newIngredient)).catch(async (res) => {
             const data = await res.json();
             if (data && data.errors) setErrors(data.errors);
-          })
+        })
 
         if (createdIngredient) {
             closeModal();
@@ -92,19 +85,38 @@ const CreateIngredientFormModal = () => {
                     )}
             </ul>
             <div>
-                <input
+                {/* <input
                     type='text'
                     placeholder="Name"
                     required
                     value={name}
-                    onChange={updateName} />
+                    onChange={updateName} /> */}
+                <TextField
+                    required
+                    id="outlined-required"
+                    label="Name"
+                    size='small'
+                    sx={{ width: 150 }}
+                    value={name}
+                    onChange={updateName}
+                />
             </div>
             <div>
-                <select value={type} onChange={updateType}>
+                {/* <select value={type} onChange={updateType}>
                     {types.map((type) => (
                         <option key={type.value} value={type.value}>{type.label}</option>
                     ))}
-                </select>
+                </select> */}
+                <Autocomplete
+                    disablePortal
+                    id="combo-box-demo"
+                    options={(types).map(type => type.value)}
+                    value={type}
+                    sx={{ width: 150 }}
+                    size='small'
+                    onChange={((event, type) => { setType(type) })}
+                    renderInput={(params) => <TextField {...params} label="Type" />}
+                />
             </div>
             {/* <div>
                 <input
@@ -162,8 +174,8 @@ const CreateIngredientFormModal = () => {
                     value={fat}
                     onChange={updateFat} />
             </div>
-            <button type="submit">Create</button>
-            <button type="button" onClick={handleCancelClick}>Cancel</button>
+            <Button variant="contained" size="small" type="submit">Create</Button>
+            <Button variant="outlined" size="small" onClick={handleCancelClick}>Cancel</Button>
         </form>
     )
 

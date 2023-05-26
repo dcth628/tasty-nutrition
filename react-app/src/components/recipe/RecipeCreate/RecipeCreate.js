@@ -3,16 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../../context/Modal";
 import { createRecipe } from "../../../store/recipe";
-import AddDynamicInput from "../addInstruction";
 import { getAllTypes } from "../../../store/type";
 import { AddTypesToRecipe } from "../../../store/type";
+import { createImageRecipe } from "../../../store/image";
+import { Checkbox } from "@mui/material";
 
 const CreateRecipeModal = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const types = useSelector(state => state?.type);
+    const sessionUser = useSelector(state=> state.session.user)
 
-    console.log(types, 'this is types in recipe')
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [instruction, setInstruction] = useState("");
@@ -21,7 +22,26 @@ const CreateRecipeModal = () => {
     const [errors, setErrors] = useState([]);
     const { closeModal } = useModal();
     const [type, setType] = useState([]);
+    const [image, setImage] = useState("");
 
+    const handleImageAdd = (e) => {
+        e.preventDefault()
+        const abc = [...image,[]]
+        setImage(abc)
+    };
+
+    const handleImageChange = (e, i) => {
+        e.preventDefault()
+        const inputdata = [...image];
+        inputdata[i] = e.target.value;
+        setImage(inputdata)
+    };
+
+    const handleImageDelete = (i) => {
+        const deleteVal = [...image]
+        deleteVal.splice(i, 1)
+        setImage(deleteVal)
+    };
 
     useEffect(() => {
         dispatch(getAllTypes())
@@ -44,7 +64,7 @@ const CreateRecipeModal = () => {
             inputdata.splice(index,1)
             setType(inputdata)
         }
-    }
+    };
 
     const handleAdd =(e) => {
         e.preventDefault()
@@ -79,9 +99,10 @@ const CreateRecipeModal = () => {
             const data = await res.json();
             if (data && data.errors) setErrors(data.errors);
           })
+          await dispatch(createImageRecipe(image, sessionUser.id, createdRecipe.id))
           await dispatch(AddTypesToRecipe(type, createdRecipe.id))
 
-        if (createdRecipe) {
+          if (createdRecipe) {
             closeModal();
             history.push(`/recipes/${createdRecipe.id}`)
         };
@@ -103,6 +124,25 @@ const CreateRecipeModal = () => {
                         <li key={idx}>{error}</li>
                     )}
             </ul>
+            {/* <div>
+                <button onClick={(e) => handleImageAdd(e)}>Add Images</button>
+                {image.map((data, i) => {
+                    return (
+                        <div>
+                            <input value={data} placeholder="Images" onChange={e => handleImageChange(e, i)} />
+                            <button onClick={()=> handleImageDelete(i)}>x</button>
+                        </div>
+                    )
+                })}
+            </div> */}
+            <div>
+                <input
+                    type='text'
+                    placeholder="image"
+                    required
+                    value={image}
+                    onChange={(e) => setImage(e.target.value)} />
+            </div>
             <div>
                 <input
                     type='text'
@@ -120,7 +160,7 @@ const CreateRecipeModal = () => {
                     onChange={updateDescription} />
             </div>
             <div>
-                <button onClick={(e) => handleAdd(e)}>Add</button>
+                <button onClick={(e) => handleAdd(e)}>Add Instructions</button>
                 {instruction.split('\\').map((data, i) => {
                     return (<div>
                         Step {i +1}<input
@@ -151,8 +191,8 @@ const CreateRecipeModal = () => {
             <div>
                 {Object.values(types).map((type) => (
                     <>
-                    <input
-                    type='checkbox'
+                    <Checkbox
+                    lable={type}
                     value={type.id}
                     onChange={e => handleTypeClick(e)}
                     />
