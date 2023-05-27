@@ -22,6 +22,8 @@ class Recipe(db.Model):
 
     ingredient_recipe = db.relationship('IngredientRecipe', back_populates='recipes', cascade="all, delete-orphan")
 
+    # recipe_ingredient = db.relationship('RecipeIngredient', back_populates='recipes', cascade="all, delete-orphan")
+
     reviews = db.relationship('Review', back_populates='recipes', cascade="all, delete-orphan")
 
     recipe_type = db.relationship('RecipeType', back_populates='recipes', cascade="all, delete-orphan")

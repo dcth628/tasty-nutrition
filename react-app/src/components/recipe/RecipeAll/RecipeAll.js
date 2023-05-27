@@ -28,7 +28,9 @@ const AllRecipes = () => {
                                 <span key={type.id}>{type.types}</span>
                             </>
                         )}
-                        <img src={recipe.images.map(image => image.url)} alt={recipe.name} height={100} width={100} />
+                        {recipe.images.map((image) => (
+                        <img src={image.url} alt={recipe.name} height={100} width={100} />
+                        ))}
                         <p>Serving: {recipe.serving}</p>
                         <p>Cooktime: {recipe.cooktime}</p>
                     </NavLink>

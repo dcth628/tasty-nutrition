@@ -5,6 +5,7 @@ from app.models.recipe_type import RecipeType
 from app.forms.recipe_form import CreateRecipeForm
 from app.forms.image_form import CreateImageForm
 from app.forms.review_form import CreateReviewForm
+from app.forms.quantity_form import CreateQuantityForm
 
 recipes_routes = Blueprint('recipes', __name__)
 
@@ -100,6 +101,7 @@ def delete_recipe(id):
 def add_ingred_recipe(recipe_id, ingredient_id):
     recipe = Recipe.query.get(recipe_id)
     ingredient = Ingredient.query.get(ingredient_id)
+    form = CreateQuantityForm()
 
     if not recipe or not ingredient:
         return jsonify({'error': 'Recipe or ingredient not found'}), 404
@@ -111,15 +113,16 @@ def add_ingred_recipe(recipe_id, ingredient_id):
     if recipe_ingred:
         return jsonify({"error": "Ingredient was already added"})
 
-    new_ingredient = IngredientRecipe(
-        recipe_id = recipe_id,
-        ingredient_id = ingredient_id
-    )
-
-    # recipe.ingredient_recipe.append(new_ingredient)
-    db.session.add(new_ingredient)
-    db.session.commit()
-    return recipe.to_dict()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        new_ingredient = IngredientRecipe(
+            recipe_id = recipe_id,
+            ingredient_id = ingredient_id,
+            quantity = form.data['quantity']
+        )
+        db.session.add(new_ingredient)
+        db.session.commit()
+        return recipe.to_dict()
 
 #Delete an ingredient from a recipe
 @recipes_routes.route('/<int:recipe_id>/ingredients/<int:ingredient_id>', methods=["DELETE"])
@@ -187,7 +190,6 @@ def add_image(recipe_id):
         return jsonify({"error":"Recipe not found"}), 404
 
     form['csrf_token'].data = request.cookies['csrf_token']
-    print(form.data['url'], '!!!!!!!!!!!!!!!!!!!!!!!!!!!')
     if form:
         new_image = Image(
             url = form.data['url'],
@@ -197,6 +199,7 @@ def add_image(recipe_id):
         db.session.add(new_image)
         db.session.commit()
         return new_image.to_dict()
+    return {"error":"can't read"}
 
 
 #Delete an image

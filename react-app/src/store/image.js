@@ -1,25 +1,44 @@
 const CREATE_IMAGE = 'image/CREATE_IMAGE';
+const DELETE_IMAGE = 'image/DELETE_IMAGE';
 
 const create = (image) => ({
     type: CREATE_IMAGE,
     image
 });
 
+const remove = (image) => ({
+    type: DELETE_IMAGE,
+    image
+})
+
 export const createImageRecipe = (imageArray, userId,recipeId) => async dispatch => {
-    // imageArray.forEach( async (image) => {
-        console.log(imageArray, 'in the thunk')
+    imageArray.forEach( async (image) => {
         const response = await fetch(`/api/recipes/${recipeId}/images/`, {
             method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                url: imageArray,
+                url: image,
                 recipe_id: recipeId,
                 user_id: userId
             })
         });
-        console.log(response, 'this is respone')
         const newImage = await response.json();
         dispatch(create(newImage));
-    // })
+    })
+};
+
+export const deleteImage = (imageArray) => async dispatch => {
+    imageArray.forEach( async (image) => {
+        const response = await fetch(`/api/recipes/images/${image.id}`, {
+            method: "DELETE"
+        });
+
+        if (response.ok) {
+            const image = await response.json();
+            dispatch(remove(image.id));
+            return image
+        };
+    })
 };
 
 const initialState = {};
@@ -32,8 +51,12 @@ const imageReducer = (state = initialState, action) => {
                 [action.image.id]: action.image
             };
             return newState;
-            default:
-                return state
+        case DELETE_IMAGE:
+            const deleteState = {...state}
+            delete deleteState[action.imageId]
+            return deleteState
+        default:
+            return state
     }
 };
 

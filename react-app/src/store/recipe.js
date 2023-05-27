@@ -3,6 +3,8 @@ const GETONE_RECIPE = 'recipe/GETONE_RECIPE'
 const CREATE_RECIPE = 'recipe/CREATE_RECIPE'
 const EDIT_RECIPE = 'recipe/EDIT_RECIPE'
 const REMOVE_RECIPE = 'recipe/REMOVE_RECIPE'
+const ADD_INGREDIENT = 'recipe/ADD_INGREDIENT'
+const REMOVE_INGREDIENT = 'recipe/REMOVE_INGREDIENT'
 
 const load = (recipe) => ({
     type: LOAD_RECIPE,
@@ -27,6 +29,16 @@ const edit = (recipe) => ({
 const remove = (recipeId) => ({
     type: REMOVE_RECIPE,
     recipeId
+})
+
+const addIngred = (recipeId, ingredientId, quantity) => ({
+    type: ADD_INGREDIENT,
+    recipeId, ingredientId, quantity
+})
+
+const removeIngred = (recipeId, ingredientId) => ({
+    type: REMOVE_INGREDIENT,
+    recipeId, ingredientId
 })
 
 export const getAllRecipes = () => async (dispatch) => {
@@ -107,6 +119,26 @@ export const deleteRecipe = (recipeId) => async (dispatch) => {
         return recipe
     }
 }
+
+export const addIngredientRecipe = (ingredientArr, recipeId) => async (dispatch) => {
+    console.log(ingredientArr, 'ingredient arraay')
+    ingredientArr.forEach(async (ingredient) =>{
+        const response = await fetch(`/api/recipes/${recipeId}/ingredients/${ingredient.id}`, {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                recipe_id: recipeId,
+                ingredient_id : ingredient.id,
+                quantity: Number(ingredient.quantity)
+            })
+        });
+        if (response.ok) {
+            const ingredient = response.json();
+            dispatch(addIngred(ingredient));
+            return ingredient
+        };
+    })
+};
 
 
 const initialState = {}

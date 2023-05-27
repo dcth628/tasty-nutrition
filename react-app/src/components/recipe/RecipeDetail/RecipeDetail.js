@@ -12,7 +12,7 @@ const RecipeDetail = () => {
     const { recipeId } = useParams();
     const recipe = useSelector(state => state?.recipe[recipeId]);
 
-    // console.log(recipe, 'this is recipe in detail')
+    console.log(recipe, 'this is recipe in detail')
     useEffect(() => {
         dispatch(getRecipeDetail(recipeId))
         dispatch(getAllTypes())
@@ -31,26 +31,40 @@ const RecipeDetail = () => {
                             )
                         })}
                         <h3>{recipe.description}</h3>
-                        {recipe.instruction.split("\\").map(instruction =>
-                            <p key={instruction}>{instruction}</p>)}
+                        {recipe.instruction.split("\\").map((instruction, i) =>
+                            <p key={instruction}>Step {i + 1}. {instruction}</p>)}
                         <p>{recipe.serving} Serving</p>
                         <p>Cooktime: {recipe.cooktime}</p>
                         {recipe.types.map(type => (
                             <>
-                            <img src={type.img} alt={type.types} height={50} width={50} />
-                            <span key={type.id}> {type.types}</span>
+                                <img src={type.img} alt={type.types} height={50} width={50} />
+                                <span key={type.id}> {type.types}</span>
                             </>
                         ))}
-                        {/* Ingredients: {ingredientArr[0].name} */}
+                        <p>
+                            Ingredients: {recipe.ingredients.map(ingredient => (
+                                <>
+                                <p>{ingredient.name}</p>
+                                <p>{ingredient.quantity * ingredient.measurement} g</p>
+                                </>
+                                ))}
+                        </p>
+                        <div>
+                            Total Nutrition Facts:
+                            <p>Calories: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.calorie * ingredient.quantity).reduce((acc, el) => acc+ el , 0))}</p>
+                            <p>Carbs: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.carb * ingredient.quantity).reduce((acc, el) => acc+ el, 0))}g</p>
+                            <p>Protein: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.protein * ingredient.quantity).reduce((acc, el) => acc+ el, 0))}g</p>
+                            <p>Fat: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.fat * ingredient.quantity).reduce((acc, el) => acc+ el, 0))}g</p>
+                        </div>
                         <OpenModalButton
                             buttonText={'Edit Recipe'}
                             modalComponent={<EditRecipeModal recipe={recipe} />} />
-                            <OpenModalButton
+                        <OpenModalButton
                             buttonText={'Trying'}
                             modalComponent={<AddDynamicInput />} />
                     </>
-    )
-}
+                )
+            }
         </div >
     )
 };
