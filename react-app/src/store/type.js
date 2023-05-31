@@ -30,7 +30,6 @@ export const AddTypesToRecipe = (typeArr, recipeId) => async (dispatch) => {
                 recipe_id: recipeId
             })
         });
-        console.log(response, 'this is respoonse in type')
         const addType = await response.json();
         dispatch(add(addType))
 

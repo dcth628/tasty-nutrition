@@ -1,11 +1,12 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
-from app.models import db, Recipe, Type, Image, Like, Ingredient, IngredientRecipe, Review
+from app.models import db, Recipe, Type, Image, Like, Ingredient, IngredientRecipe, Review, Cookbook, RecipeCookbook
 from app.models.recipe_type import RecipeType
 from app.forms.recipe_form import CreateRecipeForm
 from app.forms.image_form import CreateImageForm
 from app.forms.review_form import CreateReviewForm
 from app.forms.quantity_form import CreateQuantityForm
+from app.aws_helpers import ( upload_file_to_s3, get_unique_filename)
 
 recipes_routes = Blueprint('recipes', __name__)
 
@@ -191,8 +192,15 @@ def add_image(recipe_id):
 
     form['csrf_token'].data = request.cookies['csrf_token']
     if form:
+        image = form.data['image']
+        print(image,' !!!!!!!!!!!!!!!!!')
+        image.filename = get_unique_filename(image.filename)
+        upload = upload_file_to_s3(image)
+        if "url" not in upload:
+            return jsonify({"error": "no url"}), 404
+        url = upload['url']
         new_image = Image(
-            url = form.data['url'],
+            url = url,
             user_id = user_id,
             recipe_id = recipe_id
         )
@@ -243,3 +251,46 @@ def create_review(id):
             db.session.add(new_review)
             db.session.commit()
             return new_review.to_dict()
+
+#Add recipe to a cookbook
+@recipes_routes.route('/<int:recipe_id>/cookbooks/<int:cookbook_id>', methods=['GET', 'POST'])
+@login_required
+def add_to_cookbook(recipe_id, cookbook_id):
+    recipe = Recipe.query.get(recipe_id)
+    cookbook = Cookbook.query.get(cookbook_id)
+
+    if not recipe or not cookbook:
+        return jsonify({"error": "Recipe or cookbook not found"}), 404
+
+    recipe_cookbook = RecipeCookbook.query.filter_by(
+        recipe_id = recipe_id, cookbook_id = cookbook_id
+        ).first()
+
+    if recipe_cookbook and request.method == "GET":
+        return recipe_cookbook.to_dict()
+
+    if recipe_cookbook and request.method == "POST":
+        return jsonify({"error": "Recipe already added in the cookbook"})
+
+    recipe_cookbook = RecipeCookbook(
+        recipe_id = recipe_id,
+        cookbook_id = cookbook_id
+    )
+
+    db.session.add(recipe_cookbook)
+    db.session.commit()
+    return recipe_cookbook.to_dict()
+
+#Delete a recipe from cookbook
+@recipes_routes.route('/<int:recipe_id>/cookbooks/<int:cookbook_id>', methods=['DELETE'])
+@login_required
+def delete_recipe_cookbook(recipe_id, cookbook_id):
+    recipe_cookbook = RecipeCookbook.query.filter_by(
+        recipe_id = recipe_id, cookbook_id = cookbook_id
+    ).first()
+
+    if not recipe_cookbook:
+        return jsonify({"error":"Recipe was not found"}), 404
+    db.session.delete(recipe_cookbook)
+    db.session.commit()
+    return jsonify({'message':'Sucessfully Deleted'})

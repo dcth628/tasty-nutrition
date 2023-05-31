@@ -12,22 +12,20 @@ const RecipeDetail = () => {
     const { recipeId } = useParams();
     const recipe = useSelector(state => state?.recipe[recipeId]);
 
-    console.log(recipe, 'this is recipe in detail')
     useEffect(() => {
         dispatch(getRecipeDetail(recipeId))
         dispatch(getAllTypes())
     }, [dispatch, recipeId]);
 
-    const ingredientArr = recipe?.ingredients.map(ingredient => ingredient)
     return (
         <div>
             {
                 recipe && (
                     <>
-                        <h2>{recipe.name} by {recipe.user_id}</h2>
+                        <h2>{recipe.name} by {recipe.username}</h2>
                         {recipe.images.map((image) => {
                             return (
-                                <img src={image.url} alt={image.id} height={200} width={200} />
+                                <img src={image.image} alt={image.id} height={200} width={200} />
                             )
                         })}
                         <h3>{recipe.description}</h3>

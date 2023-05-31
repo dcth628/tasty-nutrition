@@ -106,7 +106,7 @@ const EditRecipeModal = ({recipe}) => {
                 {image.map((data, i) => {
                     return (
                         <div key={data.id}>
-                            <input value={data.url} placeholder="Images" onChange={e => handleImageChange(e, i)} />
+                            <input value={data.image} placeholder="Images" onChange={e => handleImageChange(e, i)} />
                             {/* <button onClick={()=> handleImageDelete(i)}>x</button> */}
                         </div>
                     )

@@ -18,7 +18,6 @@ const CreateRecipeModal = () => {
     const types = useSelector(state => state?.type);
     const ingredients = useSelector(state => state?.ingredient);
     const sessionUser = useSelector(state => state.session.user)
-    console.log(ingredients, '--ingredients')
 
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
@@ -29,6 +28,7 @@ const CreateRecipeModal = () => {
     const { closeModal } = useModal();
     const [type, setType] = useState([]);
     const [image, setImage] = useState([]);
+    const [imageLoading, setImageLoading] = useState(false);
     const [ingredient, setIngredient] = useState([])
     const [quantity, setQuantity] = useState([])
 
@@ -73,7 +73,7 @@ const CreateRecipeModal = () => {
     const handleImageChange = (e, i) => {
         e.preventDefault()
         const inputdata = [...image];
-        inputdata[i] = e.target.value;
+        inputdata[i] = e.target.files[0];
         setImage(inputdata)
     };
 
@@ -133,7 +133,6 @@ const CreateRecipeModal = () => {
     for (let i = 0; i < ingredient.length; i++) {
         mergedArray.push({ ...ingredient[i], ...quantity[i] });
     }
-    console.log(mergedArray, '--ingredient array')
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors([]);
@@ -146,9 +145,35 @@ const CreateRecipeModal = () => {
             const data = await res.json();
             if (data && data.errors) setErrors(data.errors);
         })
-        await dispatch(createImageRecipe(image, sessionUser.id, createdRecipe.id))
+        // await dispatch(createImageRecipe(image, sessionUser.id, createdRecipe.id))
         await dispatch(AddTypesToRecipe(type, createdRecipe.id))
         await dispatch(addIngredientRecipe(mergedArray, createdRecipe.id))
+        for (let i = 0; i < image.length; i++) {
+            let file = image[i];
+            const formData = new FormData();
+            formData.append('image',file)
+            console.log(file, 'formdata')
+
+            const response = fetch(`/api/recipes/${createdRecipe.id}/images/`, {
+                method: 'POST',
+                body: {
+                    image: formData,
+                    recipe_id: createdRecipe.id,
+                    user_id: sessionUser.id
+                }
+            });
+
+            if (response.ok) {
+                await response.json();
+                setImageLoading(false);
+            }
+            else {
+                setImageLoading(false);
+                // a real app would probably use more advanced
+                // error handling
+                console.log("error");
+            }
+        }
 
         if (createdRecipe) {
             closeModal();
@@ -161,8 +186,7 @@ const CreateRecipeModal = () => {
         closeModal();
     };
 
-    console.log(ingredient, '--ingredient')
-    console.log(quantity, '--quantity')
+    console.log(image, '--image')
     return (
         // <>Test</>
         <form onSubmit={handleSubmit} >
@@ -179,7 +203,13 @@ const CreateRecipeModal = () => {
                 {image.map((data, i) => {
                     return (
                         <div>
-                            <input value={data} placeholder="Images" onChange={e => handleImageChange(e, i)} />
+                            <TextField
+                                    type="file"
+                                    variant="outlined"
+                                    accept="image/*"
+                                    onChange={(e) => handleImageChange(e, i)}
+                                />
+                            {/* <input value={data} placeholder="Images" onChange={e => handleImageChange(e, i)} /> */}
                             <button onClick={() => handleImageDelete(i)}>x</button>
                         </div>
                     )

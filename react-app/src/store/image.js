@@ -15,7 +15,7 @@ export const createImageRecipe = (imageArray, userId,recipeId) => async dispatch
     imageArray.forEach( async (image) => {
         const response = await fetch(`/api/recipes/${recipeId}/images/`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            // headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 url: image,
                 recipe_id: recipeId,

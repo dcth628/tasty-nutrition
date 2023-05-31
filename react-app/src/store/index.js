@@ -5,13 +5,15 @@ import ingredientReducer from './ingredient';
 import recipeReducer from './recipe';
 import typeReducer from './type';
 import imageReducer from './image';
+import cookbookReducer from './cookbook';
 
 const rootReducer = combineReducers({
   session,
   ingredient: ingredientReducer,
   recipe: recipeReducer,
   type: typeReducer,
-  image: imageReducer
+  image: imageReducer,
+  cookbook: cookbookReducer
 });
 
 

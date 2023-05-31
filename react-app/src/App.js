@@ -7,9 +7,12 @@ import AllIngredients from "./components/Ingredient/IngredientAll/IngredientAll"
 import IngredientDetail from "./components/Ingredient/IngredientDetail/IngredientDetail";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
-import AllRecipes from "./components/recipe/RecipeAll/RecipeAll";
+import AllRecipes from "./components/recipe/RecipeAll/RecipeAll"
 import RecipeDetail from "./components/recipe/RecipeDetail/RecipeDetail";
 import AllTypes from "./components/Type/TypeAll/TypeAll";
+import ProfilePage from "./components/ProfilePage/Profile";
+import AllCookbooks from "./components/Cookbook/CookbookAll/CookbookAll";
+import CookbookDetail from "./components/Cookbook/CookbookDetail/CookbookDetail";
 
 function App() {
   const dispatch = useDispatch();
@@ -43,6 +46,15 @@ function App() {
           </Route>
           <Route path='/types'>
             <AllTypes />
+          </Route>
+          <Route path='/profile'>
+            <ProfilePage />
+          </Route>
+          <Route exact path='/cookbooks'>
+            <AllCookbooks />
+          </Route>
+          <Route path='/cookbooks/:cookbookId'>
+            <CookbookDetail />
           </Route>
         </Switch>
       )}

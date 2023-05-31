@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import CreateIngredientFormModal from '../Ingredient/IngredientCreate/IngredientCreate';
+import CreateCookbookFormModal from '../Cookbook/CookbookCreate/CookbookCreate';
 import OpenModalButton from '../OpenModalButton';
 import './Navigation.css';
 import CreateRecipeModal from '../recipe/RecipeCreate/RecipeCreate';
@@ -21,6 +22,9 @@ function Navigation({ isLoaded }) {
 						<ProfileButton user={sessionUser} />
 					</li>
 					<div>
+						<NavLink exact to='/profile'>Profile</NavLink>
+					</div>
+					<div>
 						<OpenModalButton
 							buttonText="Ingredient"
 							modalComponent={<CreateIngredientFormModal />}
@@ -33,10 +37,19 @@ function Navigation({ isLoaded }) {
 						/> Create Recipe
 					</div>
 					<div>
+						<OpenModalButton
+							buttonText="Cookbook"
+							modalComponent={<CreateCookbookFormModal />}
+						/> Create Cookbook
+					</div>
+					<div>
 						<NavLink exact to="/recipes">Recipes</NavLink>
 					</div>
 					<div>
 						<NavLink exact to="/ingredients">Ingredients</NavLink>
+					</div>
+					<div>
+						<NavLink exact to="/cookbooks">Cookbooks</NavLink>
 					</div>
 				</>
 			)}
