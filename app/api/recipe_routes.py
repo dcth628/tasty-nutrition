@@ -126,12 +126,10 @@ def add_ingred_recipe(recipe_id, ingredient_id):
         return recipe.to_dict()
 
 #Delete an ingredient from a recipe
-@recipes_routes.route('/<int:recipe_id>/ingredients/<int:ingredient_id>', methods=["DELETE"])
+@recipes_routes.route('/ingredients/<int:recipe_ingredient_id>', methods=["DELETE"])
 @login_required
-def delete_ingred_recipe(recipe_id, ingredient_id):
-    recipe_ingred = IngredientRecipe.query.filter_by(
-        recipe_id=recipe_id, ingredient_id=ingredient_id
-    ).first()
+def delete_ingred_recipe(recipe_ingredient_id):
+    recipe_ingred = IngredientRecipe.query.filter_by( id = recipe_ingredient_id).first()
 
     if not recipe_ingred:
         return jsonify({"error": "Ingredient was not found"}), 404
@@ -179,35 +177,39 @@ def delete_type_recipe(recipe_id, type_id):
     db.session.commit()
     return jsonify({'message':'Sucessfully Deleted'})
 
+#Add an image to get url
+@recipes_routes.route('/images/url', methods=['POST'])
+@login_required
+def get_url():
+    form = CreateImageForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        image = form.data['image']
+        image.filename = get_unique_filename(image.filename)
+        upload = upload_file_to_s3(image)
+
+        return upload
 
 #Add an image to a recipe
 @recipes_routes.route('/<int:recipe_id>/images/', methods=["POST"])
 @login_required
 def add_image(recipe_id):
-    form = CreateImageForm()
     user_id = current_user.get_id()
     recipe = Recipe.query.filter(Recipe.id == recipe_id).first()
     if not recipe:
         return jsonify({"error":"Recipe not found"}), 404
 
-    form['csrf_token'].data = request.cookies['csrf_token']
-    if form:
-        image = form.data['image']
-        print(image,' !!!!!!!!!!!!!!!!!')
-        image.filename = get_unique_filename(image.filename)
-        upload = upload_file_to_s3(image)
-        if "url" not in upload:
-            return jsonify({"error": "no url"}), 404
-        url = upload['url']
-        new_image = Image(
-            url = url,
-            user_id = user_id,
-            recipe_id = recipe_id
-        )
-        db.session.add(new_image)
-        db.session.commit()
-        return new_image.to_dict()
-    return {"error":"can't read"}
+    data = request.json
+    url = data['image']
+    new_image = Image(
+        image = url,
+        user_id = user_id,
+        recipe_id = recipe_id
+    )
+
+    db.session.add(new_image)
+    db.session.commit()
+    return new_image.to_dict()
 
 
 #Delete an image

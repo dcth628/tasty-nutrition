@@ -36,9 +36,9 @@ const addIngred = (recipeId, ingredientId, quantity) => ({
     recipeId, ingredientId, quantity
 })
 
-const removeIngred = (recipeId, ingredientId) => ({
+const removeIngred = (ingredientRecipeId) => ({
     type: REMOVE_INGREDIENT,
-    recipeId, ingredientId
+    ingredientRecipeId
 })
 
 export const getAllRecipes = () => async (dispatch) => {
@@ -81,6 +81,8 @@ export const createRecipe = (recipe) => async (dispatch) => {
             name, description, instruction, serving, cooktime
         })
     });
+
+    console.log(response, 'response in thunk')
 
     if (response.ok) {
         const new_recipe = await response.json();
@@ -137,6 +139,17 @@ export const addIngredientRecipe = (ingredientArr, recipeId) => async (dispatch)
             return ingredient
         };
     })
+};
+
+export const deleteIngredientRecipe = (ingredientRecipeId) => async (dispatch) => {
+    const response = await fetch(`/api/recipes/ingredients/${ingredientRecipeId}`, {
+        method:"DELETE"
+    });
+    if (response.ok) {
+        const ingredient = await response.json()
+        dispatch(removeIngred(ingredientRecipeId))
+        return ingredient
+    };
 };
 
 

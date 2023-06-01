@@ -150,22 +150,24 @@ const CreateRecipeModal = () => {
         await dispatch(addIngredientRecipe(mergedArray, createdRecipe.id))
         for (let i = 0; i < image.length; i++) {
             let file = image[i];
+
             const formData = new FormData();
             formData.append('image',file)
-            console.log(file, 'formdata')
 
-            const response = fetch(`/api/recipes/${createdRecipe.id}/images/`, {
+            // let formEntries = formData.entries()
+            // for (let entrie of formEntries) {
+            //     console.log(entrie, '--entrie')
+            // }
+            const response = await fetch(`/api/recipes/images/url`, {
                 method: 'POST',
-                body: {
-                    image: formData,
-                    recipe_id: createdRecipe.id,
-                    user_id: sessionUser.id
-                }
+                body: formData
             });
 
             if (response.ok) {
-                await response.json();
-                setImageLoading(false);
+                let url = await response.json()
+                let image = url.url
+                console.log(image)
+                await dispatch(createImageRecipe(image, sessionUser.id, createdRecipe.id))
             }
             else {
                 setImageLoading(false);
@@ -186,7 +188,7 @@ const CreateRecipeModal = () => {
         closeModal();
     };
 
-    console.log(image, '--image')
+    // console.log(image, '--image')
     return (
         // <>Test</>
         <form onSubmit={handleSubmit} >
@@ -203,10 +205,8 @@ const CreateRecipeModal = () => {
                 {image.map((data, i) => {
                     return (
                         <div>
-                            <TextField
+                            <input
                                     type="file"
-                                    variant="outlined"
-                                    accept="image/*"
                                     onChange={(e) => handleImageChange(e, i)}
                                 />
                             {/* <input value={data} placeholder="Images" onChange={e => handleImageChange(e, i)} /> */}

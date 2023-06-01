@@ -15,6 +15,11 @@ function OpenModalButton({
     if (onButtonClick) onButtonClick();
   };
 
+  if (buttonText === 'Delete Recipe') {
+    return (<i onClick={onClick} className="fas fa-times" />)
+  } else if (buttonText === 'Add to Cookbook') {
+    return (<i onClick={onClick} className="fa fa-plus" />)
+  }
   return (
     <button onClick={onClick}>{buttonText}</button>
   );

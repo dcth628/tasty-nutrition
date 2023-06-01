@@ -4,38 +4,45 @@ import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import OpenModalButton from "../OpenModalButton";
 import DeleteRecipeModal from "../recipe/RecipeDelete/RecipeDelete";
+import './UserRecipe.css'
 
 const UserRecipe = () => {
     const dispatch = useDispatch()
     const recipes = useSelector((state) => state?.recipe);
     const sessionUser = useSelector((state) => state?.session.user);
     const userRecipe = Object.values(recipes).filter(recipe => recipe.user_id == sessionUser.id)
-
+    console.log(userRecipe, '-- user recipe')
     useEffect(() => {
         dispatch(currentUserRecipes())
     }, [dispatch])
 
-    let count = 0
 
     return (
         <div>
             {userRecipe && userRecipe.length > 0 ? (
-                <div>
+                <div className="recipe-page">
                     {Object.values(userRecipe).map(recipe =>
-                        <div>
+                        <div className="recipe-card">
                             <NavLink to={`/recipes/${recipe.id}`}>
-                                <h2>{count += 1}. {recipe.name}</h2>
+                                <div className="recipe-image-box">
+                                {recipe.images.map((image) => (
+                                    <img src={image.image} alt={recipe.name} className="recipe-card-image" />
+                                    ))}
+                                </div>
+                                <h3 className="recipe-name">{recipe.name}</h3>
+                                <div>
                                 {recipe.types.map(type =>
                                     <>
-                                        <img src={type.img} alt={type.types} height={30} width={30} />
-                                        <span key={type.id}>{type.types}</span>
+                                        <img src={type.img} alt={type.types} height={30} width={30} className="recipe-type"/>
                                     </>
                                 )}
-                                {recipe.images.map((image) => (
-                                    <img src={image.image} alt={recipe.name} height={100} width={100} />
-                                ))}
+                                </div>
                                 <p>Serving: {recipe.serving}</p>
-                                <p>Cooktime: {recipe.cooktime}</p>
+                                <div className="recipe-time">
+                                <i className="far fa-clock"></i> {recipe.cooktime} mins
+                                </div>
+                                <div>
+                                </div>
                             </NavLink>
                             <OpenModalButton
                                 buttonText={'Delete Recipe'}

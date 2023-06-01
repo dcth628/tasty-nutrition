@@ -14,7 +14,7 @@ const DeleteRecipeModal = ({recipeId}) => {
         await dispatch(deleteRecipe(recipeId));
         closeModal();
         await dispatch(getAllRecipes());
-        await history.push('/recipes');
+        await history.push('/profile');
     };
 
     return (

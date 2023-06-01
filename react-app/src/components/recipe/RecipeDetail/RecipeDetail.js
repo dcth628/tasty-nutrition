@@ -39,14 +39,14 @@ const RecipeDetail = () => {
                                 <span key={type.id}> {type.types}</span>
                             </>
                         ))}
-                        <p>
+                        <div>
                             Ingredients: {recipe.ingredients.map(ingredient => (
                                 <>
                                 <p>{ingredient.name}</p>
                                 <p>{ingredient.quantity * ingredient.measurement} g</p>
                                 </>
                                 ))}
-                        </p>
+                        </div>
                         <div>
                             Total Nutrition Facts:
                             <p>Calories: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.calorie * ingredient.quantity).reduce((acc, el) => acc+ el , 0))}</p>

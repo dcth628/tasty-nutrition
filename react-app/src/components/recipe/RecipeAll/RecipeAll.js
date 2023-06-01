@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 import DeleteRecipeModal from "../RecipeDelete/RecipeDelete";
 import OpenModalButton from "../../OpenModalButton";
 import AddRecipeToCookbook from "./RecipeAddCookbook";
+import './RecipeAll.css'
 
 const AllRecipes = () => {
     const dispatch = useDispatch();
@@ -22,33 +23,40 @@ const AllRecipes = () => {
     let count = 0
 
     return (
-        <>
-            {Object.values(recipes).map(recipe =>
-                <div>
+        <div className="recipe-page">
+            {recipes && (Object.values(recipes).map(recipe =>
+                <div className="recipe-card">
                     <NavLink to={`/recipes/${recipe.id}`}>
-                        <h2>{count += 1}. {recipe.name}</h2>
-                        {recipe.images.map((image) => (
-                        <img src={image.image} alt={recipe.name} height={100} width={100} />
-                        ))}
-                        {recipe.types.map(type =>
-                            <>
-                                <img src={type.img} alt={type.types} height={30} width={30} />
-                                <span key={type.id}>{type.types}</span>
-                            </>
-                        )}
+                        <div className="recipe-image-box">
+                            {recipe.images.map((image) => (
+                                <img src={image.image} alt={recipe.name} className="recipe-card-image" />
+                            ))}
+                        </div>
+                        <h3 className="recipe-name">{recipe.name}</h3>
+                        <div>
+                            {recipe.types.map(type =>
+                                <>
+                                    <img src={type.img} alt={type.types} height={30} width={30} className="recipe-type" />
+                                </>
+                            )}
+                        </div>
                         <p>Serving: {recipe.serving}</p>
-                        <p>Cooktime: {recipe.cooktime}</p>
+                        <div className="recipe-time">
+                            <i className="far fa-clock"></i> {recipe.cooktime} mins
+                        </div>
+                        <div>
+                        </div>
                     </NavLink>
-                    {sessionUser.id == recipe.user_id ? (
+                    {/* {sessionUser.id == recipe.user_id ? (
                         <OpenModalButton
                             buttonText={'Delete Recipe'}
                             modalComponent={<DeleteRecipeModal recipeId={recipe.id} />} />
-                    ) : <></>}
+                    ) : <></>} */}
                     <OpenModalButton
-                            buttonText={'Add to Cookbook'}
-                            modalComponent={<AddRecipeToCookbook recipeId={recipe.id} />} />
-                    </div>)}
-        </>
+                        buttonText={'Add to Cookbook'}
+                        modalComponent={<AddRecipeToCookbook recipeId={recipe.id} />} />
+                </div>))}
+        </div>
     )
 };
 
