@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useNavigate} from "react-router-dom";
 import { useModal } from "../../../context/Modal";
 import { createRecipe } from "../../../store/recipe";
 import { getAllTypes } from "../../../store/type";
@@ -185,7 +185,7 @@ const CreateRecipeModal = () => {
 
     const handleCancelClick = (e) => {
         e.preventDefault();
-        closeModal();
+        history.goBack()
     };
 
     // console.log(image, '--image')

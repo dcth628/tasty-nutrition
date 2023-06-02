@@ -1,0 +1,13 @@
+.delete-form {
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    width: 400px;
+    height: 200px;
+}
+
+.delete-title {
+    margin: 5px;
+}

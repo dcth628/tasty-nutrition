@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
+import { NavLink, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import UserRecipe from "./UserRecipe";
 import UserCookbook from "./UserCookbook";
@@ -11,14 +11,19 @@ import './Profile.css'
 
 const ProfilePage = () => {
     const dispatch = useDispatch()
+    const history = useHistory()
     const recipes = useSelector((state) => state?.recipe);
     const sessionUser = useSelector((state) => state?.session.user);
     const userRecipe = Object.values(recipes).filter(recipe => recipe.user_id == sessionUser.id)
 
+    const handleRedirect = (e) => {
+        e.preventDefault();
+        history.push('/recipes/create')
+    }
 
     return (
         <div>
-            <div className="profile-button">
+            <div className="create-button">
 
                 <span>
                     <OpenModalButton
@@ -27,11 +32,15 @@ const ProfilePage = () => {
                     />
                 </span>
                 <span>
+                    <button className="create-buttons"
+                    onClick={handleRedirect}>CREATE RECIPE</button>
+                </span>
+                {/* <span>
                     <OpenModalButton
                         buttonText="CREATE RECIPE"
                         modalComponent={<CreateRecipeModal />}
                     />
-                </span>
+                </span> */}
                 <span>
                     <OpenModalButton
                         buttonText="CREATE COOKBOOK"

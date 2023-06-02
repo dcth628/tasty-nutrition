@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 import { currentUserCookbook } from "../../store/cookbook";
 import DeleteCookbookModal from "../Cookbook/CookbookDelete/CookbookDelete";
 import OpenModalButton from "../OpenModalButton";
+import DeleteRecipeCookbookModal from "../Cookbook/CookbookDetail/RemoveRecipe";
 import './UserCookbook.css'
 
 const UserCookbook = () => {
@@ -43,20 +44,25 @@ const UserCookbook = () => {
                                 </tr> */}
                             {cookbook.recipes.length > 0 ? (cookbook.recipes.map(recipe => (
                                 <>
-                                    <NavLink to={`/recipes/${recipe.id}`}>
-                                        <table className="cookbook-table">
+                                            <NavLink to={`/recipes/${recipe.id}`}>
+                                    <table className="cookbook-table">
 
-                                            <tr className="recipe-list">
-                                                <th>{recipe.name}</th>
+                                        <tr>
+                                                <th className="first-column">{recipe.name}</th>
                                                 {/* <th className="last-column">by {recipe.username}</th> */}
                                                 <th>
-                                                    {recipe.types.map(type => <img className="recipe-type" id={type.id}src={type.img} width={30} height={30} />)}
+                                                    {recipe.types.map(type => <img className="recipe-type" id={type.id} src={type.img} width={30} height={30} />)}
                                                 </th>
                                                 <th className="last-column">Serving: {recipe.serving}</th>
                                                 <th className="last-column"><i className="far fa-clock"></i> {recipe.cooktime} mins</th>
-                                            </tr>
-                                        </table>
-                                    </NavLink>
+                                            <th className="last-column">
+                                                <OpenModalButton
+                                                    buttonText={'Delete Cookbook'}
+                                                    modalComponent={<DeleteRecipeCookbookModal cookbookId={cookbook.id} />} />
+                                            </th>
+                                        </tr>
+                                    </table>
+                                                    </NavLink>
 
                                 </>
                             ))) :

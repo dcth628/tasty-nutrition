@@ -19,6 +19,9 @@ function Navigation({ isLoaded }) {
 			{isLoaded && (
 				<>
 					<div>
+						<ProfileButton user={sessionUser} />
+					</div>
+					<div>
 						<NavLink exact to='/profile'>Profile</NavLink>
 					</div>
 					<div>
@@ -29,9 +32,6 @@ function Navigation({ isLoaded }) {
 					</div>
 					<div>
 						<NavLink exact to="/cookbooks">Cookbooks</NavLink>
-					</div>
-					<div>
-						<ProfileButton user={sessionUser} />
 					</div>
 				</>
 			)}

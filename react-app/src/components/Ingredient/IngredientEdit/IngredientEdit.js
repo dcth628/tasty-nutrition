@@ -68,8 +68,8 @@ const EditIngredientModal = ({ingredient}) => {
 
     return (
         // <>Test</>
-        <form onSubmit={handleSubmit}>
-            <h1>Edit Ingredient</h1>
+        <form className="ingredient-form" onSubmit={handleSubmit}>
+            <h1 className="form-title">Edit Ingredient</h1>
             <ul>
                 {errors.length > 1 ?
                     <li>{errors}</li> :
@@ -77,13 +77,15 @@ const EditIngredientModal = ({ingredient}) => {
                         <li key={idx}>{error}</li>
                     )}
             </ul>
-            <div>
+            <div className="input-group">
                 <input
                     type='text'
-                    placeholder="Name"
                     required
                     value={name}
                     onChange={updateName} />
+                    <label>
+                    Name
+                    </label>
             </div>
             <div>
                 <Autocomplete
@@ -91,62 +93,64 @@ const EditIngredientModal = ({ingredient}) => {
                     id="combo-box-demo"
                     options={(types).map(type => type.value)}
                     value={type}
-                    sx={{ width: 150}}
+                    sx={{ width: 340}}
                     size='small'
                     onChange={((event, type) => {setType(type)})}
                     renderInput={(params) => <TextField {...params} label="Type" />}
                 />
             </div>
-            <div>
+            <div className="input-group">
                 <input
                     type='text'
-                    placeholder="Image"
                     required
                     value={img}
                     onChange={updateImg} />
+                    <label>Image</label>
             </div>
-            <div>
+            <div className="input-group">
                 <input
                     type='text'
-                    placeholder="Measurement"
                     required
                     value={measurement}
                     onChange={updateMeasurement} />
+                    <label>Measurement</label>
             </div>
-            <div>
+            <div className="input-group">
                 <input
                     type='text'
-                    placeholder="Calorie"
                     required
                     value={calorie}
                     onChange={updateCalorie} />
+                    <label>Calories</label>
             </div>
-            <div>
+            <div className="input-group">
                 <input
                     type='text'
-                    placeholder="Protein"
                     required
                     value={protein}
                     onChange={updateProtein} />
+                    <label>Protein</label>
             </div>
-            <div>
+            <div className="input-group">
                 <input
                     type='text'
-                    placeholder="Carb"
                     required
                     value={carb}
                     onChange={updateCarb} />
+                    <label>Carbs</label>
             </div>
-            <div>
+            <div className="input-group">
                 <input
                     type='text'
-                    placeholder="Fat"
                     required
                     value={fat}
                     onChange={updateFat} />
+                    <label>Fats</label>
             </div>
-            <Button variant="contained" size="small" type="submit">Create</Button>
-            <Button variant="outlined" size="small" type="button" onClick={handleCancelClick}>Cancel</Button>
+            <div className="form-button">
+            <button className='create-buttons' type="submit">CREATE</button>
+            <button className='create-buttons' onClick={handleCancelClick}>CANCEL</button>
+            </div>
         </form>
     )
 };

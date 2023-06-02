@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../../context/Modal";
 import { createCookbook } from "../../../store/cookbook";
+import './CookbookCreate.css'
 
 const CreateCookbookFormModal = () => {
     const dispatch = useDispatch();
@@ -38,8 +39,8 @@ const CreateCookbookFormModal = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <h1>Create Cookbook</h1>
+        <form className="cookbook-form" onSubmit={handleSubmit}>
+            <h1 className="form-title">Create Cookbook</h1>
             <ul>
                 {errors.length > 1 ?
                     <li>{errors}</li> :
@@ -47,16 +48,18 @@ const CreateCookbookFormModal = () => {
                         <li key={idx}>{error}</li>
                     )}
             </ul>
-            <div>
+            <div className="input-group">
                 <input
                     type='text'
-                    placeholder="Name"
                     required
                     value={name}
                     onChange={updateName} />
+                    <label>Name</label>
             </div>
-            <button type="submit">Create</button>
-            <button type="button" onClick={handleCancelClick}>Cancel</button>
+            <div className="form-button">
+            <button className='create-buttons' type="submit">CREATE</button>
+            <button className='create-buttons' type="button" onClick={handleCancelClick}>CACNEL</button>
+            </div>
         </form>
     )
 };

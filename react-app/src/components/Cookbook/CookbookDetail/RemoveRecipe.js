@@ -16,11 +16,13 @@ const DeleteRecipeCookbookModal = ({recipeId, cookbookId}) => {
     };
 
     return (
-        <div>
-            <h1>Confirm Delete</h1>
-            <p>Are you sure you want to remove this recipe from this cookbook?</p>
-            <button onClick={DeleteRecipeCookbook}>Yes</button>
-            <button onClick={closeModal}>No</button>
+        <div className="delete-form">
+            <h1 className="delete-title">Confirm Delete</h1>
+            <p>Are you sure you want to remove this recipe?</p>
+            <div>
+            <button className='create-buttons' onClick={DeleteRecipeCookbook}>DELETE</button>
+            <button className='create-buttons'onClick={closeModal}>CANCEL</button>
+            </div>
         </div>
     )
 };

@@ -1,0 +1,8 @@
+.cookbook-detail-header {
+    display: flex;
+    align-items: center;
+}
+
+.edit-button {
+    margin-left: 20px;
+}
