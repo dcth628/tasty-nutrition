@@ -20,5 +20,6 @@ class Cookbook(db.Model):
             "id": self.id,
             "name": self.name,
             "user_id" : self.user_id,
-            "recipes": [recipe.to_recipe() for recipe in self.recipe_cookbook] if self.recipe_cookbook else []
+            "recipes": [recipe.to_recipe() for recipe in self.recipe_cookbook] if self.recipe_cookbook else [],
+
         }

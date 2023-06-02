@@ -1,0 +1,31 @@
+.create-buttons {
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    font-size: 14px;
+    height: 36px;
+    margin-right: 10px;
+    border-radius: 5px;
+    padding: 0 10px 0 10px;
+    transition: background 0.8s;
+    cursor: pointer;
+    background-position: center;
+    box-shadow: 0 0 4px #999;
+}
+
+.create-buttons:hover {
+    background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%) center/15000%;
+}
+
+.create-buttons:active {
+    background-color: #6eb9f7;
+    background-size: 100%;
+    transition: background 0s;
+}
+
+.profile-button {
+    width: 90%;
+    font-family: Arial, Helvetica, sans-serif;
+    margin:auto;
+    padding-top: 80px;
+}

@@ -1,7 +1,14 @@
-/* .recipe-page {
-    display: flex;
-    flex-direction: row;
-} */
+.recipe-page {
+    width: 90%;
+    margin: auto;
+    padding-top: 80px;
+}
+
+.user-recipe-page {
+    width: 90%;
+    margin: auto;
+    font-family: Arial, Helvetica, sans-serif;
+}
 
 .recipe-card {
     background-color: rgba(255, 255, 255, 0.859);
@@ -58,4 +65,9 @@ a {
 
 .recipe-time {
     margin: 10px 10px;
+}
+
+.recipe-title {
+    border-bottom: black 2px solid;
+    padding-bottom: 10px;
 }

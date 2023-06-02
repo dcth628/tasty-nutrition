@@ -42,7 +42,7 @@ class Recipe(db.Model):
             "ingredients": [ingred.to_dict() for ingred in self.ingredient_recipe] if self.ingredient_recipe else [],
             "images": [image.to_dict() for image in self.images] if self.images else [],
             "cookbook": [cookbook.to_dict() for cookbook in self.recipe_cookbook] if self.recipe_cookbook else [],
-            "reviews": [review.to_dict() for review in self.reviews] if self.reviews else []
+            "reviews": [review.to_dict() for review in self.reviews] if self.reviews else [],
         }
 
     def ing_to_dict(self):

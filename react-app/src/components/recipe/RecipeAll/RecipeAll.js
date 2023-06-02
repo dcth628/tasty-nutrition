@@ -24,6 +24,7 @@ const AllRecipes = () => {
 
     return (
         <div className="recipe-page">
+            <h1 className="cookbook-page-title">Recipes</h1>
             {recipes && (Object.values(recipes).map(recipe =>
                 <div className="recipe-card">
                     <NavLink to={`/recipes/${recipe.id}`}>

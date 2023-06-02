@@ -11,7 +11,7 @@ const UserRecipe = () => {
     const recipes = useSelector((state) => state?.recipe);
     const sessionUser = useSelector((state) => state?.session.user);
     const userRecipe = Object.values(recipes).filter(recipe => recipe.user_id == sessionUser.id)
-    console.log(userRecipe, '-- user recipe')
+
     useEffect(() => {
         dispatch(currentUserRecipes())
     }, [dispatch])
@@ -20,7 +20,8 @@ const UserRecipe = () => {
     return (
         <div>
             {userRecipe && userRecipe.length > 0 ? (
-                <div className="recipe-page">
+                <div className="user-recipe-page">
+                    <h1 className="recipe-title">Recipes</h1>
                     {Object.values(userRecipe).map(recipe =>
                         <div className="recipe-card">
                             <NavLink to={`/recipes/${recipe.id}`}>

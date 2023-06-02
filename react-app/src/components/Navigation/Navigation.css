@@ -5,3 +5,9 @@
 .hidden {
   display: none;
 }
+
+.nav-bar {
+  overflow: hidden;
+  position: fixed;
+  display: flex;
+}

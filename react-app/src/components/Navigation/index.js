@@ -12,35 +12,14 @@ function Navigation({ isLoaded }) {
 	const sessionUser = useSelector(state => state.session.user);
 
 	return (
-		<ul>
-			<li>
+		<div className='nav-bar'>
+			<div>
 				<NavLink exact to="/">Home</NavLink>
-			</li>
+			</div>
 			{isLoaded && (
 				<>
-					<li>
-						<ProfileButton user={sessionUser} />
-					</li>
 					<div>
 						<NavLink exact to='/profile'>Profile</NavLink>
-					</div>
-					<div>
-						<OpenModalButton
-							buttonText="Ingredient"
-							modalComponent={<CreateIngredientFormModal />}
-						/> Create Ingredient
-					</div>
-					<div>
-						<OpenModalButton
-							buttonText="Recipe"
-							modalComponent={<CreateRecipeModal />}
-						/> Create Recipe
-					</div>
-					<div>
-						<OpenModalButton
-							buttonText="Cookbook"
-							modalComponent={<CreateCookbookFormModal />}
-						/> Create Cookbook
 					</div>
 					<div>
 						<NavLink exact to="/recipes">Recipes</NavLink>
@@ -51,9 +30,12 @@ function Navigation({ isLoaded }) {
 					<div>
 						<NavLink exact to="/cookbooks">Cookbooks</NavLink>
 					</div>
+					<div>
+						<ProfileButton user={sessionUser} />
+					</div>
 				</>
 			)}
-		</ul>
+		</div>
 	);
 }
 
