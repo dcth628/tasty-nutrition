@@ -15,15 +15,15 @@ const DeleteCookbookModal = ({cookbookId }) => {
         await dispatch(deleteCookbook(cookbookId));
         closeModal();
         await dispatch(getAllCookbook());
-        await history.push('/cookbooks')
+        await history.push('/profile')
     };
 
     return (
         <div className="delete-form">
-            <h1 className="delete-title">Confirm Delete</h1>
+            <h3 className="delete-title">Confirm Delete</h3>
             <p>Are you sure you want to delete this cookbook?</p>
             <div>
-            <button className='create-buttons' onClick={DeleteCookbook}>DELETE</button>
+            <button className='confrim-buttons' onClick={DeleteCookbook}>DELETE</button>
             <button className='create-buttons' onClick={closeModal}>CANCEL</button>
             </div>
         </div>

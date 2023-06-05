@@ -33,26 +33,21 @@ const AllRecipes = () => {
                                 <img src={image.image} alt={recipe.name} className="recipe-card-image" />
                             ))}
                         </div>
-                        <h3 className="recipe-name">{recipe.name}</h3>
-                        <div>
-                            {recipe.types.map(type =>
-                                <>
-                                    <img src={type.img} alt={type.types} height={30} width={30} className="recipe-type" />
-                                </>
-                            )}
-                        </div>
-                        <p>Serving: {recipe.serving}</p>
+                        <p className="recipe-name">{recipe.name}</p>
+                        <p className="recipe-descripiton">Serving: {recipe.serving}</p>
                         <div className="recipe-time">
                             <i className="far fa-clock"></i> {recipe.cooktime} mins
+                        </div>
+                        <div className="types-list">
+                            {recipe.types.map(type =>
+                                <>
+                                    <img src={type.img} alt={type.types} height={26} width={26} className="recipe-type" />
+                                </>
+                            )}
                         </div>
                         <div>
                         </div>
                     </NavLink>
-                    {/* {sessionUser.id == recipe.user_id ? (
-                        <OpenModalButton
-                            buttonText={'Delete Recipe'}
-                            modalComponent={<DeleteRecipeModal recipeId={recipe.id} />} />
-                    ) : <></>} */}
                     <OpenModalButton
                         buttonText={'Add to Cookbook'}
                         modalComponent={<AddRecipeToCookbook recipeId={recipe.id} />} />

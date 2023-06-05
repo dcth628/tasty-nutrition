@@ -10,7 +10,7 @@
 
 .input-group {
     position: relative;
-    margin: 6px 0;
+    margin: 8px 0;
 }
 
 .input-group label {
@@ -57,7 +57,7 @@
 }
 
 .form-button {
-    margin-top: 30px;
+    margin-top: 15px;
 }
 
 #modal-content {

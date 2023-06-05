@@ -19,7 +19,12 @@ function OpenModalButton({
     return (<i onClick={onClick} className="fas fa-times" />)
   } else if (buttonText === 'Add to Cookbook') {
     return (<i onClick={onClick} className="fa fa-plus" />)
-  } else if (buttonText === 'CREATE INGREDIENT' || buttonText === 'CREATE RECIPE' || buttonText === 'CREATE COOKBOOK' || buttonText === 'EDIT COOKBOOK') {
+  } else if (buttonText === 'CREATE INGREDIENT' ||
+             buttonText === 'CREATE RECIPE' ||
+             buttonText === 'CREATE COOKBOOK' ||
+             buttonText === 'EDIT COOKBOOK' ||
+             buttonText === 'EDIT RECIPE' ||
+             buttonText === 'ADD TO COOKBOOK') {
     return (<button onClick={onClick} className='create-buttons'>{buttonText}</button>)
   }
   return (

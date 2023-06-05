@@ -20,10 +20,10 @@ const DeleteRecipeModal = ({recipeId}) => {
     return (
         <>
         <div className="delete-form">
-            <h1 className="delete-title">Confirm Delete</h1>
+            <h3 className="delete-title">Confirm Delete</h3>
             <p>Are you sure you want to delete this recipe?</p>
             <div>
-            <button className='create-buttons' onClick={DeleteRecipe}>DELETE</button>
+            <button className='confrim-buttons' onClick={DeleteRecipe}>DELETE</button>
             <button className='create-buttons' onClick={closeModal}>CANCEL</button>
             </div>
         </div>

@@ -51,7 +51,7 @@ const UserCookbook = () => {
                                                 <th className="first-column">{recipe.name}</th>
                                                 {/* <th className="last-column">by {recipe.username}</th> */}
                                                 <th>
-                                                    {recipe.types.map(type => <img className="recipe-type" id={type.id} src={type.img} width={30} height={30} />)}
+                                                    {recipe.types.map(type => <img className="recipe-type" id={type.id} src={type.img} width={23} height={23} />)}
                                                 </th>
                                                 <th className="last-column">Serving: {recipe.serving}</th>
                                                 <th className="last-column"><i className="far fa-clock"></i> {recipe.cooktime} mins</th>

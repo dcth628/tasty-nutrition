@@ -30,19 +30,19 @@ const UserRecipe = () => {
                                     <img src={image.image} alt={recipe.name} className="recipe-card-image" />
                                     ))}
                                 </div>
-                                <h3 className="recipe-name">{recipe.name}</h3>
                                 <div>
-                                {recipe.types.map(type =>
-                                    <>
-                                        <img src={type.img} alt={type.types} height={30} width={30} className="recipe-type"/>
-                                    </>
-                                )}
-                                </div>
-                                <p>Serving: {recipe.serving}</p>
+                                <p className="recipe-name">{recipe.name}</p>
+                                <p className="recipe-descripiton"> Serving: {recipe.serving}</p>
                                 <div className="recipe-time">
                                 <i className="far fa-clock"></i> {recipe.cooktime} mins
                                 </div>
-                                <div>
+                                </div>
+                                <div className="types-list">
+                                {recipe.types.map(type =>
+                                    <>
+                                        <img src={type.img} alt={type.types} height={24} width={24} className="recipe-type"/>
+                                    </>
+                                )}
                                 </div>
                             </NavLink>
                             <OpenModalButton

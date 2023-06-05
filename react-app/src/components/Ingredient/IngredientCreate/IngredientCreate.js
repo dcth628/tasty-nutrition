@@ -78,7 +78,7 @@ const CreateIngredientFormModal = () => {
     return (
         // <>Test</>
         <form className="ingredient-form" onSubmit={handleSubmit}>
-            <h1 className="form-title">Create Ingredient</h1>
+            <h3 className="form-title">Create Ingredient</h3>
             <ul>
                 {errors.length > 1 ?
                     <li>{errors}</li> :
@@ -128,7 +128,7 @@ const CreateIngredientFormModal = () => {
                     required
                     value={measurement}
                     onChange={updateMeasurement} />
-                    <label>Measurement</label>
+                    <label>Measurement (g)</label>
             </div>
             <div className="input-group">
                 <input
@@ -163,7 +163,7 @@ const CreateIngredientFormModal = () => {
                     <label>Fats</label>
             </div>
             <div className="form-button">
-            <button className='create-buttons' type="submit">CREATE</button>
+            <button className='confrim-buttons' type="submit">CREATE</button>
             <button className='create-buttons' onClick={handleCancelClick}>CANCEL</button>
             </div>
         </form>

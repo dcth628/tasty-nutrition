@@ -40,7 +40,7 @@ const CreateCookbookFormModal = () => {
 
     return (
         <form className="cookbook-form" onSubmit={handleSubmit}>
-            <h1 className="form-title">Create Cookbook</h1>
+            <h3 className="form-title">Create Cookbook</h3>
             <ul>
                 {errors.length > 1 ?
                     <li>{errors}</li> :
@@ -57,7 +57,7 @@ const CreateCookbookFormModal = () => {
                     <label>Name</label>
             </div>
             <div className="form-button">
-            <button className='create-buttons' type="submit">CREATE</button>
+            <button className='confrim-buttons' type="submit">CREATE</button>
             <button className='create-buttons' type="button" onClick={handleCancelClick}>CACNEL</button>
             </div>
         </form>

@@ -148,7 +148,7 @@ const EditIngredientModal = ({ingredient}) => {
                     <label>Fats</label>
             </div>
             <div className="form-button">
-            <button className='create-buttons' type="submit">CREATE</button>
+            <button className='confrim-buttons' type="submit">EDIT</button>
             <button className='create-buttons' onClick={handleCancelClick}>CANCEL</button>
             </div>
         </form>

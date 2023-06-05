@@ -14,6 +14,7 @@ import ProfilePage from "./components/ProfilePage/Profile";
 import AllCookbooks from "./components/Cookbook/CookbookAll/CookbookAll";
 import CookbookDetail from "./components/Cookbook/CookbookDetail/CookbookDetail";
 import CreateRecipeModal from "./components/recipe/RecipeCreate/RecipeCreate";
+import EditRecipeModal from "./components/recipe/RecipeEdit/RecipeEdit";
 
 function App() {
   const dispatch = useDispatch();
@@ -44,6 +45,9 @@ function App() {
           </Route>
           <Route path='/recipes/create'>
             <CreateRecipeModal />
+          </Route>
+          <Route path='/recipes/edit'>
+            <EditRecipeModal />
           </Route>
           <Route path='/recipes/:recipeId'>
             <RecipeDetail />

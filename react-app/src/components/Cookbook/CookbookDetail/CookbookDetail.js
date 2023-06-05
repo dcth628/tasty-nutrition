@@ -12,6 +12,7 @@ const CookbookDetail = () => {
     const dispatch = useDispatch();
     const { cookbookId } = useParams();
     const cookbook = useSelector(state => state?.cookbook[cookbookId]);
+    const sessionUser = useSelector(state=> state?.session.user)
     const recipes = useSelector(state => state?.recipe)
     let recipeCookbook = []
     if (cookbook) {
@@ -29,12 +30,14 @@ const CookbookDetail = () => {
             <div className="cookbook-detail-header">
                 <h1>{cookbook && (cookbook.name)}</h1>
                 <div className="edit-button">
-                    <OpenModalButton
+                    {cookbook.user_id === sessionUser.id ?
+                     (<OpenModalButton
                         buttonText={'EDIT COOKBOOK'}
-                        modalComponent={<EditCookbookModal cookbook={cookbook} />} />
+                        modalComponent={<EditCookbookModal cookbook={cookbook} />} />)
+                    : <></>}
                 </div>
             </div>
-            {recipeCookbook && (recipeCookbook.map(recipe =>
+            {recipeCookbook && recipeCookbook.length > 0 ? (recipeCookbook.map(recipe =>
                 <div className="recipe-card">
                     <NavLink to={`/recipes/${recipe.id}`}>
                         <div className="recipe-image-box">
@@ -42,17 +45,17 @@ const CookbookDetail = () => {
                                 <img src={image.image} alt={recipe.name} className="recipe-card-image" />
                             ))}
                         </div>
-                        <h3 className="recipe-name">{recipe.name}</h3>
+                        <p className="recipe-name">{recipe.name}</p>
+                        <p className="recipe-descripiton">Serving: {recipe.serving}</p>
+                        <div className="recipe-time">
+                            <i className="far fa-clock"></i> {recipe.cooktime} mins
+                        </div>
                         <div>
                             {recipe.types.map(type =>
                                 <>
-                                    <img src={type.img} alt={type.types} height={30} width={30} className="recipe-type" />
+                                    <img src={type.img} alt={type.types} height={26} width={26} className="recipe-type" />
                                 </>
                             )}
-                        </div>
-                        <p>Serving: {recipe.serving}</p>
-                        <div className="recipe-time">
-                            <i className="far fa-clock"></i> {recipe.cooktime} mins
                         </div>
                         <div>
                         </div>
@@ -62,7 +65,9 @@ const CookbookDetail = () => {
                             buttonText={'Delete Recipe'}
                             modalComponent={<DeleteRecipeModal recipeId={recipe.id} />} />
                     ) : <></>} */}
-                </div>))}
+                </div>)):
+                <p>No Recipe In This Cookbook</p>
+                }
         </div>
     )
 };

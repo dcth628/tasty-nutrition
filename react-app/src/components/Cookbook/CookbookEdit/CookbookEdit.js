@@ -33,8 +33,8 @@ const EditCookbookModal = ({cookbook}) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <h1>Edit cookbook</h1>
+        <form className="cookbook-form" onSubmit={handleSubmit}>
+            <h3 className="form-title">Edit Cookbook</h3>
             <ul>
                 {errors.length > 1 ?
                     <li>{errors}</li> :
@@ -42,16 +42,18 @@ const EditCookbookModal = ({cookbook}) => {
                         <li key={idx}>{error}</li>
                     )}
             </ul>
-            <div>
+            <div className="input-group">
                 <input
                     type='text'
-                    placeholder="Name"
                     required
                     value={name}
                     onChange={updateName} />
+                    <label>Name</label>
             </div>
-            <button type="submit">Create</button>
-            <button type="button" onClick={handleCancelClick}>Cancel</button>
+            <div className="form-button">
+            <button className='confrim-buttons' type="submit">EDIT</button>
+            <button className='create-buttons' type="button" onClick={handleCancelClick}>CANCEL</button>
+            </div>
         </form>
     );
 };

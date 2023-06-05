@@ -8,12 +8,14 @@ import { Autocomplete, Box } from "@mui/material";
 const AddRecipeToCookbook = ({ recipeId }) => {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
-    const userCookbooks = useSelector(state => state?.cookbook)
+    const cookbooks = useSelector(state => state?.cookbook)
+    const sessionUser = useSelector(state=> state?.session.user)
+    const userCookbooks = Object.values(cookbooks).filter(cookbook => cookbook.user_id === sessionUser.id)
 
     const [cookbook, setCookbook] = useState(0)
 
     useEffect(() => {
-        dispatch(currentUserCookbook)
+        dispatch(currentUserCookbook())
     }, [dispatch])
 
     const AddRecipeCookbook = async (e) => {
@@ -25,7 +27,8 @@ const AddRecipeToCookbook = ({ recipeId }) => {
 
 
     return (
-        <>
+        <div className="delete-form">
+            <h3>Select A Cookbook</h3>
             <Autocomplete
                 id="free-solo-demo"
                 freeSolo
@@ -38,12 +41,14 @@ const AddRecipeToCookbook = ({ recipeId }) => {
                         {option.name}
                     </Box>
                 )}
-                renderInput={(params) => <TextField {...params} label="Cookbooks" />}
+                renderInput={(params) => <TextField {...params} label="Cookbook" />}
                 onChange={(e, type) => setCookbook(type.id)}
             />
-            <button onClick={AddRecipeCookbook}>Yes</button>
-            <button onClick={closeModal}>No</button>
-        </>
+            <div>
+            <button className='confrim-buttons' onClick={AddRecipeCookbook}>YES</button>
+            <button className='create-buttons' onClick={closeModal}>CANCEL</button>
+            </div>
+        </div>
     )
 };
 

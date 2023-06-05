@@ -8,7 +8,7 @@ import { getAllIngredients } from "../../../store/ingredient";
 import { createImageRecipe, deleteImage} from "../../../store/image";
 import { Checkbox, TextField } from "@mui/material";
 import { Autocomplete, Box } from "@mui/material";
-
+import './RecipeEdit.css'
 
 const EditRecipeModal = ({recipe}) => {
     const dispatch = useDispatch();
@@ -171,11 +171,11 @@ const EditRecipeModal = ({recipe}) => {
         e.preventDefault();
         closeModal();
     };
-    console.log(ingredients, '--ingredient')
+    console.log(recipe, '--recipe')
 
     return (
-        <form onSubmit={handleSubmit} >
-            <h1>Edit Recipe</h1>
+        <form className="recipe-edit-page" onSubmit={handleSubmit} >
+            <h3 className="form-title">Edit Recipe</h3>
             <ul>
                 {errors.length > 1 ?
                     <li>{errors}</li> :
@@ -183,57 +183,62 @@ const EditRecipeModal = ({recipe}) => {
                         <li key={idx}>{error}</li>
                     )}
             </ul>
-            <div>
+            <div className="recipe-edit-image-box">
             {image.map((image) => (
-                <span key={image.id}>
-                    <img src={image.image} alt={image.id} height={200} width={200} value={image.id} />
-                    <button onClick={DeleteImage} value={image.id}>Delete</button>
-                </span>
+                <div className="edit-image-box" key={image.id}>
+                    <div>
+                    <img className="recipe-edit-image" src={image.image} alt={image.id} value={image.id} />
+                    </div>
+                    <div>
+                    <button className="delete-button" onClick={DeleteImage} value={image.id}>Delete</button>
+                    </div>
+                </div>
             ))}
             </div>
             <div>
-                <button onClick={(e) => handleImageAdd(e)}>Add Images</button>
+                <button className="recipe-add" onClick={(e) => handleImageAdd(e)}>Add Images</button>
                 {editImage.map((data, i) => {
                     return (
-                        <div key={i}>
+                        <div className="add-ingredient" key={i}>
                             <input
                                     type="file"
+                                    required
                                     onChange={(e) => handleImageChange(e, i)}
                                 />
-                            <button onClick={() => handleImageDelete(i)}>x</button>
+                            <button className="recipe-delete" onClick={() => handleImageDelete(i)}>x</button>
                         </div>
                     )
                 })}
             </div>
-            <div>
+            <div className="input-group">
                 <input
                     type='text'
-                    placeholder="Name"
                     required
                     value={name}
                     onChange={updateName} />
+                    <label>Name</label>
             </div>
-            <div>
+            <div className="input-group">
                 <input
                     type='text'
-                    placeholder="Description"
                     required
                     value={description}
                     onChange={updateDescription} />
+                    <label>Description</label>
             </div>
-            <div>
+            <div className="recipe-edit-delete">
                 {ingredient.map((ingredient) => (
-                    <div>
-                        <p>{ingredient.name}</p>
-                        <button onClick={DeleteIngredient} value={ingredient.id}>Delete</button>
+                    <div className="recipe-edit-ingred">
+                        <p>{ingredient.name} {ingredient.measurement * ingredient.quantity}g</p>
+                        <button className="delete-button" onClick={DeleteIngredient} value={ingredient.id}>Delete</button>
                     </div>
                 ))}
             </div>
             <div>
-                <button onClick={(e) => handleIngredAdd(e)}>Add Ingredient</button>
+                <button className="recipe-add" onClick={(e) => handleIngredAdd(e)}>Add Ingredient</button>
                 {editIngredient.map((data, i) => {
                     return (
-                        <>
+                        <div className="add-ingredient">
                             <Autocomplete
                                 id="free-solo-demo"
                                 freeSolo
@@ -255,40 +260,50 @@ const EditRecipeModal = ({recipe}) => {
                                 renderInput={(params) => <TextField {...params} label="Ingredient" />}
                                 onChange={(e, type) => handleIngredChange(e, type, i)}
                             />
-                            <input type='text' placeholder="Quantity" onChange={(e) => handleQuantity(e, i)}></input>
-                            <button onClick={() => handleIngredDelete(i)}>x</button>
-                        </>
+                            <div className="input-group recipe-create-ingred">
+                            <input type='text' required onChange={(e) => handleQuantity(e, i)} />
+                            <label>Quantity (g)</label>
+                            </div>
+                            <button className="recipe-delete recipe-create-ingred" onClick={() => handleIngredDelete(i)}>x</button>
+                        </div>
                     )
                 })}
             </div>
             <div>
-                <button onClick={(e) => handleAdd(e)}>Add Instructions</button>
+                <button className="recipe-add" onClick={(e) => handleAdd(e)}>Add Instructions</button>
                 {instruction.split('\\').map((data, i) => {
-                    return (<div key={data.id}>
-                        Step {i +1}<input
+                    return (
+                    <div className="add-ingredient" key={data.id}>
+                        <p>Step {i + 1}</p>
+                        <div className="input-group instruction-list">
+                        <textarea
+                            type='text'
+                            rows={3}
+                            cols={50}
                             value={data}
                             required
                             placeholder="Steps"
                             onChange={e=>handleChange(e,i)}/>
-                        <button onClick={()=>handleDelete(i)}>x</button>
+                        </div>
+                        <button className="recipe-delete recipe-create-ingred" onClick={()=>handleDelete(i)}>x</button>
                     </div>)
                 })}
             </div>
-            <div>
+            <div className="input-group">
                 <input
                     type='text'
-                    placeholder="Serving"
                     required
                     value={serving}
                     onChange={updateServing} />
+                    <label>Serving</label>
             </div>
-            <div>
+            <div className="input-group">
                 <input
                     type='text'
-                    placeholder="Cooktime"
                     required
                     value={cooktime}
                     onChange={updateCooktime} />
+                    <label>Cook Time</label>
             </div>
             {/* <div>
                 {Object.values(types).map((ty) => (
@@ -298,8 +313,10 @@ const EditRecipeModal = ({recipe}) => {
                     </>
                 ))}
             </div> */}
-            <button type="submit">Update</button>
-            <button type="button" onClick={handleCancelClick}>Cancel</button>
+            <div className="form-button">
+            <button className='confrim-buttons' type="submit">UPDATE</button>
+            <button className='create-buttons' type="button" onClick={handleCancelClick}>CANCEL</button>
+            </div>
         </form>
     )
 };

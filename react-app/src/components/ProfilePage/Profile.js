@@ -19,10 +19,10 @@ const ProfilePage = () => {
     const handleRedirect = (e) => {
         e.preventDefault();
         history.push('/recipes/create')
-    }
+    };
 
     return (
-        <div>
+        <div className="profile-page">
             <div className="create-button">
 
                 <span>

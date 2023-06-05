@@ -16,31 +16,17 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.recipe-image-box {
-    height: 320px;
-    width: 100%;
-}
-
-.recipe-card-image {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
-}
-
-
 .fa-clock {
     font-size: 20px;
 }
 
 .fa-plus {
-    font-size: 24px;
-    color: black;
+    font-size: 22px;
+    color: rgba(147, 147, 147, 1)
 }
 .fa-plus:hover {
-    font-size: 22px;
-    color:rgba(72, 72, 72, 0.859);
+    font-size: 20px;
+    color:rgba(194, 194, 194, 0.859);
 }
 
 .recipe-type {

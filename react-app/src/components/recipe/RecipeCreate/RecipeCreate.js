@@ -10,6 +10,7 @@ import { Checkbox, TextField } from "@mui/material";
 import { Autocomplete, Box } from "@mui/material";
 import { getAllIngredients } from "../../../store/ingredient";
 import { addIngredientRecipe } from "../../../store/recipe";
+import './RecipeCreate.css'
 
 
 const CreateRecipeModal = () => {
@@ -122,7 +123,8 @@ const CreateRecipeModal = () => {
         setInstruction(abc)
     };
 
-    const handleDelete = (i) => {
+    const handleDelete = (e, i) => {
+        e.preventDefault()
         let deletVal = instruction.split('\\')
         deletVal.splice(i, 1)
         let bcd = deletVal.join('\\')
@@ -191,8 +193,8 @@ const CreateRecipeModal = () => {
     // console.log(image, '--image')
     return (
         // <>Test</>
-        <form onSubmit={handleSubmit} >
-            <h1>Create Recipe</h1>
+        <form className="recipe-create-page" onSubmit={handleSubmit} >
+            <h3>Create Recipe</h3>
             <ul>
                 {errors.length > 1 ?
                     <li>{errors}</li> :
@@ -201,34 +203,26 @@ const CreateRecipeModal = () => {
                     )}
             </ul>
             <div>
-                <button onClick={(e) => handleImageAdd(e)}>Add Images</button>
+                <button className="recipe-add" onClick={(e) => handleImageAdd(e)}>Add Images</button>
                 {image.map((data, i) => {
                     return (
-                        <div>
+                        <div className="add-ingredient" key={i}>
                             <input
                                     type="file"
+                                    required
                                     onChange={(e) => handleImageChange(e, i)}
                                 />
                             {/* <input value={data} placeholder="Images" onChange={e => handleImageChange(e, i)} /> */}
-                            <button onClick={() => handleImageDelete(i)}>x</button>
+                            <button className="recipe-delete" onClick={() => handleImageDelete(i)}>x</button>
                         </div>
                     )
                 })}
             </div>
-
-            {/* <div>
-                <input
-                    type='text'
-                    placeholder="image"
-                    required
-                    value={image}
-                    onChange={(e) => setImage(e.target.value)} />
-            </div> */}
             <div>
-                <button onClick={(e) => handleIngredAdd(e)}>Add Ingredient</button>
+                <button className="recipe-add" onClick={(e) => handleIngredAdd(e)}>Add Ingredient</button>
                 {ingredient.map((data, i) => {
                     return (
-                        <>
+                        <div className="add-ingredient">
                             <Autocomplete
                                 id="free-solo-demo"
                                 freeSolo
@@ -247,88 +241,90 @@ const CreateRecipeModal = () => {
                                         {option.name}    ({option.measurement}g)
                                     </Box>
                                 )}
-                                renderInput={(params) => <TextField {...params} label="Ingredient" />}
+                                renderInput={(params) => <TextField {...params} label="Select Ingredient" />}
                                 onChange={(e, type) => handleIngredChange(e, type, i)}
                             />
-                            <input type='text' placeholder="Quantity" onChange={(e) => handleQuantity(e, i)}></input>
-                            <button onClick={() => handleIngredDelete(i)}>x</button>
-                            {/* <div>Calories: {data.calorie * quantity}</div>
-                        <div>carb: {data.carb * quantity}</div>
-                        <div>Protein: {data.protein * quantity}</div>
-                        <div>Fat: {data.fat * quantity}</div> */}
-                        </>
+                            <div className="input-group recipe-create-ingred">
+                            <input type='text' required onChange={(e) => handleQuantity(e, i)} />
+                            <label>Quantity (g)</label>
+                            </div>
+
+                            <button className="recipe-delete recipe-create-ingred" onClick={() => handleIngredDelete(i)}>x</button>
+                        </div>
                     )
                 })}
-                {/* <Autocomplete
-                            id="free-solo-demo"
-                            freeSolo
-                            // value={ingredient}
-                            options={Object.values(ingredients)}
-                            getOptionLabel={(option) => option.name}
-                            renderInput={(params) => <TextField {...params} label="Ingredient" />}
-                            onChange={(e, type) => setIngredient(type.id)}
-                        /> */}
             </div>
-            <div>
+            <div className="input-group">
                 <input
                     type='text'
-                    placeholder="Name"
                     required
                     value={name}
                     onChange={updateName} />
+                    <label>Name</label>
             </div>
-            <div>
-                <input
+            <div className="input-group">
+                <textarea
                     type='text'
-                    placeholder="Description"
+                    rows={3}
+                    cols={50}
                     required
                     value={description}
                     onChange={updateDescription} />
+                    <label>Description</label>
             </div>
             <div>
-                <button onClick={(e) => handleAdd(e)}>Add Instructions</button>
+                <button className="recipe-add" onClick={(e) => handleAdd(e)}>Add Instructions</button>
                 {instruction.split('\\').map((data, i) => {
-                    return (<div key={data.id}>
-                        Step {i + 1}<input
+                    return (
+                    <div className="add-ingredient" key={data.id}>
+                        <p>Step {i + 1}</p>
+                        <div className="input-group instruction-list">
+                        <textarea
+                            type='text'
+                            rows={3}
+                            cols={50}
                             value={data}
                             required
-                            placeholder="Steps"
                             onChange={e => handleChange(e, i)} />
-                        <button onClick={() => handleDelete(i)}>x</button>
+                            <label>Eneter Instruction</label>
+                        </div>
+                        <button className="recipe-delete recipe-create-ingred" onClick={(e) => handleDelete(e, i)}>x</button>
                     </div>)
                 })}
             </div>
-            <div>
+            <div className="input-group">
                 <input
                     type='text'
-                    placeholder="Serving"
                     required
                     value={serving}
                     onChange={updateServing} />
+                    <label>Serving</label>
             </div>
-            <div>
+            <div className="input-group">
                 <input
                     type='text'
-                    placeholder="Cooktime"
                     required
                     value={cooktime}
                     onChange={updateCooktime} />
+                    <label>Cook Time</label>
             </div>
-            <div>
+            <div className="recipes-types">
                 {types && (Object.values(types).map((type) => (
-                    <>
+                    <div className="type-table">
                         <Checkbox
                             lable={type}
                             value={type.id}
                             onChange={e => handleTypeClick(e)}
                         />
                         <img src={type.img} height={30} width={30} />
-                        {type.type}
-                    </>
+                        <p className="type-list">{type.type}</p>
+                    </div>
                 )))}
             </div>
-            <button type="submit" onClick={handleSubmit}>Create</button>
-            <button type="button" onClick={handleCancelClick}>Cancel</button>
+            <div className="form-button">
+            <button className='confrim-buttons' type="submit" onClick={handleSubmit}>CREATE</button>
+            <button className='create-buttons' type="button" onClick={handleCancelClick}>CANCEL</button>
+            </div>
         </form>
     )
 

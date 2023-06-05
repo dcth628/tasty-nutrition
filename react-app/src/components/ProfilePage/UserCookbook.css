@@ -1,6 +1,5 @@
 .cookbook-table {
     width: 90%;
-    margin-left: 50px;
     margin-top:20px;
     border-collapse: collapse;
     padding-left: 20px;
@@ -13,7 +12,7 @@
 }
 
 th {
-    background-color: rgb(235, 231, 247);
+    background-color: #F8F5F5;
     text-align: left;
 
     width:30%;
@@ -43,6 +42,7 @@ td {
 
 th.last-column {
     width: 8%;
+    color: rgba(91, 90, 90, 1)
 }
 
 .no-recipe {
@@ -59,13 +59,13 @@ th.last-column {
 }
 
 .fa-times {
-    font-size: 24px;
-    color: black;
+    font-size: 22px;
+    color: rgba(147, 147, 147, 1)
 }
 
 .fa-times:hover {
-    font-size: 22px;
-    color:rgba(72, 72, 72, 0.859);
+    font-size: 20px;
+    color:rgba(194, 194, 194, 0.859);
 }
 
 .cookbook-title {

@@ -87,8 +87,8 @@ export const createCookbook = (cookbook) => async (dispatch) => {
 export const editCookbook = (cookbook) => async (dispatch) => {
     const { id, name } = cookbook;
 
-    const response = await fetch('/api/cookbooks', {
-        method: "POST",
+    const response = await fetch(`/api/cookbooks/${cookbook.id}/`, {
+        method: "PUT",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             id:id ,name
