@@ -1,4 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from .recipe_cookbook import RecipeCookbook
 
 class Cookbook(db.Model):
     __tablename__ = 'cookbooks'
@@ -12,11 +13,13 @@ class Cookbook(db.Model):
 
     owner = db.relationship('User', back_populates='cookbooks')
 
-    recipes = db.relationship('Recipe', back_populates='cookbooks', cascade="all, delete-orphan")
+    recipe_cookbook = db.relationship('RecipeCookbook', back_populates='cookbooks', cascade="all, delete-orphan")
 
     def to_dict(self):
         return {
             "id": self.id,
             "name": self.name,
-            "user_id": self.user_id,
+            "user_id" : self.user_id,
+            "recipes": [recipe.to_recipe() for recipe in self.recipe_cookbook] if self.recipe_cookbook else [],
+
         }

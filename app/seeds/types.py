@@ -2,51 +2,63 @@ from app.models import db, Type, environment, SCHEMA
 from sqlalchemy.sql import text
 
 type_1 = Type(
-    type='Air Fryer'
+    type='Air Fryer',
+    img='https://res.cloudinary.com/ddxewbhmy/image/upload/v1684993821/AF_rrcwyl.png'
 )
 
 type_2 = Type(
-    type='Keto'
+    type='Keto',
+    img='https://res.cloudinary.com/ddxewbhmy/image/upload/v1684993822/K_dfszow.png'
 )
 
 type_3 = Type(
-    type='Slow cooker'
+    type='Slow Cooker',
+    img='https://res.cloudinary.com/ddxewbhmy/image/upload/v1684993822/SC_d3tghg.png'
 )
 
 type_4 = Type(
-    type='vegan'
+    type='Vegan',
+    img='https://res.cloudinary.com/ddxewbhmy/image/upload/v1684993822/V_cqso0f.png'
 )
 
 type_5 = Type(
-    type='High Protein'
+    type='High Protein',
+    img='https://res.cloudinary.com/ddxewbhmy/image/upload/v1684993821/HP_t18d4j.png'
 )
 
 type_6 = Type(
-    type='Gluten Free'
+    type='Gluten Free',
+    img='https://res.cloudinary.com/ddxewbhmy/image/upload/v1684993821/GF_xxif9o.png'
 )
 
 type_7 = Type(
-    type='Low Carb'
+    type='Low Carb',
+    img='https://res.cloudinary.com/ddxewbhmy/image/upload/v1684993822/LC_u6bqaj.png'
 )
 
 type_8 = Type(
-    type='Dessert'
+    type='Dessert',
+    img='https://res.cloudinary.com/ddxewbhmy/image/upload/v1684993821/D_cvnzz8.png'
 )
 
 type_9 = Type(
-    type='Dairy Free'
+    type='Dairy Free',
+    img='https://res.cloudinary.com/ddxewbhmy/image/upload/v1684993821/DF_zcgpw3.png'
 )
 
 type_10 = Type(
-    type='Instant Pot'
+    type='Instant Pot',
+    img='https://res.cloudinary.com/ddxewbhmy/image/upload/v1684993821/IP_qfqzkq.png'
 )
 
 type_11 = Type(
-    type='Vegetarian'
+    type='Vegetarian',
+    img='https://res.cloudinary.com/ddxewbhmy/image/upload/v1684993822/VG_h7my8y.png'
 )
 
 type_12 = Type(
-    type='Quick Recipe'
+    type='Quick Recipe',
+    img='https://res.cloudinary.com/ddxewbhmy/image/upload/v1684993822/Q_lpkutv.png'
 )
 
 def seed_types():

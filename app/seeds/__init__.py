@@ -8,6 +8,7 @@ from .ingredients_recipes import seed_ingredient_recipes, undo_ingredient_recipe
 from .images import seed_images, undo_images
 from .cookbooks import seed_cookbooks, undo_cookbooks
 from .reviews import seed_review, undo_review
+from .recipe_cookbook import seed_recipe_cookbooks, undo_recipe_cookbooks
 from app.models.db import db, environment, SCHEMA
 
 # Creates a seed group to hold our commands
@@ -32,6 +33,7 @@ def seed():
         undo_images()
         undo_cookbooks()
         undo_review()
+        undo_recipe_cookbooks()
     seed_users()
     seed_ingredients()
     seed_recipes()
@@ -41,6 +43,7 @@ def seed():
     seed_images()
     seed_cookbooks()
     seed_review()
+    seed_recipe_cookbooks()
     # Add other seed functions here
 
 
@@ -56,4 +59,5 @@ def undo():
     undo_images()
     undo_cookbooks()
     undo_review()
+    undo_recipe_cookbooks()
     # Add other undo functions here

@@ -33,80 +33,60 @@ recipe_type_6 = RecipeType(
 
 recipe_type_7 = RecipeType(
     recipe_id = 3,
-    type_id = 2
+    type_id = 4
 )
 
 recipe_type_8 = RecipeType(
     recipe_id = 3,
-    type_id = 4
+    type_id = 6
 )
 
 recipe_type_9 = RecipeType(
     recipe_id = 3,
-    type_id = 6
+    type_id = 9
 )
 
 recipe_type_10 = RecipeType(
     recipe_id = 3,
-    type_id = 7
+    type_id = 11
 )
 
 recipe_type_11 = RecipeType(
     recipe_id = 3,
-    type_id = 9
-)
-
-recipe_type_12 = RecipeType(
-    recipe_id = 3,
-    type_id = 11
-)
-
-recipe_type_13 = RecipeType(
-    recipe_id = 3,
     type_id = 12
 )
 
-recipe_type_14 = RecipeType(
+recipe_type_12 = RecipeType(
     recipe_id = 4,
     type_id = 4
 )
 
-recipe_type_15 = RecipeType(
+recipe_type_13 = RecipeType(
     recipe_id = 4,
     type_id = 12
 )
 
-recipe_type_16 = RecipeType(
+recipe_type_14 = RecipeType(
     recipe_id = 5,
     type_id = 1
 )
 
-recipe_type_17 = RecipeType(
+recipe_type_15 = RecipeType(
     recipe_id = 5,
     type_id = 2
 )
 
-recipe_type_18 = RecipeType(
-    recipe_id = 5,
-    type_id = 5
-)
-
-recipe_type_19 = RecipeType(
+recipe_type_16 = RecipeType(
     recipe_id = 5,
     type_id = 7
 )
 
-recipe_type_20 = RecipeType(
-    recipe_id = 5,
-    type_id = 8
-)
-
-recipe_type_21 = RecipeType(
+recipe_type_17 = RecipeType(
     recipe_id = 5,
     type_id = 11
 )
 
-recipe_type_22 = RecipeType(
+recipe_type_18 = RecipeType(
     recipe_id = 5,
     type_id = 12
 )
@@ -130,10 +110,6 @@ def seed_recipe_types():
     db.session.add(recipe_type_16)
     db.session.add(recipe_type_17)
     db.session.add(recipe_type_18)
-    db.session.add(recipe_type_19)
-    db.session.add(recipe_type_20)
-    db.session.add(recipe_type_21)
-    db.session.add(recipe_type_22)
     db.session.commit()
 
 
@@ -159,10 +135,6 @@ def undo_recipe_types():
         db.session.delete(recipe_type_16)
         db.session.delete(recipe_type_17)
         db.session.delete(recipe_type_18)
-        db.session.delete(recipe_type_19)
-        db.session.delete(recipe_type_20)
-        db.session.delete(recipe_type_21)
-        db.session.delete(recipe_type_22)
         db.session.execute(text("DELETE FROM recipe types"))
 
     db.session.commit()

@@ -1,10 +1,12 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
-from app.models import db, Recipe, Type, Image, Like, Ingredient, IngredientRecipe, Review
+from app.models import db, Recipe, Type, Image, Like, Ingredient, IngredientRecipe, Review, Cookbook, RecipeCookbook
 from app.models.recipe_type import RecipeType
 from app.forms.recipe_form import CreateRecipeForm
 from app.forms.image_form import CreateImageForm
 from app.forms.review_form import CreateReviewForm
+from app.forms.quantity_form import CreateQuantityForm
+from app.aws_helpers import ( upload_file_to_s3, get_unique_filename)
 
 recipes_routes = Blueprint('recipes', __name__)
 
@@ -100,6 +102,7 @@ def delete_recipe(id):
 def add_ingred_recipe(recipe_id, ingredient_id):
     recipe = Recipe.query.get(recipe_id)
     ingredient = Ingredient.query.get(ingredient_id)
+    form = CreateQuantityForm()
 
     if not recipe or not ingredient:
         return jsonify({'error': 'Recipe or ingredient not found'}), 404
@@ -111,23 +114,22 @@ def add_ingred_recipe(recipe_id, ingredient_id):
     if recipe_ingred:
         return jsonify({"error": "Ingredient was already added"})
 
-    new_ingredient = IngredientRecipe(
-        recipe_id = recipe_id,
-        ingredient_id = ingredient_id
-    )
-
-    # recipe.ingredient_recipe.append(new_ingredient)
-    db.session.add(new_ingredient)
-    db.session.commit()
-    return recipe.to_dict()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        new_ingredient = IngredientRecipe(
+            recipe_id = recipe_id,
+            ingredient_id = ingredient_id,
+            quantity = form.data['quantity']
+        )
+        db.session.add(new_ingredient)
+        db.session.commit()
+        return recipe.to_dict()
 
 #Delete an ingredient from a recipe
-@recipes_routes.route('/<int:recipe_id>/ingredients/<int:ingredient_id>', methods=["DELETE"])
+@recipes_routes.route('/ingredients/<int:recipe_ingredient_id>', methods=["DELETE"])
 @login_required
-def delete_ingred_recipe(recipe_id, ingredient_id):
-    recipe_ingred = IngredientRecipe.query.filter_by(
-        recipe_id=recipe_id, ingredient_id=ingredient_id
-    ).first()
+def delete_ingred_recipe(recipe_ingredient_id):
+    recipe_ingred = IngredientRecipe.query.filter_by( id = recipe_ingredient_id).first()
 
     if not recipe_ingred:
         return jsonify({"error": "Ingredient was not found"}), 404
@@ -175,27 +177,40 @@ def delete_type_recipe(recipe_id, type_id):
     db.session.commit()
     return jsonify({'message':'Sucessfully Deleted'})
 
+#Add an image to get url
+@recipes_routes.route('/images/url', methods=['POST'])
+@login_required
+def get_url():
+    form = CreateImageForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        image = form.data['image']
+        image.filename = get_unique_filename(image.filename)
+        upload = upload_file_to_s3(image)
+
+        return upload
 
 #Add an image to a recipe
-@recipes_routes.route('/<int:recipe_id>/images', methods=["POST"])
+@recipes_routes.route('/<int:recipe_id>/images/', methods=["POST"])
 @login_required
 def add_image(recipe_id):
-    form = CreateImageForm()
     user_id = current_user.get_id()
     recipe = Recipe.query.filter(Recipe.id == recipe_id).first()
     if not recipe:
         return jsonify({"error":"Recipe not found"}), 404
 
-    form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit():
-        new_image = Image(
-            url = form.data['url'],
-            user_id = user_id,
-            recipe_id = recipe_id
-        )
-        db.session.add(new_image)
-        db.session.commit()
-        return new_image.to_dict()
+    data = request.json
+    url = data['image']
+    new_image = Image(
+        image = url,
+        user_id = user_id,
+        recipe_id = recipe_id
+    )
+
+    db.session.add(new_image)
+    db.session.commit()
+    return new_image.to_dict()
+
 
 #Delete an image
 @recipes_routes.route('/images/<int:image_id>', methods=['DELETE'])
@@ -238,3 +253,46 @@ def create_review(id):
             db.session.add(new_review)
             db.session.commit()
             return new_review.to_dict()
+
+#Add recipe to a cookbook
+@recipes_routes.route('/<int:recipe_id>/cookbooks/<int:cookbook_id>', methods=['GET', 'POST'])
+@login_required
+def add_to_cookbook(recipe_id, cookbook_id):
+    recipe = Recipe.query.get(recipe_id)
+    cookbook = Cookbook.query.get(cookbook_id)
+
+    if not recipe or not cookbook:
+        return jsonify({"error": "Recipe or cookbook not found"}), 404
+
+    recipe_cookbook = RecipeCookbook.query.filter_by(
+        recipe_id = recipe_id, cookbook_id = cookbook_id
+        ).first()
+
+    if recipe_cookbook and request.method == "GET":
+        return recipe_cookbook.to_dict()
+
+    if recipe_cookbook and request.method == "POST":
+        return jsonify({"error": "Recipe already added in the cookbook"})
+
+    recipe_cookbook = RecipeCookbook(
+        recipe_id = recipe_id,
+        cookbook_id = cookbook_id
+    )
+
+    db.session.add(recipe_cookbook)
+    db.session.commit()
+    return recipe_cookbook.to_dict()
+
+#Delete a recipe from cookbook
+@recipes_routes.route('/<int:recipe_id>/cookbooks/<int:cookbook_id>', methods=['DELETE'])
+@login_required
+def delete_recipe_cookbook(recipe_id, cookbook_id):
+    recipe_cookbook = RecipeCookbook.query.filter_by(
+        recipe_id = recipe_id, cookbook_id = cookbook_id
+    ).first()
+
+    if not recipe_cookbook:
+        return jsonify({"error":"Recipe was not found"}), 404
+    db.session.delete(recipe_cookbook)
+    db.session.commit()
+    return jsonify({'message':'Sucessfully Deleted'})

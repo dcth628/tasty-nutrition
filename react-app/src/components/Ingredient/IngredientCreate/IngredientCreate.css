@@ -1,0 +1,65 @@
+.ingredient-form {
+    width: 500px;
+    height: 600px;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.input-group {
+    position: relative;
+    margin: 8px 0;
+}
+
+.input-group label {
+    position: absolute;
+    top:50%;
+    left:5px;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #666666;
+    padding: 0 5px;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.input-group input {
+    width: 320px;
+    height: 38px;
+    font-size: 16px;
+    color: rgb(48, 48, 48);
+    padding: 0 10px;
+    background-color: transparent;
+    border: 1.2px solid rgb(177, 175, 175);
+    outline: none;
+    border-radius: 5px;
+}
+.input-group input:hover {
+    border: 1.2px solid rgb(111, 110, 110);
+}
+
+.input-group input:focus {
+    border: 2px solid rgb(50, 69, 241);
+}
+
+
+.input-group input:focus~label,
+.input-group input:valid~label {
+    top:0;
+    font-size: 12px;
+    background-color: white;
+}
+
+.form-title {
+    margin: 0;
+}
+
+.form-button {
+    margin-top: 15px;
+}
+
+#modal-content {
+    border-radius: 20px;
+}

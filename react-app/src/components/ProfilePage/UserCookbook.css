@@ -1,0 +1,84 @@
+.cookbook-table {
+    width: 90%;
+    margin-top:20px;
+    border-collapse: collapse;
+    padding-left: 20px;
+    background-color: rgb(221, 242, 248);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.138), 0 3px 20px 0 rgba(0, 0, 0, 0.1);
+}
+
+.cookbook-table:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+th {
+    background-color: #F8F5F5;
+    text-align: left;
+
+    width:30%;
+    height: 40px;
+    padding-left: 10px;
+}
+
+.cookbook-page {
+    width: 90%;
+    font-family: Arial, Helvetica, sans-serif;
+    margin:auto;
+    padding-top: 80px;
+}
+
+.user-cookbook-page {
+    width: 90%;
+    font-family: Arial, Helvetica, sans-serif;
+    margin:auto;
+}
+
+td {
+
+    height: 30px;
+    border-top: white solid 10px;
+    padding-left: 10px;
+}
+
+th.last-column {
+    width: 8%;
+    color: rgba(91, 90, 90, 1)
+}
+
+.no-recipe {
+    margin-left: 50px;
+    margin-top:20px;
+}
+
+.cookbook-button {
+    display: flex;
+    align-items:baseline;
+    height:50px;
+}
+
+.delete-cookbook {
+    margin: 20px;
+}
+
+.fa-times {
+    font-size: 22px;
+    color: rgba(147, 147, 147, 1)
+}
+
+.fa-times:hover {
+    font-size: 20px;
+    color:rgba(194, 194, 194, 0.859);
+}
+
+.cookbook-title {
+    border-bottom: rgb(117, 114, 114) 2px solid;
+    margin-bottom:0px;
+    margin-top: 30px;
+}
+
+.cookbook-page-title {
+    font-size: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    margin: 10px;
+}

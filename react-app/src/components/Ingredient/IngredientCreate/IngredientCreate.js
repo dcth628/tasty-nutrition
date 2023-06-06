@@ -3,19 +3,22 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../../context/Modal";
 import { createIngredient } from "../../../store/ingredient";
+import './IngredientCreate.css'
+import { Autocomplete, Button } from "@mui/material";
+import { TextField } from "@mui/material";
 
 const CreateIngredientFormModal = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const [name, setName] = useState("")
-    const [type, setType] = useState("")
-    const [measurement, setMeasurement] = useState("")
-    const [img, setImg] = useState("")
-    const [calorie, setCalorie] = useState("")
-    const [carb, setCarb] = useState("")
-    const [protein, setProtein] = useState("")
-    const [fat, setFat] = useState("")
+    const [name, setName] = useState("");
+    const [type, setType] = useState("");
+    const [measurement, setMeasurement] = useState("");
+    const [img, setImg] = useState("");
+    const [calorie, setCalorie] = useState("");
+    const [carb, setCarb] = useState("");
+    const [protein, setProtein] = useState("");
+    const [fat, setFat] = useState("");
     const [errors, setErrors] = useState([]);
     const { closeModal } = useModal();
 
@@ -30,27 +33,18 @@ const CreateIngredientFormModal = () => {
 
     const types = [
         {
-            label: "--Select--",
-            value: "--Select--",
-        },
-        {
-            label: "Fruit",
             value: "Fruit",
         },
         {
-            label: "Vegetable",
             value: "Vegetable",
         },
         {
-            label: "Protein",
             value: "Protein",
         },
         {
-            label: "Grains",
             value: "Grains",
         },
         {
-            label: "Dairy",
             value: "Dairy",
         },
     ];
@@ -66,7 +60,7 @@ const CreateIngredientFormModal = () => {
         let createdIngredient = await dispatch(createIngredient(newIngredient)).catch(async (res) => {
             const data = await res.json();
             if (data && data.errors) setErrors(data.errors);
-          })
+        })
 
         if (createdIngredient) {
             closeModal();
@@ -82,8 +76,8 @@ const CreateIngredientFormModal = () => {
 
     return (
         // <>Test</>
-        <form onSubmit={handleSubmit}>
-            <h1>Create Ingredient</h1>
+        <form className="ingredient-form" onSubmit={handleSubmit}>
+            <h3 className="form-title">Create Ingredient</h3>
             <ul>
                 {errors.length > 1 ?
                     <li>{errors}</li> :
@@ -91,79 +85,86 @@ const CreateIngredientFormModal = () => {
                         <li key={idx}>{error}</li>
                     )}
             </ul>
-            <div>
+            <div className="input-group">
                 <input
                     type='text'
-                    placeholder="Name"
                     required
                     value={name}
                     onChange={updateName} />
+                    <label>
+                    Name
+                    </label>
             </div>
             <div>
-                <select value={type} onChange={updateType}>
+                {/* <select value={type} onChange={updateType}>
                     {types.map((type) => (
-                        <option key={type.value} value={type.value}>{type.label}</option>
-                    ))}
+                        <option key={type.value} value={type.value}>{type.value}</option>
+                        ))}
                 </select>
-            </div>
-            {/* <div>
-                <input
-                    type='text'
-                    placeholder="Type"
-                    required
+                <label>Type</label> */}
+                <Autocomplete
+                    disablePortal
+                    id="combo-box-demo"
+                    options={(types).map(type => type.value)}
                     value={type}
-                    onChange={updateType} />
-            </div> */}
-            <div>
+                    sx={{ width: 340 }}
+                    size='small'
+                    onChange={((event, type) => { setType(type) })}
+                    renderInput={(params) => <TextField {...params} label="Type" />}
+                />
+            </div>
+            <div className="input-group">
                 <input
                     type='text'
-                    placeholder="Image"
                     required
                     value={img}
                     onChange={updateImg} />
+                    <label>Image</label>
             </div>
-            <div>
+            <div className="input-group">
                 <input
                     type='text'
-                    placeholder="Measurement"
                     required
                     value={measurement}
                     onChange={updateMeasurement} />
+                    <label>Measurement (g)</label>
             </div>
-            <div>
+            <div className="input-group">
                 <input
                     type='text'
-                    placeholder="Calorie"
                     required
                     value={calorie}
                     onChange={updateCalorie} />
+                    <label>Calories</label>
             </div>
-            <div>
+            <div className="input-group">
                 <input
                     type='text'
-                    placeholder="Protein"
                     required
                     value={protein}
                     onChange={updateProtein} />
+                    <label>Protein</label>
             </div>
-            <div>
+            <div className="input-group">
                 <input
                     type='text'
-                    placeholder="Carb"
                     required
                     value={carb}
                     onChange={updateCarb} />
+                    <label>Carbs</label>
             </div>
-            <div>
+            <div className="input-group">
                 <input
                     type='text'
-                    placeholder="Fat"
                     required
                     value={fat}
                     onChange={updateFat} />
+                    <label>Fats</label>
             </div>
-            <button type="submit">Create</button>
-            <button type="button" onClick={handleCancelClick}>Cancel</button>
+            <div className="form-button">
+            <button className='confrim-buttons' type="submit">CREATE</button>
+            <button className='create-buttons' onClick={handleCancelClick}>CANCEL</button>
+            </div>
         </form>
     )
 

@@ -1,0 +1,60 @@
+.recipe-edit-page {
+    width: 700px;
+    height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 30px;
+}
+
+.recipe-edit-delete {
+    display: flex;
+    border: gray 1px solid;
+    border-radius: 20px;
+}
+
+.recipe-edit-ingred {
+    margin-left: 20px;
+    margin-bottom: 10px;
+
+}
+
+.delete-button {
+    background-color: #7e7070;
+    color: rgb(255, 255, 255);
+    border: none;
+    font-size: 14px;
+    height: 26px;
+    width: 58px;
+    border-radius: 5px;
+    transition: background 0.8s;
+    cursor: pointer;
+    background-position: center;
+    box-shadow: 0 0 4px #999;
+}
+
+.delete-button:hover {
+    background: #bababa radial-gradient(circle, transparent 1%, #bababa 1%) center/15000%;
+    color: white;
+    height: 24px;
+    width: 48px;
+    font-size: 12px;
+}
+
+.delete-button:active {
+    background-color: #c5c5c5;
+    background-size: 100%;
+    transition: background 0s;
+}
+.recipe-edit-image-box {
+    display: flex;
+}
+.recipe-edit-image {
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+    border-radius: 20px;
+    margin-right: 20px;
+    border: gray 0.2px solid;
+}
+.edit-image-box {
+    text-align: center;
+}
