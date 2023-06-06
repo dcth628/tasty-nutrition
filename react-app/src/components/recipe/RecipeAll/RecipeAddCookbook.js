@@ -11,7 +11,6 @@ const AddRecipeToCookbook = ({ recipeId }) => {
     const cookbooks = useSelector(state => state?.cookbook)
     const sessionUser = useSelector(state=> state?.session.user)
     const userCookbooks = Object.values(cookbooks).filter(cookbook => cookbook.user_id === sessionUser.id)
-
     const [cookbook, setCookbook] = useState(0)
 
     useEffect(() => {

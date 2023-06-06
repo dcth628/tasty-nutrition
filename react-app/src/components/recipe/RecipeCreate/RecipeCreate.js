@@ -156,10 +156,6 @@ const CreateRecipeModal = () => {
             const formData = new FormData();
             formData.append('image',file)
 
-            // let formEntries = formData.entries()
-            // for (let entrie of formEntries) {
-            //     console.log(entrie, '--entrie')
-            // }
             const response = await fetch(`/api/recipes/images/url`, {
                 method: 'POST',
                 body: formData
@@ -168,7 +164,6 @@ const CreateRecipeModal = () => {
             if (response.ok) {
                 let url = await response.json()
                 let image = url.url
-                console.log(image)
                 await dispatch(createImageRecipe(image, sessionUser.id, createdRecipe.id))
             }
             else {
@@ -190,7 +185,6 @@ const CreateRecipeModal = () => {
         history.goBack()
     };
 
-    // console.log(image, '--image')
     return (
         // <>Test</>
         <form className="recipe-create-page" onSubmit={handleSubmit} >

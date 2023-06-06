@@ -10,8 +10,6 @@ const AllCookbooks = () => {
     const cookbooks = useSelector(state => state?.cookbook);
     const sessionUser = useSelector(state => state?.session.user);
 
-    console.log(Object.values(cookbooks), '--cookbooks')
-
     useEffect(() => {
         dispatch(getAllCookbook())
     }, [dispatch])
@@ -20,13 +18,13 @@ const AllCookbooks = () => {
         <div>
             {cookbooks &&  (
                 <div className="cookbook-page">
-                    <h1 className="cookbook-page-title">Cookbooks</h1>
+                    <h2 className="cookbook-page-title">Cookbooks</h2>
                     {Object.values(cookbooks).map(cookbook => (
                         <div>
                             <div key={cookbook.id} className="cookbook-button">
                                 <div>
                                     <NavLink to={`/cookbooks/${cookbook.id}`}>
-                                        <h2 className="cookbook-title">{cookbook.name}</h2>
+                                        <h3 className="cookbook-title">{cookbook.name}</h3>
                                     </NavLink>
                                 </div>
                             </div>

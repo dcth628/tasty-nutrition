@@ -21,13 +21,13 @@ const UserCookbook = () => {
         <div>
             {userCookbook && userCookbook.length > 0 ? (
                 <div className="user-cookbook-page">
-                    <h1 className="recipe-title">Cookbooks</h1>
+                    <h2 className="recipe-title">Cookbooks</h2>
                     {userCookbook.map(cookbook => (
                         <div>
                             <div key={cookbook.id} className="cookbook-button">
                                 <div>
                                     <NavLink to={`/cookbooks/${cookbook.id}`}>
-                                        <h2>{cookbook.name}</h2>
+                                        <h3 className="cookbook-title">{cookbook.name}</h3>
                                     </NavLink>
                                 </div>
                                 <div className="delete-cookbook">
@@ -58,7 +58,7 @@ const UserCookbook = () => {
                                             <th className="last-column">
                                                 <OpenModalButton
                                                     buttonText={'Delete Cookbook'}
-                                                    modalComponent={<DeleteRecipeCookbookModal cookbookId={cookbook.id} />} />
+                                                    modalComponent={<DeleteRecipeCookbookModal recipeId={recipe.id} cookbookId={cookbook.id} />} />
                                             </th>
                                         </tr>
                                     </table>

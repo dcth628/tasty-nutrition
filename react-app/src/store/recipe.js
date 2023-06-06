@@ -82,8 +82,6 @@ export const createRecipe = (recipe) => async (dispatch) => {
         })
     });
 
-    console.log(response, 'response in thunk')
-
     if (response.ok) {
         const new_recipe = await response.json();
         dispatch(create(new_recipe));

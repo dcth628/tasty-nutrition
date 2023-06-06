@@ -40,3 +40,28 @@
 .recipe-time {
     margin: 10px 10px;
 }
+
+.type-tile {
+    width: fit-content;
+    block-size: fit-content;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border: rgb(193, 192, 192) 1px solid;
+    border-radius: 40px;
+    margin: 10px 10px 10px 0;
+}
+.type-tile img {
+    margin-left: 10px
+}
+.type-tile p {
+    margin: 15px
+}
+
+.typelists {
+    width:80%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}

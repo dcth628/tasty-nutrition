@@ -171,7 +171,6 @@ const EditRecipeModal = ({recipe}) => {
         e.preventDefault();
         closeModal();
     };
-    console.log(recipe, '--recipe')
 
     return (
         <form className="recipe-edit-page" onSubmit={handleSubmit} >

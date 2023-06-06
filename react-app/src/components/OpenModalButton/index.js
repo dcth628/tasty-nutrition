@@ -15,7 +15,7 @@ function OpenModalButton({
     if (onButtonClick) onButtonClick();
   };
 
-  if (buttonText === 'Delete Recipe'|| buttonText === 'Delete Cookbook') {
+  if (buttonText === 'Delete Recipe'|| buttonText === 'Delete Cookbook' || buttonText === 'Delete Ingredient') {
     return (<i onClick={onClick} className="fas fa-times" />)
   } else if (buttonText === 'Add to Cookbook') {
     return (<i onClick={onClick} className="fa fa-plus" />)
@@ -24,11 +24,14 @@ function OpenModalButton({
              buttonText === 'CREATE COOKBOOK' ||
              buttonText === 'EDIT COOKBOOK' ||
              buttonText === 'EDIT RECIPE' ||
-             buttonText === 'ADD TO COOKBOOK') {
+             buttonText === 'ADD TO COOKBOOK' ||
+             buttonText === 'EDIT INGREDIENT') {
     return (<button onClick={onClick} className='create-buttons'>{buttonText}</button>)
+  } else if (buttonText === 'Log In' || buttonText === 'Sign Up') {
+    return (<button onClick={onClick} className='dropdown'>{buttonText}</button>)
   }
   return (
-    <button onClick={onClick}>{buttonText}</button>
+    <button className='ingredient-name' onClick={onClick}>{buttonText}</button>
   );
 }
 

@@ -74,7 +74,6 @@ const CreateIngredientFormModal = () => {
         closeModal();
     }
 
-    console.log(type, '--type')
     return (
         // <>Test</>
         <form className="ingredient-form" onSubmit={handleSubmit}>

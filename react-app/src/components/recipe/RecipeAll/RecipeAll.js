@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 import DeleteRecipeModal from "../RecipeDelete/RecipeDelete";
 import OpenModalButton from "../../OpenModalButton";
 import AddRecipeToCookbook from "./RecipeAddCookbook";
+import { getAllTypes } from "../../../store/type";
 import './RecipeAll.css'
 
 const AllRecipes = () => {
@@ -13,18 +14,27 @@ const AllRecipes = () => {
     const recipes = useSelector(state => state?.recipe);
     const sessionUser = useSelector(state => state?.session.user)
     const userCookbooks = useSelector(state => state?.cookbook)
+    const types = useSelector(state => state?.type)
 
 
     useEffect(() => {
         dispatch(getAllRecipes())
         dispatch(currentUserCookbook())
+        dispatch(getAllTypes())
     }, [dispatch])
 
-    let count = 0
+    console.log(types, '--type')
 
     return (
         <div className="recipe-page">
-            <h1 className="cookbook-page-title">Recipes</h1>
+            <div className="typelists">
+                {Object.values(types).map(type => (
+                    <div className="type-tile">
+                        <img src={type.img} alt={type.id} width={40} height={40}/>
+                        <p>{type.type}</p>
+                    </div>
+                ))}
+            </div>
             {recipes && (Object.values(recipes).map(recipe =>
                 <div className="recipe-card">
                     <NavLink to={`/recipes/${recipe.id}`}>

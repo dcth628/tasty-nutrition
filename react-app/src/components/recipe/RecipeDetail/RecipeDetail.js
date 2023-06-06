@@ -14,8 +14,8 @@ const RecipeDetail = () => {
     const history = useHistory();
     const { recipeId } = useParams();
     const recipe = useSelector(state => state?.recipe[recipeId]);
+    const sessionUser = useSelector(state=> state.session.user)
 
-    console.log(recipe, '--recipe')
     useEffect(() => {
         dispatch(getRecipeDetail(recipeId))
         dispatch(getAllTypes())
@@ -26,6 +26,7 @@ const RecipeDetail = () => {
         history.push('/recipes/edit')
     }
 
+    console.log(recipe, '--recipe')
     return (
         <div className="recipe-page">
             {
@@ -58,16 +59,16 @@ const RecipeDetail = () => {
                                 <p>{recipe.serving} Serving</p>
                             </div>
                             <div>
-                                <OpenModalButton
-                                    buttonText={'EDIT RECIPE'}
-                                    modalComponent={<EditRecipeModal recipe={recipe} />} />
-                                {/* <button className="create-buttons"
-                                onClick={handleRedirect} recipe={recipe} >EDIT RECIPE</button> */}
+                                {recipe.user_id === sessionUser.id ? (
+                                    <OpenModalButton
+                                        buttonText={'EDIT RECIPE'}
+                                        modalComponent={<EditRecipeModal recipe={recipe} />} />
+                                ) : <></>}
                             </div>
                             <div>
                             <OpenModalButton
                                     buttonText={'ADD TO COOKBOOK'}
-                                    modalComponent={<AddRecipeToCookbook recipe={recipe} />} />
+                                    modalComponent={<AddRecipeToCookbook recipeId={recipe.id} />} />
                             </div>
                         </div>
                         <p className="recipe-description">{recipe.description}</p>

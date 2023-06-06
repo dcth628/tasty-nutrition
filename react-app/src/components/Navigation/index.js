@@ -12,29 +12,32 @@ function Navigation({ isLoaded }) {
 	const sessionUser = useSelector(state => state.session.user);
 
 	return (
-		<div className='nav-bar'>
-			<div>
-				<NavLink exact to="/">Home</NavLink>
+		<div className='header'>
+			<h3 className='logo'>Tasty Nutrition</h3>
+			<div className='nav-bar'>
+				{/* <div>
+					<NavLink exact to="/">Home</NavLink>
+				</div> */}
+				{isLoaded && (
+					<>
+						<div>
+							<NavLink exact to='/profile'>Profile</NavLink>
+						</div>
+						<div>
+							<NavLink exact to="/recipes">Recipes</NavLink>
+						</div>
+						<div>
+							<NavLink exact to="/ingredients">Ingredients</NavLink>
+						</div>
+						<div>
+							<NavLink exact to="/cookbooks">Cookbooks</NavLink>
+						</div>
+						<div>
+							<ProfileButton user={sessionUser} />
+						</div>
+					</>
+				)}
 			</div>
-			{isLoaded && (
-				<>
-					<div>
-						<ProfileButton user={sessionUser} />
-					</div>
-					<div>
-						<NavLink exact to='/profile'>Profile</NavLink>
-					</div>
-					<div>
-						<NavLink exact to="/recipes">Recipes</NavLink>
-					</div>
-					<div>
-						<NavLink exact to="/ingredients">Ingredients</NavLink>
-					</div>
-					<div>
-						<NavLink exact to="/cookbooks">Cookbooks</NavLink>
-					</div>
-				</>
-			)}
 		</div>
 	);
 }

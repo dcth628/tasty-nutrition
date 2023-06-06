@@ -21,7 +21,7 @@ const UserRecipe = () => {
         <div>
             {userRecipe && userRecipe.length > 0 ? (
                 <div className="user-recipe-page">
-                    <h1 className="recipe-title">Recipes</h1>
+                    <h2 className="recipe-title">Recipes</h2>
                     {Object.values(userRecipe).map(recipe =>
                         <div className="recipe-card">
                             <NavLink to={`/recipes/${recipe.id}`}>
