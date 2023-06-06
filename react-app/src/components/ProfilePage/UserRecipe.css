@@ -1,0 +1,92 @@
+.recipe-page {
+    width: 90%;
+    margin: auto;
+    padding-top: 80px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-bottom: 40px;
+}
+
+.user-recipe-page {
+    width: 90%;
+    margin: auto;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-bottom: 40px;
+}
+
+.recipe-card {
+    background-color: rgba(255, 255, 255, 0.859);
+    border-radius: 40px;
+    height: 410px;
+    width: 290px;
+    margin: 10px;
+    float: left;
+    text-decoration: inherit;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    color: gray;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.138), 0 3px 20px 0 rgba(0, 0, 0, 0.1);
+}
+
+.recipe-card:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+.recipe-image-box {
+    height: 220px;
+    width: 220px;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.recipe-card-image {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    margin: auto;
+}
+
+a {
+    text-decoration: none;
+    color: black
+}
+
+.fa-clock {
+    font-size: 20px;
+    color: rgba(147, 147, 147, 1);
+}
+
+
+.recipe-type {
+    margin: 5px 5px;
+}
+
+.recipe-name {
+    margin: 10px 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.recipe-time {
+    margin: 10px 10px;
+    font-size: 14px;
+}
+
+.recipe-title {
+    border-bottom: black 2px solid;
+    padding-bottom: 10px;
+}
+
+.recipe-descripiton {
+    margin: 5px 5px;
+    font-size: 14px;
+}
+.types-list {
+    width: 215px;
+    margin: auto;
+}
+
+html {
+    padding-bottom: 40px;
+}

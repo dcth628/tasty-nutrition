@@ -1,9 +1,19 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import session from './session'
+import ingredientReducer from './ingredient';
+import recipeReducer from './recipe';
+import typeReducer from './type';
+import imageReducer from './image';
+import cookbookReducer from './cookbook';
 
 const rootReducer = combineReducers({
   session,
+  ingredient: ingredientReducer,
+  recipe: recipeReducer,
+  type: typeReducer,
+  image: imageReducer,
+  cookbook: cookbookReducer
 });
 
 

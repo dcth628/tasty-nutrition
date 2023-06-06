@@ -1,0 +1,60 @@
+.ingredient-page {
+    width: 90%;
+    margin: auto;
+    padding-top: 80px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.ingredient-title {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.ingredient-circle {
+    color: white;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.fruit {
+    background-color: #C63631;
+}
+.vegetable {
+    background-color: #81B353;
+}
+.protein {
+    background-color: #5B498F;
+}
+.grains {
+    background-color: #D6783A;
+}
+.dairy {
+    background-color: #4F82C0;
+}
+
+.ingredient-list {
+    display: flex;
+    margin-left: 60px;
+    margin-top: 10px;
+}
+
+.ingredients {
+    width: 150px;
+    border-top: gray 2px solid;
+    margin-right: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.ingredient-name {
+    background-color: transparent;
+    font-size: 16px;
+    border: none;
+    text-align: left;
+}
