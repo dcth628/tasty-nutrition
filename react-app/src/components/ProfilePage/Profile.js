@@ -14,7 +14,7 @@ const ProfilePage = () => {
     const history = useHistory()
     const recipes = useSelector((state) => state?.recipe);
     const sessionUser = useSelector((state) => state?.session.user);
-    const userRecipe = Object.values(recipes).filter(recipe => recipe.user_id == sessionUser.id)
+    // const userRecipe = Object.values(recipes).filter(recipe => recipe.user_id == sessionUser.id)
 
     const handleRedirect = (e) => {
         e.preventDefault();
@@ -22,7 +22,7 @@ const ProfilePage = () => {
     };
 
     return (
-        <div className="profile-page">
+        sessionUser && (<div className="profile-page">
             <div className="create-button">
 
                 <span>
@@ -48,9 +48,13 @@ const ProfilePage = () => {
                     />
                 </span>
             </div>
+            <div>
             <UserCookbook />
+            </div>
+            <div className="userrecipe">
             <UserRecipe />
-        </div>
+            </div>
+        </div>)
     )
 };
 
