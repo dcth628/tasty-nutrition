@@ -41,13 +41,13 @@ def seed_ingredient_recipes():
 
 def undo_ingredient_recipes():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.ingredient recipes RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.ingredient_recipe RESTART IDENTITY CASCADE;")
     else:
         db.session.delete(ingredient_recipe_1)
         db.session.delete(ingredient_recipe_2)
         db.session.delete(ingredient_recipe_3)
         db.session.delete(ingredient_recipe_4)
         db.session.delete(ingredient_recipe_5)
-        db.session.execute(text("DELETE FROM ingredient recipes"))
+        db.session.execute(text("DELETE FROM ingredient_recipe"))
 
     db.session.commit()

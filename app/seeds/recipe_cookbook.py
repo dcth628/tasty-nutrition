@@ -61,7 +61,7 @@ def seed_recipe_cookbooks():
 
 def undo_recipe_cookbooks():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.recipe cookbook RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.recipe_cookbook RESTART IDENTITY CASCADE;")
     else:
         db.session.delete(recipe_cookbook_2)
         db.session.delete(recipe_cookbook_1)
@@ -72,6 +72,6 @@ def undo_recipe_cookbooks():
         db.session.delete(recipe_cookbook_7)
         db.session.delete(recipe_cookbook_8)
         db.session.delete(recipe_cookbook_9)
-        db.session.execute(text("DELETE FROM recipe cookbooks"))
+        db.session.execute(text("DELETE FROM recipe_cookbook"))
 
     db.session.commit()

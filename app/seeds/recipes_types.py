@@ -115,7 +115,7 @@ def seed_recipe_types():
 
 def undo_recipe_types():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.recipe types RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.recipe_types RESTART IDENTITY CASCADE;")
     else:
         db.session.delete(recipe_type_1)
         db.session.delete(recipe_type_2)
@@ -135,6 +135,6 @@ def undo_recipe_types():
         db.session.delete(recipe_type_16)
         db.session.delete(recipe_type_17)
         db.session.delete(recipe_type_18)
-        db.session.execute(text("DELETE FROM recipe types"))
+        db.session.execute(text("DELETE FROM recipe_types"))
 
     db.session.commit()
