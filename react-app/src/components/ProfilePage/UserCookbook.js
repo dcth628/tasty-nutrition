@@ -70,7 +70,7 @@ const UserCookbook = () => {
                         </div>
                     ))}
                 </div>
-            ) : <> no cookbook</>}
+            ) : <h2 className="no-title"> No Cookbook</h2>}
         </div>
     );
 };

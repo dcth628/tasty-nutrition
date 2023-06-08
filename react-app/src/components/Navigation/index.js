@@ -21,7 +21,7 @@ function Navigation({ isLoaded }) {
 				{isLoaded && (
 					<>
 						<div>
-							<NavLink exact to='/profile'>Profile</NavLink>
+							<NavLink exact to='/'>Profile</NavLink>
 						</div>
 						<div>
 							<NavLink exact to="/recipes">Recipes</NavLink>

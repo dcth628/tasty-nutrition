@@ -42,8 +42,6 @@ const typeReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_TYPE:
             return {...state, ...action.types}
-        case ADD_TYPE:
-            return {...state, [action.types.id]: action.types}
         default:
             return state
     };

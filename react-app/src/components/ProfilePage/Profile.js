@@ -22,39 +22,37 @@ const ProfilePage = () => {
     };
 
     return (
-        sessionUser && (<div className="profile-page">
-            <div className="create-button">
+        <div>
+            {sessionUser ? (
+                <div>
+                    <div className="create-button">
 
-                <span>
-                    <OpenModalButton
-                        buttonText="CREATE INGREDIENT"
-                        modalComponent={<CreateIngredientFormModal />}
-                    />
-                </span>
-                <span>
-                    <button className="create-buttons"
-                    onClick={handleRedirect}>CREATE RECIPE</button>
-                </span>
-                {/* <span>
-                    <OpenModalButton
-                        buttonText="CREATE RECIPE"
-                        modalComponent={<CreateRecipeModal />}
-                    />
-                </span> */}
-                <span>
-                    <OpenModalButton
-                        buttonText="CREATE COOKBOOK"
-                        modalComponent={<CreateCookbookFormModal />}
-                    />
-                </span>
-            </div>
-            <div>
-            <UserCookbook />
-            </div>
-            <div className="userrecipe">
-            <UserRecipe />
-            </div>
-        </div>)
+                        <span>
+                            <OpenModalButton
+                                buttonText="CREATE INGREDIENT"
+                                modalComponent={<CreateIngredientFormModal />}
+                            />
+                        </span>
+                        <span>
+                            <button className="create-buttons"
+                                onClick={handleRedirect}>CREATE RECIPE</button>
+                        </span>
+                        <span>
+                            <OpenModalButton
+                                buttonText="CREATE COOKBOOK"
+                                modalComponent={<CreateCookbookFormModal />}
+                            />
+                        </span>
+                    </div>
+                    <div>
+                        <UserCookbook />
+                    </div>
+                    <div className="userrecipe">
+                        <UserRecipe />
+                    </div>
+                </div>) :
+                <h3 className="profile-page">Please Log In or Sign up</h3>}
+        </div>
     )
 };
 

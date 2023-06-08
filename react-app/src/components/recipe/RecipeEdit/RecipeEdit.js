@@ -24,7 +24,7 @@ const EditRecipeModal = ({recipe}) => {
     const [serving, setServing] = useState(recipe.serving);
     const [cooktime, setCooktime] = useState(recipe.cooktime);
     // const [type, setType] = useState(recipe.types);
-    const [image, setImage] = useState(recipes.images)
+    const [image, setImage] = useState(recipe.images)
     const [editImage, setEditImage ] = useState([])
     const [ingredient, setIngredient ] = useState(recipe.ingredients)
     const [editIngredient, setEditIngredient] = useState([])
@@ -37,13 +37,15 @@ const EditRecipeModal = ({recipe}) => {
         dispatch(getAllIngredients())
     }, [dispatch, recipe]);
 
-    const DeleteImage = async (e) =>{
+    const DeleteImage = async (e, i) =>{
         e.preventDefault();
         let imageId = e.target.value
         let id = Number(imageId)
+        const deleteVal = [...image]
+        deleteVal.splice(i, 1)
+        await setImage(deleteVal)
         await dispatch(deleteImage(id));
         await dispatch(getRecipeDetail(recipe.id))
-        closeModal();
     };
     const handleImageAdd = (e) => {
         e.preventDefault()
@@ -64,9 +66,15 @@ const EditRecipeModal = ({recipe}) => {
         setEditImage(deleteVal)
     };
 
-    const DeleteIngredient = async (e) =>{
+    const DeleteIngredient = async (e, i) =>{
         e.preventDefault();
-        await dispatch(deleteIngredientRecipe(e.target.value));
+        let ingredientId = e.target.value
+        let id = Number(ingredientId)
+        const deleteVal = [...ingredient]
+        deleteVal.splice(i, 1)
+        await setIngredient(deleteVal)
+        await dispatch(deleteIngredientRecipe(id));
+        await dispatch(getRecipeDetail(recipe.id))
     };
 
     const handleIngredAdd = (e) => {
@@ -190,13 +198,13 @@ const EditRecipeModal = ({recipe}) => {
                     )}
             </ul>
             <div className="recipe-edit-image-box">
-            {image.map((image) => (
+            {image.map((image, i) => (
                 <div className="edit-image-box" key={image.id}>
                     <div>
                     <img className="recipe-edit-image" src={image.image} alt={image.id} value={image.id} />
                     </div>
                     <div>
-                    <button className="delete-button" onClick={DeleteImage} value={image.id}>Delete</button>
+                    <button className="delete-button" onClick={(e) => DeleteImage(e, i)} value={image.id}>Delete</button>
                     </div>
                 </div>
             ))}
@@ -235,10 +243,10 @@ const EditRecipeModal = ({recipe}) => {
                     <label>Description</label>
             </div>
             <div className="recipe-edit-delete">
-                {ingredient.map((ingredient) => (
+                {ingredient.map((ingredient, i) => (
                     <div className="recipe-edit-ingred">
                         <p>{ingredient.name} {ingredient.measurement * ingredient.quantity}g</p>
-                        <button className="delete-button" onClick={DeleteIngredient} value={ingredient.id}>Delete</button>
+                        <button className="delete-button" onClick={(e) =>DeleteIngredient(e, i)} value={ingredient.id}>Delete</button>
                     </div>
                 ))}
             </div>

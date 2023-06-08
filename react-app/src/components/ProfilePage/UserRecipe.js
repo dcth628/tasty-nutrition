@@ -69,7 +69,7 @@ const UserRecipe = () => {
                                 modalComponent={<DeleteRecipeModal recipeId={recipe.id} />} />
                         </div>)}
                 </div>
-            ) : <></>}
+            ) : <h2 className="no-title">No Recipe</h2>}
         </div>
     )
 };

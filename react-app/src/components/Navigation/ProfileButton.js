@@ -51,7 +51,7 @@ function ProfileButton({ user }) {
     .then(closeModal)
     .then(dispatch(currentUserCookbook()))
     .then(dispatch(currentUserRecipes()))
-    .then(history.push('/profile'))
+    .then(history.push('/'))
 };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");

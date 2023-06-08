@@ -10,6 +10,7 @@ const AddRecipeToCookbook = ({ recipeId }) => {
     const { closeModal } = useModal();
     const cookbooks = useSelector(state => state?.cookbook)
     const sessionUser = useSelector(state=> state?.session.user)
+    const recipe = useSelector(state=> state?.recipe[recipeId])
     const userCookbooks = Object.values(cookbooks).filter(cookbook => cookbook.user_id === sessionUser.id)
     const [cookbook, setCookbook] = useState(0)
 
@@ -22,8 +23,14 @@ const AddRecipeToCookbook = ({ recipeId }) => {
         await dispatch(addRecipeCookbook(recipeId, cookbook))
         closeModal()
     }
-    let userCookbook = Object.values(userCookbooks).map(cookbook => cookbook.recipes)
 
+    for( var i=userCookbooks.length - 1; i>=0; i--){
+        for( var j=0; j<recipe.cookbook.length; j++){
+            if(userCookbooks[i] && (userCookbooks[i].name === recipe.cookbook[j].name)){
+                userCookbooks.splice(i, 1);
+            }
+        }
+    }
 
     return (
         <div className="delete-form">

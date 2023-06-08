@@ -64,7 +64,7 @@ const CreateIngredientFormModal = () => {
 
         if (createdIngredient) {
             closeModal();
-            history.push(`/ingredients/${createdIngredient.id}`);
+            history.push(`/ingredients/`);
 
         }
     };
@@ -107,7 +107,7 @@ const CreateIngredientFormModal = () => {
                     id="combo-box-demo"
                     options={(types).map(type => type.value)}
                     value={type}
-                    sx={{ width: 340 }}
+                    sx={{ width: 320 }}
                     size='small'
                     onChange={((event, type) => { setType(type) })}
                     renderInput={(params) => <TextField {...params} label="Type" />}

@@ -10,6 +10,7 @@ const IngredientDetail = ({ ingredient }) => {
     const dispatch = useDispatch();
     const { ingredientId } = useParams()
     const ingredients = useSelector(state => state?.ingredient[ingredientId])
+    const sessionUser = useSelector((state) => state?.session.user);
 
     useEffect(() => {
         dispatch(getIngredientDetail(ingredientId))
@@ -28,7 +29,7 @@ const IngredientDetail = ({ ingredient }) => {
     }
 
     return (
-        <div className="ingredient-card">
+        sessionUser ? (<div className="ingredient-card">
             {
                 ingredient && (
                     <div>
@@ -53,7 +54,31 @@ const IngredientDetail = ({ ingredient }) => {
                         </div>
                     </div>
                 )}
-        </div>
+        </div>)
+        :
+        (<div className="ingredient-card">
+            {
+                ingredient && (
+                    <div>
+                        <div className="ingredient-header">
+                            <h3 className={inClassName}>{ingredient.type[0]}</h3>
+                            <h2>{ingredient.name}</h2>
+                        </div>
+                        <div className="ingredient-details">
+                        <div className="ingredient-image-box">
+                            <img src={ingredient.img} alt={ingredient.name} className="recipe-card-image" />
+                        </div>
+                        <div className="nutrition-facts">
+                            <p>Weight: {ingredient.measurement}g</p>
+                            <p>Calories: {ingredient.calorie}</p>
+                            <p>Carbs: {ingredient.carb}g</p>
+                            <p>Protein: {ingredient.protein}g</p>
+                            <p>Fats: {ingredient.fat}g</p>
+                        </div>
+                        </div>
+                    </div>
+                )}
+        </div>)
     )
 };
 

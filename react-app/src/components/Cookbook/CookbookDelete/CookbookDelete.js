@@ -15,7 +15,7 @@ const DeleteCookbookModal = ({cookbookId }) => {
         await dispatch(deleteCookbook(cookbookId));
         closeModal();
         await dispatch(getAllCookbook());
-        await history.push('/profile')
+        await history.push('/')
     };
 
     return (

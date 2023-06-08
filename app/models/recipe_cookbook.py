@@ -17,7 +17,7 @@ class RecipeCookbook(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
-            "cookbook_name": self.cookbooks.name,
+            "name": self.cookbooks.name,
             'cookbook_id': self.cookbooks.id
         }
 
