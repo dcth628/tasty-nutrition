@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../../context/Modal";
@@ -48,6 +48,25 @@ const CreateIngredientFormModal = () => {
             value: "Dairy",
         },
     ];
+    useEffect(() => {
+        const validationErrors = [];
+        if (measurement.length && /^-?\d+(\.\d+)?$/.test(measurement) === false) {
+            validationErrors.push("Please enter correct info for measurement")
+        }
+        if (carb.length && /^-?\d+(\.\d+)?$/.test(carb) === false) {
+            validationErrors.push("Please enter correct info for carbs")
+        }
+        if (calorie.length && /^-?\d+(\.\d+)?$/.test(calorie) === false) {
+            validationErrors.push("Please enter correct info for calories")
+        }
+        if (protein.length && /^-?\d+(\.\d+)?$/.test(protein) === false) {
+            validationErrors.push("Please enter correct info for protein")
+        }
+        if (fat.length && /^-?\d+(\.\d+)?$/.test(fat) === false) {
+            validationErrors.push("Please enter correct info for fats")
+        }
+        setErrors(validationErrors);
+    }, [carb, calorie, protein, fat,measurement])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -79,11 +98,9 @@ const CreateIngredientFormModal = () => {
         <form className="ingredient-form" onSubmit={handleSubmit}>
             <h3 className="form-title">Create Ingredient</h3>
             <ul>
-                {errors.length > 1 ?
-                    <li>{errors}</li> :
-                    errors.map((error, idx) =>
-                        <li key={idx}>{error}</li>
-                    )}
+                {errors.map((error, idx) =>
+                    <li key={idx}>{error}</li>
+                )}
             </ul>
             <div className="input-group">
                 <input
@@ -91,9 +108,9 @@ const CreateIngredientFormModal = () => {
                     required
                     value={name}
                     onChange={updateName} />
-                    <label>
+                <label>
                     Name
-                    </label>
+                </label>
             </div>
             <div>
                 {/* <select value={type} onChange={updateType}>
@@ -119,7 +136,7 @@ const CreateIngredientFormModal = () => {
                     required
                     value={img}
                     onChange={updateImg} />
-                    <label>Image</label>
+                <label>Image</label>
             </div>
             <div className="input-group">
                 <input
@@ -127,7 +144,7 @@ const CreateIngredientFormModal = () => {
                     required
                     value={measurement}
                     onChange={updateMeasurement} />
-                    <label>Measurement (g)</label>
+                <label>Measurement (g)</label>
             </div>
             <div className="input-group">
                 <input
@@ -135,15 +152,7 @@ const CreateIngredientFormModal = () => {
                     required
                     value={calorie}
                     onChange={updateCalorie} />
-                    <label>Calories</label>
-            </div>
-            <div className="input-group">
-                <input
-                    type='text'
-                    required
-                    value={protein}
-                    onChange={updateProtein} />
-                    <label>Protein</label>
+                <label>Calories</label>
             </div>
             <div className="input-group">
                 <input
@@ -151,7 +160,15 @@ const CreateIngredientFormModal = () => {
                     required
                     value={carb}
                     onChange={updateCarb} />
-                    <label>Carbs</label>
+                <label>Carbs</label>
+            </div>
+            <div className="input-group">
+                <input
+                    type='text'
+                    required
+                    value={protein}
+                    onChange={updateProtein} />
+                <label>Protein</label>
             </div>
             <div className="input-group">
                 <input
@@ -159,11 +176,11 @@ const CreateIngredientFormModal = () => {
                     required
                     value={fat}
                     onChange={updateFat} />
-                    <label>Fats</label>
+                <label>Fats</label>
             </div>
             <div className="form-button">
-            <button className='confrim-buttons' type="submit">CREATE</button>
-            <button className='create-buttons' onClick={handleCancelClick}>CANCEL</button>
+                <button className='confrim-buttons' type="submit">CREATE</button>
+                <button className='create-buttons' onClick={handleCancelClick}>CANCEL</button>
             </div>
         </form>
     )

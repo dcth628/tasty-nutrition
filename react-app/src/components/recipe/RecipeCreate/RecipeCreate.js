@@ -85,9 +85,21 @@ const CreateRecipeModal = () => {
     };
 
     useEffect(() => {
+        const validationErrors = [];
+        if (serving.length && /^-?\d+(\.\d+)?$/.test(serving) === false) {
+            validationErrors.push("Please enter a number for serving")
+        }
+        if (cooktime.length && /^-?\d+(\.\d+)?$/.test(cooktime) === false) {
+            validationErrors.push("Please enter a number for cook time")
+        }
+        let quantityValidation = quantity.filter(number => /^-?\d+(\.\d+)?$/.test(number.quantity) === false )
+        if (quantityValidation.length > 0) {
+            validationErrors.push("Please enter a number for weight")
+        }
+        setErrors(validationErrors);
         dispatch(getAllTypes())
         dispatch(getAllIngredients())
-    }, [dispatch]);
+    }, [dispatch, serving, cooktime, quantity]);
 
     const updateName = (e) => setName(e.target.value);
     const updateDescription = (e) => setDescription(e.target.value);
@@ -190,11 +202,9 @@ const CreateRecipeModal = () => {
         <form className="recipe-create-page" onSubmit={handleSubmit} >
             <h3>Create Recipe</h3>
             <ul>
-                {errors.length > 1 ?
-                    <li>{errors}</li> :
-                    errors.map((error, idx) =>
-                        <li key={idx}>{error}</li>
-                    )}
+                {errors.map((error, idx) =>
+                    <li key={idx}>{error}</li>
+                )}
             </ul>
             <div>
                 <button className="recipe-add" onClick={(e) => handleImageAdd(e)}>Add Images</button>
@@ -240,7 +250,7 @@ const CreateRecipeModal = () => {
                             />
                             <div className="input-group recipe-create-ingred">
                             <input type='text' required onChange={(e) => handleQuantity(e, i)} />
-                            <label>Quantity (g)</label>
+                            <label>Weight</label>
                             </div>
 
                             <button className="recipe-delete recipe-create-ingred" onClick={() => handleIngredDelete(i)}>x</button>
@@ -300,7 +310,7 @@ const CreateRecipeModal = () => {
                     required
                     value={cooktime}
                     onChange={updateCooktime} />
-                    <label>Cook Time</label>
+                    <label>Cook Time (minute)</label>
             </div>
             <div className="recipes-types">
                 {types && (Object.values(types).map((type) => (
@@ -308,6 +318,7 @@ const CreateRecipeModal = () => {
                         <Checkbox
                             lable={type}
                             value={type.id}
+                            required
                             onChange={e => handleTypeClick(e)}
                         />
                         <img src={type.img} height={30} width={30} />
