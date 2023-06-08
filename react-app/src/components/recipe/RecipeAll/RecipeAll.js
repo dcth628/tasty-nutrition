@@ -25,8 +25,6 @@ const AllRecipes = () => {
         dispatch(getAllTypes())
     }, [dispatch])
 
-    console.log(types, '--type')
-
     return (
         <div className="recipe-page">
             <div className="typelists">

@@ -26,7 +26,6 @@ const RecipeDetail = () => {
         history.push('/recipes/edit')
     }
 
-    console.log(recipe, '--recipe')
     return (
         <div className="recipe-page">
             {

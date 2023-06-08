@@ -177,7 +177,6 @@ const EditRecipeModal = ({recipe}) => {
         e.preventDefault();
         closeModal();
     };
-    console.log(image ,'--image')
 
     return (
         <form className="recipe-edit-page" onSubmit={handleSubmit} >

@@ -20,8 +20,6 @@ const AllIngredients = () => {
         dispatch(getAllIngredients())
     }, [dispatch])
 
-
-    console.log(dairy, '--ingredients')
     return (
         <div className="ingredient-page">
             <div className="ingredient-title">

@@ -19,7 +19,6 @@ const UserRecipe = () => {
     }, [dispatch])
 
     const images = Object.values(recipes).map(recipe => recipe.images)
-    console.log(images, '--recipes')
 
     return (
         <div>
