@@ -30,7 +30,7 @@ const CookbookDetail = () => {
             <div className="cookbook-detail-header">
                 <h1>{cookbook && (cookbook.name)}</h1>
                 <div className="edit-button">
-                    {cookbook.user_id === sessionUser.id ?
+                    {cookbook && cookbook.user_id === sessionUser.id ?
                      (<OpenModalButton
                         buttonText={'EDIT COOKBOOK'}
                         modalComponent={<EditCookbookModal cookbook={cookbook} />} />)
@@ -66,7 +66,7 @@ const CookbookDetail = () => {
                             modalComponent={<DeleteRecipeModal recipeId={recipe.id} />} />
                     ) : <></>} */}
                 </div>)):
-                <p>No Recipe In This Cookbook</p>
+                <p className="no-recipe">No Recipe In This Cookbook</p>
                 }
         </div>
     )

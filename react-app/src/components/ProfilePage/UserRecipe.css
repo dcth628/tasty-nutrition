@@ -38,13 +38,16 @@
     margin: auto;
     margin-top: 20px;
 }
+.rsis-image {
+    border-radius: 20px;
+}
 
 .recipe-card-image {
     height: 100%;
     width: 100%;
     object-fit: cover;
-    border-radius: 20px;
     margin: auto;
+    border-radius: 20px;
 }
 
 a {

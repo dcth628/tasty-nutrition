@@ -13,6 +13,8 @@ import './RecipeEdit.css'
 const EditRecipeModal = ({recipe}) => {
     const dispatch = useDispatch();
     const types = useSelector(state => state?.type)
+
+    const recipes = useSelector(state => state?.recipe[recipe.id]);
     const sessionUser = useSelector(state=> state.session.user)
     const ingredients = useSelector(state=> state?.ingredient)
 
@@ -22,7 +24,7 @@ const EditRecipeModal = ({recipe}) => {
     const [serving, setServing] = useState(recipe.serving);
     const [cooktime, setCooktime] = useState(recipe.cooktime);
     // const [type, setType] = useState(recipe.types);
-    const [image, setImage] = useState(recipe.images)
+    const [image, setImage] = useState(recipes.images)
     const [editImage, setEditImage ] = useState([])
     const [ingredient, setIngredient ] = useState(recipe.ingredients)
     const [editIngredient, setEditIngredient] = useState([])
@@ -37,7 +39,11 @@ const EditRecipeModal = ({recipe}) => {
 
     const DeleteImage = async (e) =>{
         e.preventDefault();
-        await dispatch(deleteImage(e.target.value));
+        let imageId = e.target.value
+        let id = Number(imageId)
+        await dispatch(deleteImage(id));
+        await dispatch(getRecipeDetail(recipe.id))
+        closeModal();
     };
     const handleImageAdd = (e) => {
         e.preventDefault()
@@ -171,9 +177,11 @@ const EditRecipeModal = ({recipe}) => {
         e.preventDefault();
         closeModal();
     };
+    console.log(image ,'--image')
 
     return (
         <form className="recipe-edit-page" onSubmit={handleSubmit} >
+            <div className="recipe-edit-body">
             <h3 className="form-title">Edit Recipe</h3>
             <ul>
                 {errors.length > 1 ?
@@ -218,8 +226,10 @@ const EditRecipeModal = ({recipe}) => {
                     <label>Name</label>
             </div>
             <div className="input-group">
-                <input
+                <textarea
                     type='text'
+                    rows={3}
+                    cols={50}
                     required
                     value={description}
                     onChange={updateDescription} />
@@ -315,6 +325,7 @@ const EditRecipeModal = ({recipe}) => {
             <div className="form-button">
             <button className='confrim-buttons' type="submit">UPDATE</button>
             <button className='create-buttons' type="button" onClick={handleCancelClick}>CANCEL</button>
+            </div>
             </div>
         </form>
     )

@@ -29,14 +29,13 @@ export const createImageRecipe = (url, userId,recipeId) => async dispatch => {
 };
 
 export const deleteImage = (imageId) => async dispatch => {
-
         const response = await fetch(`/api/recipes/images/${imageId}`, {
             method: "DELETE"
         });
 
         if (response.ok) {
             const image = await response.json();
-            dispatch(remove(image.id));
+            dispatch(remove(imageId));
             return image
         };
 

@@ -7,6 +7,8 @@ import DeleteRecipeModal from "../RecipeDelete/RecipeDelete";
 import OpenModalButton from "../../OpenModalButton";
 import AddRecipeToCookbook from "./RecipeAddCookbook";
 import { getAllTypes } from "../../../store/type";
+import SimpleImageSlider from "react-simple-image-slider";
+import { borderRadius } from "@mui/system";
 import './RecipeAll.css'
 
 const AllRecipes = () => {
@@ -38,11 +40,24 @@ const AllRecipes = () => {
             {recipes && (Object.values(recipes).map(recipe =>
                 <div className="recipe-card">
                     <NavLink to={`/recipes/${recipe.id}`}>
-                        <div className="recipe-image-box">
+                        {/* <div className="recipe-image-box">
                             {recipe.images.map((image) => (
                                 <img src={image.image} alt={recipe.name} className="recipe-card-image" />
                             ))}
-                        </div>
+                        </div> */}
+                        <div className="recipe-image-box">
+                                    <SimpleImageSlider
+                                    className="recipe-card-image"
+                                    style={borderRadius}
+
+                                        navSize={20}
+                                        width={220}
+                                        height={220}
+                                        bgColor={"#ffffff"}
+                                        images={recipe.images.map(image => image.image)}
+                                        showNavs={true}
+                                    />
+                                </div>
                         <p className="recipe-name">{recipe.name}</p>
                         <p className="recipe-descripiton">Serving: {recipe.serving}</p>
                         <div className="recipe-time">
