@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 // import { useHistory } from "react-router-dom";
 import { useModal } from "../../../context/Modal";
@@ -39,6 +39,23 @@ const EditIngredientModal = ({ingredient}) => {
         { value: "Dairy",},
     ];
 
+    useEffect(() => {
+        const validationErrors = [];
+        if (carb.length && /^-?\d+(\.\d+)?$/.test(carb) === false) {
+            validationErrors.push("Please enter correct info for carbs")
+        }
+        if (calorie.length && /^-?\d+(\.\d+)?$/.test(calorie) === false) {
+            validationErrors.push("Please enter correct info for calories")
+        }
+        if (protein.length && /^-?\d+(\.\d+)?$/.test(protein) === false) {
+            validationErrors.push("Please enter correct info for protein")
+        }
+        if (fat.length && /^-?\d+(\.\d+)?$/.test(fat) === false) {
+            validationErrors.push("Please enter correct info for fats")
+        }
+        setErrors(validationErrors);
+    }, [carb, calorie, protein, fat])
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors([]);
@@ -71,11 +88,9 @@ const EditIngredientModal = ({ingredient}) => {
         <form className="ingredient-form" onSubmit={handleSubmit}>
             <h1 className="form-title">Edit Ingredient</h1>
             <ul>
-                {errors.length > 1 ?
-                    <li>{errors}</li> :
-                    errors.map((error, idx) =>
-                        <li key={idx}>{error}</li>
-                    )}
+                {errors.map((error, idx) =>
+                    <li key={idx}>{error}</li>
+                )}
             </ul>
             <div className="input-group">
                 <input
@@ -93,7 +108,7 @@ const EditIngredientModal = ({ingredient}) => {
                     id="combo-box-demo"
                     options={(types).map(type => type.value)}
                     value={type}
-                    sx={{ width: 340}}
+                    sx={{ width: 320}}
                     size='small'
                     onChange={((event, type) => {setType(type)})}
                     renderInput={(params) => <TextField {...params} label="Type" />}
@@ -127,17 +142,17 @@ const EditIngredientModal = ({ingredient}) => {
                 <input
                     type='text'
                     required
-                    value={protein}
-                    onChange={updateProtein} />
-                    <label>Protein</label>
+                    value={carb}
+                    onChange={updateCarb} />
+                    <label>Carbs</label>
             </div>
             <div className="input-group">
                 <input
                     type='text'
                     required
-                    value={carb}
-                    onChange={updateCarb} />
-                    <label>Carbs</label>
+                    value={protein}
+                    onChange={updateProtein} />
+                    <label>Protein</label>
             </div>
             <div className="input-group">
                 <input
