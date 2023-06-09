@@ -40,16 +40,20 @@
 
 .ingredient-list {
     display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    height:auto;
     margin-left: 60px;
-    margin-top: 10px;
 }
 
 .ingredients {
     width: 150px;
     border-top: gray 2px solid;
     margin-right: 30px;
+    margin-top: 20px;
     display: flex;
     justify-content: space-between;
+    min-width: 150px;
 }
 
 .ingredient-name {
