@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
-import { currentUserCookbook } from "../../store/cookbook";
+import { currentUserCookbook, getAllCookbook } from "../../store/cookbook";
 import DeleteCookbookModal from "../Cookbook/CookbookDelete/CookbookDelete";
 import OpenModalButton from "../OpenModalButton";
 import DeleteRecipeCookbookModal from "../Cookbook/CookbookDetail/RemoveRecipe";
@@ -14,6 +14,7 @@ const UserCookbook = () => {
     const userCookbook = Object.values(cookbooks).filter(cookbook => cookbook.user_id == sessionUser.id)
 
     useEffect(() => {
+        dispatch(getAllCookbook())
         dispatch(currentUserCookbook())
     }, [dispatch])
 
