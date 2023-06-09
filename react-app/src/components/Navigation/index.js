@@ -37,7 +37,7 @@ function Navigation({ isLoaded }) {
 					)}
 				</div>
 			</div>
-			<div class="footer">
+			<div className="footer">
 				<div>
 					<a href='https://github.com/dcth628/' target="_blank">
 						<i className='fab fa-github'></i>

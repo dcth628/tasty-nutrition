@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { currentUserRecipes } from "../../store/recipe";
+import { currentUserRecipes, getAllRecipes } from "../../store/recipe";
 import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import OpenModalButton from "../OpenModalButton";
@@ -15,6 +15,7 @@ const UserRecipe = () => {
     const userRecipe = Object.values(recipes).filter(recipe => recipe.user_id == sessionUser.id)
 
     useEffect(() => {
+        dispatch(getAllRecipes())
         dispatch(currentUserRecipes())
     }, [dispatch])
 
