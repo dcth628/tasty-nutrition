@@ -1,9 +1,9 @@
-[Feature list document](https://github.com/dcth628/API-Project/wiki/Feature-List)
-React Components list (if you used React)
-[Database Schema](https://github.com/dcth628/API-Project/wiki/Database-Schema)
-Frontend routes document
-[API routes document](https://github.com/dcth628/API-Project/wiki/API-Routes)
-Redux store tree document (if you used Redux)
+* [Feature list document](https://github.com/dcth628/API-Project/wiki/Feature-List)
+* React Components list (if you used React)
+* [Database Schema](https://github.com/dcth628/API-Project/wiki/Database-Schema)
+* Frontend routes document
+* [API routes document](https://github.com/dcth628/API-Project/wiki/API-Routes)
+* Redux store tree document (if you used Redux)
 
 
 * Name of the project: Tasty Nutrition
