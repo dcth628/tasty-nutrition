@@ -24,8 +24,8 @@ const UserCookbook = () => {
                 <div className="user-cookbook-page">
                     <h2 className="recipe-title">Cookbooks</h2>
                     {userCookbook.map(cookbook => (
-                        <div>
-                            <div key={cookbook.id} className="cookbook-button">
+                        <div key={cookbook.id}>
+                            <div className="cookbook-button">
                                 <div>
                                     <NavLink to={`/cookbooks/${cookbook.id}`}>
                                         <h3 className="cookbook-title">{cookbook.name}</h3>
@@ -44,28 +44,29 @@ const UserCookbook = () => {
                                     <th>Cook Time</th>
                                 </tr> */}
                             {cookbook.recipes.length > 0 ? (cookbook.recipes.map(recipe => (
-                                <>
-                                            <NavLink to={`/recipes/${recipe.id}`}>
-                                    <table className="cookbook-table">
+                                <div key={recipe.id}>
+                                    <NavLink to={`/recipes/${recipe.id}`}>
+                                        <table className="cookbook-table">
+                                            <tbody>
+                                                <tr>
+                                                    <th className="first-column">{recipe.name}</th>
+                                                    {/* <th className="last-column">by {recipe.username}</th> */}
+                                                    <th>
+                                                        {recipe.types.map(type => <img className="recipe-type" id={type.id} src={type.img} width={23} height={23} />)}
+                                                    </th>
+                                                    <th className="last-column">Serving: {recipe.serving}</th>
+                                                    <th className="last-column"><i className="far fa-clock"></i> {recipe.cooktime} mins</th>
+                                                    <th className="last-column">
+                                                        <OpenModalButton
+                                                            buttonText={'Delete Cookbook'}
+                                                            modalComponent={<DeleteRecipeCookbookModal recipeId={recipe.id} cookbookId={cookbook.id} />} />
+                                                    </th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </NavLink>
 
-                                        <tr>
-                                                <th className="first-column">{recipe.name}</th>
-                                                {/* <th className="last-column">by {recipe.username}</th> */}
-                                                <th>
-                                                    {recipe.types.map(type => <img className="recipe-type" id={type.id} src={type.img} width={23} height={23} />)}
-                                                </th>
-                                                <th className="last-column">Serving: {recipe.serving}</th>
-                                                <th className="last-column"><i className="far fa-clock"></i> {recipe.cooktime} mins</th>
-                                            <th className="last-column">
-                                                <OpenModalButton
-                                                    buttonText={'Delete Cookbook'}
-                                                    modalComponent={<DeleteRecipeCookbookModal recipeId={recipe.id} cookbookId={cookbook.id} />} />
-                                            </th>
-                                        </tr>
-                                    </table>
-                                                    </NavLink>
-
-                                </>
+                                </div>
                             ))) :
                                 <p className="no-recipe">Add Some Recipes</p>}
                         </div>

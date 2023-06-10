@@ -17,7 +17,8 @@ const CreateRecipeModal = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const types = useSelector(state => state?.type);
-    const ingredients = useSelector(state => state?.ingredient);
+    const selectIngred = useSelector(state=> state?.ingredient)
+    const ingredients = Object.values(selectIngred)
     const sessionUser = useSelector(state => state.session.user)
 
     const [name, setName] = useState("");
@@ -197,6 +198,14 @@ const CreateRecipeModal = () => {
         history.goBack()
     };
 
+    for( var i=ingredients.length - 1; i>=0; i--){
+        for( var j=0; j<ingredient.length; j++){
+            if(ingredients[i] && (ingredients[i].name === ingredient[j].name)){
+                ingredients.splice(i, 1);
+            }
+        }
+    }
+
     return (
         // <>Test</>
         <form className="recipe-create-page" onSubmit={handleSubmit} >
@@ -232,7 +241,7 @@ const CreateRecipeModal = () => {
                                 freeSolo
                                 size="small"
                                 sx={{ width: 300 }}
-                                options={Object.values(ingredients)}
+                                options={ingredients}
                                 getOptionLabel={(option) => option.name}
                                 renderOption={(props, option) => (
                                     <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>

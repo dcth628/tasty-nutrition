@@ -38,7 +38,7 @@ const AllCookbooks = () => {
                                 <>
                                     <NavLink to={`/recipes/${recipe.id}`}>
                                         <table className="cookbook-table">
-
+                                            <tbody>
                                             <tr className="recipe-list">
                                                 <th>{recipe.name}</th>
                                                 {/* <th className="last-column">by {recipe.username}</th> */}
@@ -48,6 +48,7 @@ const AllCookbooks = () => {
                                                 <th className="last-column">Serving: {recipe.serving}</th>
                                                 <th className="last-column"><i className="far fa-clock"></i> {recipe.cooktime} mins</th>
                                             </tr>
+                                            </tbody>
                                         </table>
                                     </NavLink>
 

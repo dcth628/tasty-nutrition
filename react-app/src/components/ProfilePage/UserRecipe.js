@@ -27,11 +27,11 @@ const UserRecipe = () => {
                 <div className="user-recipe-page">
                     <h2 className="recipe-title">Recipes</h2>
                     {Object.values(userRecipe).map(recipe =>
-                        <div className="recipe-card">
+                        <div key={recipe.id} className="recipe-card">
                             <NavLink to={`/recipes/${recipe.id}`}>
                                 <div className="recipe-image-box">
                                     {recipe.images.map((image) => (
-                                        <img src={image.image} alt={recipe.name} className="recipe-card-image" />
+                                        <img key={image.id} src={image.image} alt={recipe.name} className="recipe-card-image" />
                                     ))}
                                 </div>
 
@@ -59,7 +59,7 @@ const UserRecipe = () => {
                                 <div className="types-list">
                                     {recipe.types.map(type =>
                                         <>
-                                            <img src={type.img} alt={type.types} height={24} width={24} className="recipe-type" />
+                                            <img key={type.id} src={type.img} alt={type.types} height={24} width={24} className="recipe-type" />
                                         </>
                                     )}
                                 </div>
