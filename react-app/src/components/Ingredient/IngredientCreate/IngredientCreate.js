@@ -50,7 +50,7 @@ const CreateIngredientFormModal = () => {
     ];
     useEffect(() => {
         const validationErrors = [];
-        if (measurement.length && /^-?\d+(\.\d+)?$/.test(measurement) === false) {
+        if (measurement.length && /^-?\d+(\.\d+)?$/.test(measurement) === false ) {
             validationErrors.push("Please enter correct info for measurement")
         }
         if (carb.length && /^-?\d+(\.\d+)?$/.test(carb) === false) {
@@ -62,8 +62,23 @@ const CreateIngredientFormModal = () => {
         if (protein.length && /^-?\d+(\.\d+)?$/.test(protein) === false) {
             validationErrors.push("Please enter correct info for protein")
         }
-        if (fat.length && /^-?\d+(\.\d+)?$/.test(fat) === false) {
+        if (fat.length && /^-?\d+(\.\d+)?$/.test(fat) === false && fat === 0) {
             validationErrors.push("Please enter correct info for fats")
+        }
+        if (measurement.length && measurement === "0") {
+            validationErrors.push("Measurement can not be 0")
+        }
+        if (carb.length && carb === "0") {
+            validationErrors.push("Carbs can not be 0")
+        }
+        if (calorie.length && calorie === "0") {
+            validationErrors.push("Calories can not be 0")
+        }
+        if (protein.length && protein === "0") {
+            validationErrors.push("Protein can not be 0")
+        }
+        if (fat.length && fat === "0") {
+            validationErrors.push("Fats can not be 0")
         }
         setErrors(validationErrors);
     }, [carb, calorie, protein, fat,measurement])

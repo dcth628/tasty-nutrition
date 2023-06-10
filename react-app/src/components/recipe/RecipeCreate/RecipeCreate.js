@@ -95,7 +95,17 @@ const CreateRecipeModal = () => {
         }
         let quantityValidation = quantity.filter(number => /^-?\d+(\.\d+)?$/.test(number.quantity) === false )
         if (quantityValidation.length > 0) {
-            validationErrors.push("Please enter a number for weight")
+            validationErrors.push("Please enter a number for quantity")
+        }
+        if (serving.length && serving === "0") {
+            validationErrors.push("Serving can not be 0")
+        }
+        if (cooktime.length && cooktime === "0") {
+            validationErrors.push("Cook time can not be 0")
+        }
+        let quantityValidations = quantity.filter(number => number.quantity === "0" )
+        if (quantityValidations.length) {
+            validationErrors.push("Quantity can not be 0")
         }
         setErrors(validationErrors);
         dispatch(getAllTypes())
@@ -210,7 +220,7 @@ const CreateRecipeModal = () => {
         // <>Test</>
         <form className="recipe-create-page" onSubmit={handleSubmit} >
             <h3>Create Recipe</h3>
-            <ul>
+            <ul className="error-list">
                 {errors.map((error, idx) =>
                     <li key={idx}>{error}</li>
                 )}
@@ -259,7 +269,7 @@ const CreateRecipeModal = () => {
                             />
                             <div className="input-group recipe-create-ingred">
                             <input type='text' required onChange={(e) => handleQuantity(e, i)} />
-                            <label>Weight</label>
+                            <label>Quantity (100g)</label>
                             </div>
 
                             <button className="recipe-delete recipe-create-ingred" onClick={() => handleIngredDelete(i)}>x</button>

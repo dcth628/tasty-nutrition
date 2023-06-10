@@ -133,3 +133,8 @@ input#file-upload-button {
     font-size: 12px;
     background-color: white;
 }
+
+.error-list li{
+    margin-left: 20px;
+    margin-top: 10px;
+}
