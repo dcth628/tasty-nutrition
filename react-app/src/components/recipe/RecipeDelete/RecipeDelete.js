@@ -5,7 +5,6 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { currentUserRecipes, deleteRecipe, getAllRecipes } from "../../../store/recipe";
 
 const DeleteRecipeModal = ({recipeId}) => {
-    console.log(recipeId, 'recipe id ----')
     const dispatch = useDispatch();
     const { closeModal } = useModal();
     const history = useHistory();

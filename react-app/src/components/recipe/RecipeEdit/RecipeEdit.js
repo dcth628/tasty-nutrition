@@ -209,9 +209,7 @@ const EditRecipeModal = ({recipe}) => {
             }
         }
     }
-    console.log(ingredients)
 
-    console.log(recipe, '--recipe')
     return (
         <form className="recipe-edit-page" onSubmit={handleSubmit} >
             <div className="recipe-edit-body">
