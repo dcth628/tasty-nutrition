@@ -29,13 +29,13 @@ const UserRecipe = () => {
                     {Object.values(userRecipe).map(recipe =>
                         <div key={recipe.id} className="recipe-card">
                             <NavLink to={`/recipes/${recipe.id}`}>
-                                <div className="recipe-image-box">
+                                {/* <div className="recipe-image-box">
                                     {recipe.images.map((image) => (
                                         <img key={image.id} src={image.image} alt={recipe.name} className="recipe-card-image" />
                                     ))}
-                                </div>
+                                </div> */}
 
-                                {/* <div className="recipe-image-box">
+                                <div className="recipe-image-box">
                                     <SimpleImageSlider
                                     className="recipe-card-image"
                                     style={borderRadius}
@@ -45,9 +45,8 @@ const UserRecipe = () => {
                                         bgColor={"#ffffff"}
                                         images={recipe.images.map(image => image.image)}
                                         showNavs={false}
-                                        autoPlay={true}
                                     />
-                                </div> */}
+                                </div>
                                 {/* <NavLink to={`/recipes/${recipe.id}`}> */}
                                 <div>
                                     <p className="recipe-name">{recipe.name}</p>
