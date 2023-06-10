@@ -53,7 +53,7 @@ const AllRecipes = () => {
                                         height={220}
                                         bgColor={"#ffffff"}
                                         images={recipe.images.map(image => image.image)}
-                                        showNavs={true}
+                                        showNavs={false}
                                     />
                                 </div>
                         <p className="recipe-name">{recipe.name}</p>

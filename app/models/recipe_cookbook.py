@@ -12,7 +12,7 @@ class RecipeCookbook(db.Model):
 
     cookbooks = db.relationship('Cookbook', back_populates='recipe_cookbook')
 
-    recipes = db.relationship('Recipe', back_populates='recipe_cookbook')
+    recipes = db.relationship('Recipe', back_populates='recipe_cookbook', )
 
     def to_dict(self):
         return {

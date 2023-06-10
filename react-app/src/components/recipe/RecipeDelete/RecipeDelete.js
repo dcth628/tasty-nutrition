@@ -2,9 +2,10 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { deleteRecipe, getAllRecipes } from "../../../store/recipe";
+import { currentUserRecipes, deleteRecipe, getAllRecipes } from "../../../store/recipe";
 
 const DeleteRecipeModal = ({recipeId}) => {
+    console.log(recipeId, 'recipe id ----')
     const dispatch = useDispatch();
     const { closeModal } = useModal();
     const history = useHistory();
@@ -12,6 +13,7 @@ const DeleteRecipeModal = ({recipeId}) => {
     const DeleteRecipe = async (e) => {
         e.preventDefault();
         await dispatch(deleteRecipe(recipeId));
+        await dispatch(currentUserRecipes())
         closeModal();
         await dispatch(getAllRecipes());
         await history.push('/');

@@ -18,7 +18,7 @@ class Recipe(db.Model):
 
     owner = db.relationship('User', back_populates='recipes')
 
-    recipe_cookbook = db.relationship('RecipeCookbook', back_populates='recipes')
+    recipe_cookbook = db.relationship('RecipeCookbook', back_populates='recipes', cascade="all, delete-orphan")
 
     ingredient_recipe = db.relationship('IngredientRecipe', back_populates='recipes', cascade="all, delete-orphan")
 

@@ -290,7 +290,7 @@ const CreateRecipeModal = () => {
                             value={data}
                             required
                             onChange={e => handleChange(e, i)} />
-                            <label>Eneter Instruction</label>
+                            <label>Enter Instruction</label>
                         </div>
                         <button className="recipe-delete recipe-create-ingred" onClick={(e) => handleDelete(e, i)}>x</button>
                     </div>)

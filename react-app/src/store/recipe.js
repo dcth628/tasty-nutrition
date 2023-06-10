@@ -121,6 +121,7 @@ export const deleteRecipe = (recipeId) => async (dispatch) => {
 }
 
 export const addIngredientRecipe = (ingredientArr, recipeId) => async (dispatch) => {
+    console.log(ingredientArr,'ingredient array')
     ingredientArr.forEach(async (ingredient) =>{
         const response = await fetch(`/api/recipes/${recipeId}/ingredients/${ingredient.id}`, {
             method: "POST",

@@ -12,12 +12,12 @@ import './RecipeEdit.css'
 
 const EditRecipeModal = ({recipe}) => {
     const dispatch = useDispatch();
-    const types = useSelector(state => state?.type)
+    // const types = useSelector(state => state?.type)
 
-    const recipes = useSelector(state => state?.recipe[recipe.id]);
+    // const recipes = useSelector(state => state?.recipe[recipe.id]);
     const sessionUser = useSelector(state=> state.session.user)
-    const ingredients = useSelector(state=> state?.ingredient)
-
+    const selectIngred = useSelector(state=> state?.ingredient)
+    const ingredients = Object.values(selectIngred)
     const [name, setName] = useState(recipe.name);
     const [description, setDescription] = useState(recipe.description);
     const [instruction, setInstruction] = useState(recipe.instruction);
@@ -25,8 +25,10 @@ const EditRecipeModal = ({recipe}) => {
     const [cooktime, setCooktime] = useState(recipe.cooktime);
     // const [type, setType] = useState(recipe.types);
     const [image, setImage] = useState(recipe.images)
+    const [deleteImageId , setDeleteImageId ] = useState([])
     const [editImage, setEditImage ] = useState([])
     const [ingredient, setIngredient ] = useState(recipe.ingredients)
+    const [deleteIngredId, setDeleteIngredId ] = useState([])
     const [editIngredient, setEditIngredient] = useState([])
     const [quantity, setQuantity] = useState([])
     const [errors, setErrors] = useState([]);
@@ -44,8 +46,9 @@ const EditRecipeModal = ({recipe}) => {
         const deleteVal = [...image]
         deleteVal.splice(i, 1)
         await setImage(deleteVal)
-        await dispatch(deleteImage(id));
-        await dispatch(getRecipeDetail(recipe.id))
+        const imageIds = [...deleteImageId]
+        imageIds.push(id)
+        setDeleteImageId(imageIds)
     };
     const handleImageAdd = (e) => {
         e.preventDefault()
@@ -66,6 +69,7 @@ const EditRecipeModal = ({recipe}) => {
         setEditImage(deleteVal)
     };
 
+
     const DeleteIngredient = async (e, i) =>{
         e.preventDefault();
         let ingredientId = e.target.value
@@ -73,8 +77,9 @@ const EditRecipeModal = ({recipe}) => {
         const deleteVal = [...ingredient]
         deleteVal.splice(i, 1)
         await setIngredient(deleteVal)
-        await dispatch(deleteIngredientRecipe(id));
-        await dispatch(getRecipeDetail(recipe.id))
+        const ingredIds = [...deleteIngredId]
+        ingredIds.push(id)
+        setDeleteIngredId(ingredIds)
     };
 
     const handleIngredAdd = (e) => {
@@ -136,14 +141,25 @@ const EditRecipeModal = ({recipe}) => {
         setInstruction(bcd)
     };
 
-    const mergedArray = [];
-    for (let i = 0; i < ingredient.length; i++) {
+    let mergedArray = [];
+    for (let i = 0; i < editIngredient.length; i++) {
         mergedArray.push({ ...editIngredient[i], ...quantity[i] });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors([]);
+        for (let i = 0; i < deleteImageId.length; i++) {
+            let id = deleteImageId[i]
+            await dispatch(deleteImage(id))
+            await dispatch(getRecipeDetail(recipe.id))
+        }
+
+        for (let i = 0; i < deleteIngredId.length; i++) {
+            let id = deleteIngredId[i]
+            await dispatch(deleteIngredientRecipe(id))
+            await dispatch(getRecipeDetail(recipe.id))
+        }
 
         const newRecipe = {
             id: recipe.id,
@@ -186,6 +202,16 @@ const EditRecipeModal = ({recipe}) => {
         closeModal();
     };
 
+    for( var i=ingredients.length - 1; i>=0; i--){
+        for( var j=0; j<recipe.ingredients.length; j++){
+            if(ingredients[i] && (ingredients[i].name === recipe.ingredients[j].name)){
+                ingredients.splice(i, 1);
+            }
+        }
+    }
+    console.log(ingredients)
+
+    console.log(recipe, '--recipe')
     return (
         <form className="recipe-edit-page" onSubmit={handleSubmit} >
             <div className="recipe-edit-body">
@@ -260,7 +286,7 @@ const EditRecipeModal = ({recipe}) => {
                                 freeSolo
                                 size="small"
                                 sx={{ width: 300 }}
-                                options={Object.values(ingredients)}
+                                options={ingredients}
                                 getOptionLabel={(option) => option.name}
                                 renderOption={(props, option) => (
                                     <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>

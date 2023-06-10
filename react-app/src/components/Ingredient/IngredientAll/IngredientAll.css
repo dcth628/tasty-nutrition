@@ -56,6 +56,11 @@
     min-width: 150px;
 }
 
+.ingredients:hover {
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, .1);
+    transform: translateY(-1px);
+}
+
 .ingredient-name {
     background-color: transparent;
     font-size: 16px;

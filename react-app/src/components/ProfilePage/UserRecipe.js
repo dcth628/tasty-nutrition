@@ -13,13 +13,13 @@ const UserRecipe = () => {
     const recipes = useSelector((state) => state?.recipe);
     const sessionUser = useSelector((state) => state?.session.user);
     const userRecipe = Object.values(recipes).filter(recipe => recipe.user_id == sessionUser.id)
+    const images = Object.values(recipes).map(recipe => recipe.images)
 
     useEffect(() => {
         dispatch(getAllRecipes())
         dispatch(currentUserRecipes())
     }, [dispatch])
 
-    const images = Object.values(recipes).map(recipe => recipe.images)
 
     return (
         <div>
@@ -29,26 +29,25 @@ const UserRecipe = () => {
                     {Object.values(userRecipe).map(recipe =>
                         <div className="recipe-card">
                             <NavLink to={`/recipes/${recipe.id}`}>
-                                {/* <div className="recipe-image-box">
+                                <div className="recipe-image-box">
                                     {recipe.images.map((image) => (
                                         <img src={image.image} alt={recipe.name} className="recipe-card-image" />
                                     ))}
                                 </div>
-                                </NavLink> */}
 
-                                <div className="recipe-image-box">
+                                {/* <div className="recipe-image-box">
                                     <SimpleImageSlider
                                     className="recipe-card-image"
                                     style={borderRadius}
-
                                         navSize={20}
                                         width={220}
                                         height={220}
                                         bgColor={"#ffffff"}
                                         images={recipe.images.map(image => image.image)}
-                                        showNavs={true}
+                                        showNavs={false}
+                                        autoPlay={true}
                                     />
-                                </div>
+                                </div> */}
                                 {/* <NavLink to={`/recipes/${recipe.id}`}> */}
                                 <div>
                                     <p className="recipe-name">{recipe.name}</p>
