@@ -5,7 +5,7 @@ import { getRecipeDetail } from "../../../store/recipe";
 import AddRecipeToCookbook from "../RecipeAll/RecipeAddCookbook";
 import OpenModalButton from "../../OpenModalButton";
 import EditRecipeModal from "../RecipeEdit/RecipeEdit";
-import AddDynamicInput from "../addInstruction";
+import ReviewbyRecipe from "../../Review/ReviewByRecipe/ReviewByRecipe";
 import { getAllTypes } from "../../../store/type";
 import './RecipeDetail.css'
 
@@ -48,7 +48,7 @@ const RecipeDetail = () => {
                                 ))}
                             </div>
                             <div className="recipe-nutrion-list">
-                                <span>Cals: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.calorie * ingredient.quantity).reduce((acc, el) => acc + el, 0))}</span>
+                                <span>Cals: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.calorie * ingredient.quantity).reduce((acc, el) => acc + el, 0).toFixed(1))}</span>
                                 <span className="recipe-nutrition">Protein: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.protein * ingredient.quantity).reduce((acc, el) => acc + el, 0).toFixed(1))}</span>
                                 <span className="recipe-nutrition">Carbs: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.carb * ingredient.quantity).reduce((acc, el) => acc + el, 0).toFixed(1))}</span>
                                 <span className="recipe-nutrition">Fats: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.fat * ingredient.quantity).reduce((acc, el) => acc + el, 0).toFixed(1))}</span>
@@ -77,7 +77,7 @@ const RecipeDetail = () => {
                                 {recipe.ingredients.map(ingredient => (
                                     <div className="recipe-ingredient-list">
                                         <p>{ingredient.name}</p>
-                                        <p>{ingredient.quantity * ingredient.measurement} g</p>
+                                        <p>{(ingredient.quantity * ingredient.measurement).toFixed(1)} g</p>
                                     </div>
                                 ))}
                             </div>
@@ -90,6 +90,9 @@ const RecipeDetail = () => {
                                     </div>
                                 ))}
                             </div>
+                        </div>
+                        <div>
+                            <ReviewbyRecipe recipe={recipe} />
                         </div>
                     </>
                 )
@@ -117,7 +120,7 @@ const RecipeDetail = () => {
                                 ))}
                             </div>
                             <div className="recipe-nutrion-list">
-                                <span>Cals: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.calorie * ingredient.quantity).reduce((acc, el) => acc + el, 0))}</span>
+                                <span>Cals: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.calorie * ingredient.quantity).reduce((acc, el) => acc + el, 0).toFixed(1))}</span>
                                 <span className="recipe-nutrition">Protein: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.protein * ingredient.quantity).reduce((acc, el) => acc + el, 0).toFixed(1))}</span>
                                 <span className="recipe-nutrition">Carbs: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.carb * ingredient.quantity).reduce((acc, el) => acc + el, 0).toFixed(1))}</span>
                                 <span className="recipe-nutrition">Fats: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.fat * ingredient.quantity).reduce((acc, el) => acc + el, 0).toFixed(1))}</span>
@@ -134,7 +137,7 @@ const RecipeDetail = () => {
                                 {recipe.ingredients.map(ingredient => (
                                     <div className="recipe-ingredient-list">
                                         <p>{ingredient.name}</p>
-                                        <p>{ingredient.quantity * ingredient.measurement} g</p>
+                                        <p>{(ingredient.quantity * ingredient.measurement).toFixed(1)} g</p>
                                     </div>
                                 ))}
                             </div>

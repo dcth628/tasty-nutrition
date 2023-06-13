@@ -62,7 +62,7 @@ const CreateIngredientFormModal = () => {
         if (protein.length && /^-?\d+(\.\d+)?$/.test(protein) === false) {
             validationErrors.push("Please enter correct info for protein")
         }
-        if (fat.length && /^-?\d+(\.\d+)?$/.test(fat) === false && fat === 0) {
+        if (fat.length && /^-?\d+(\.\d+)?$/.test(fat) === false) {
             validationErrors.push("Please enter correct info for fats")
         }
         if (measurement.length && measurement === "0") {

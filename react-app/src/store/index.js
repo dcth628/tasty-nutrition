@@ -6,6 +6,7 @@ import recipeReducer from './recipe';
 import typeReducer from './type';
 import imageReducer from './image';
 import cookbookReducer from './cookbook';
+import reviewReducer from './review';
 
 const rootReducer = combineReducers({
   session,
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
   recipe: recipeReducer,
   type: typeReducer,
   image: imageReducer,
-  cookbook: cookbookReducer
+  cookbook: cookbookReducer,
+  review: reviewReducer
 });
 
 
