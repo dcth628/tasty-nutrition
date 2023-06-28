@@ -5,8 +5,9 @@ import UserRecipe from "./UserRecipe";
 import UserCookbook from "./UserCookbook";
 import CreateIngredientFormModal from '../Ingredient/IngredientCreate/IngredientCreate';
 import CreateCookbookFormModal from '../Cookbook/CookbookCreate/CookbookCreate';
-import CreateRecipeModal from '../recipe/RecipeCreate/RecipeCreate';
 import OpenModalButton from '../OpenModalButton';
+import LoginFormModal from "../LoginFormModal";
+import SignupFormModal from "../SignupFormModal";
 import './Profile.css'
 
 const ProfilePage = () => {
@@ -51,7 +52,13 @@ const ProfilePage = () => {
                         <UserRecipe />
                     </div>
                 </div>) :
-                <h3 className="profile-page">Please Log In or Sign up</h3>}
+                <p className="profile-page">Please <OpenModalButton
+                buttonText="Log in"
+                modalComponent={<LoginFormModal />}
+              /> or <OpenModalButton
+              buttonText="Sign up"
+              modalComponent={<SignupFormModal />}
+            /></p>}
         </div>
     )
 };

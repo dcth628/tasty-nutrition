@@ -104,7 +104,7 @@ function SignupFormModal() {
 					/>
 					<label>Confirm Password</label>
 				</div>
-				<button className='confrim-buttons' type="submit">Sign Up</button>
+				<button className='sign-up' type="submit">Sign Up</button>
 			</form>
 		</>
 	);

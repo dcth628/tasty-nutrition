@@ -17,6 +17,7 @@ const AllIngredients = () => {
     const vegetables = Object.values(ingredients).filter(ingredient => ingredient.type === "Vegetable")
     const grains = Object.values(ingredients).filter(ingredient => ingredient.type === "Grains")
     const dairy = Object.values(ingredients).filter(ingredient => ingredient.type === "Dairy")
+    const other = Object.values(ingredients).filter(ingredient => ingredient.type === "Other")
     useEffect(() => {
         dispatch(getAllIngredients())
     }, [dispatch])
@@ -25,7 +26,7 @@ const AllIngredients = () => {
         sessionUser ? (<div className="ingredient-page">
             <div className="ingredient-title">
                 <h3 className="ingredient-circle fruit">F</h3>
-                <h3>Fruti</h3>
+                <h3>Fruits</h3>
             </div>
             <div className="ingredient-list">
                 {fruits.map(fruit => (
@@ -44,7 +45,7 @@ const AllIngredients = () => {
             </div>
             <div className="ingredient-title">
                 <h3 className="ingredient-circle vegetable">V</h3>
-                <h3>Vegetable</h3>
+                <h3>Vegetables</h3>
             </div>
             <div className="ingredient-list">
                 {vegetables.map(vegetable => (
@@ -103,6 +104,22 @@ const AllIngredients = () => {
                     <OpenModalButton
                         buttonText={'Delete Ingredient'}
                         modalComponent={<DeleteIngredientModal ingredientId={dairy.id}/>} />
+                    </div>
+                ))}
+            </div>
+            <div className="ingredient-title">
+                <h3 className="ingredient-circle other">O</h3>
+                <h3>Others</h3>
+            </div>
+            <div className="ingredient-list">
+                {other.map(other => (
+                    <div className="ingredients">
+                    <OpenModalButton
+                        buttonText={other.name}
+                        modalComponent={<IngredientDetail ingredient={other}/>} />
+                    <OpenModalButton
+                        buttonText={'Delete Ingredient'}
+                        modalComponent={<DeleteIngredientModal ingredientId={other.id}/>} />
                     </div>
                 ))}
             </div>

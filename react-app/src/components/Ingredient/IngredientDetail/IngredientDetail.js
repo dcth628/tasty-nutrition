@@ -26,6 +26,8 @@ const IngredientDetail = ({ ingredient }) => {
         inClassName = "ingredient-circle protein"
     } else if (ingredient.type === 'Dairy') {
         inClassName = "ingredient-circle dairy"
+    } else if (ingredient.type === 'Other') {
+        inClassName = "ingredient-circle other"
     }
 
     return (

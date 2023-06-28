@@ -51,7 +51,7 @@ function LoginFormModal() {
           />
           <label>Password</label>
         </div>
-        <button className='confrim-buttons' type="submit">Log In</button>
+        <button className='sign-up' type="submit">Log In</button>
       </form>
     </>
   );

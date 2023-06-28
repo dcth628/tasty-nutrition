@@ -7,6 +7,9 @@ import OpenModalButton from "../../OpenModalButton";
 import EditRecipeModal from "../RecipeEdit/RecipeEdit";
 import ReviewbyRecipe from "../../Review/ReviewByRecipe/ReviewByRecipe";
 import { getAllTypes } from "../../../store/type";
+import CreateReview from "../../Review/ReviewCreate/ReviewCreate";
+import LoginFormModal from "../../LoginFormModal";
+import SignupFormModal from "../../SignupFormModal";
 import './RecipeDetail.css'
 
 const RecipeDetail = () => {
@@ -14,7 +17,12 @@ const RecipeDetail = () => {
     const history = useHistory();
     const { recipeId } = useParams();
     const recipe = useSelector(state => state?.recipe[recipeId]);
-    const sessionUser = useSelector(state=> state.session.user)
+    const sessionUser = useSelector(state => state.session.user)
+    let reviews = useSelector(state => Object.values(state?.review));
+    reviews = reviews.filter(review => review.recipe_id === recipeId)
+    let sessionUserReview;
+    if (sessionUser) sessionUserReview = reviews.filter(review => review.user_id === sessionUser.id)
+    console.log(reviews, '--review')
 
     useEffect(() => {
         dispatch(getRecipeDetail(recipeId))
@@ -65,7 +73,7 @@ const RecipeDetail = () => {
                                 ) : <></>}
                             </div>
                             <div>
-                            <OpenModalButton
+                                <OpenModalButton
                                     buttonText={'ADD TO COOKBOOK'}
                                     modalComponent={<AddRecipeToCookbook recipeId={recipe.id} />} />
                             </div>
@@ -77,12 +85,12 @@ const RecipeDetail = () => {
                                 {recipe.ingredients.map(ingredient => (
                                     <div className="recipe-ingredient-list">
                                         <p>{ingredient.name}</p>
-                                        <p>{(ingredient.quantity * ingredient.measurement).toFixed(1)} g</p>
+                                        <p>{(ingredient.quantity * ingredient.measurement).toFixed(0)} g</p>
                                     </div>
                                 ))}
                             </div>
                             <div className="recipe-instruction">
-                            <h3>Instructions </h3>
+                                <h3>Instructions </h3>
                                 {recipe.instruction.split("\\").map((instruction, i) => (
                                     <div className="recipe-instruction-list">
                                         <div className="reicpe-instruction-number">{i + 1}</div>
@@ -92,69 +100,85 @@ const RecipeDetail = () => {
                             </div>
                         </div>
                         <div>
+                            {sessionUserReview.length > 0 || sessionUser.id === recipe.user_id ?
+                                <></> :
+                                <CreateReview recipeId={recipe.id} />}
+                        </div>
+                        <div>
                             <ReviewbyRecipe recipe={recipe} />
                         </div>
                     </>
                 )
             }
         </div >)
-        :
-        (<div className="recipe-page">
-            {
-                recipe && (
-                    <>
-                        <h2 className="recipe-detail-title">{recipe.name}</h2>
-                        <div className="recipe-detail-image-box">
-                            {recipe.images.map((image) => {
-                                return (
-                                    <img src={image.image} alt={image.id} className="recipe-detail-image" />
-                                )
-                            })}
-                        </div>
-                        <div className="recipe-detail-list">
+            :
+            (<div className="recipe-page">
+                {
+                    recipe && (
+                        <>
+                            <h2 className="recipe-detail-title">{recipe.name}</h2>
+                            <div className="recipe-detail-image-box">
+                                {recipe.images.map((image) => {
+                                    return (
+                                        <img src={image.image} alt={image.id} className="recipe-detail-image" />
+                                    )
+                                })}
+                            </div>
+                            <div className="recipe-detail-list">
+                                <div>
+                                    {recipe.types.map(type => (
+                                        <>
+                                            <img src={type.img} alt={type.types} height={36} width={36} className="recipe-types" />
+                                        </>
+                                    ))}
+                                </div>
+                                <div className="recipe-nutrion-list">
+                                    <span>Cals: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.calorie * ingredient.quantity).reduce((acc, el) => acc + el, 0).toFixed(1))}</span>
+                                    <span className="recipe-nutrition">Protein: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.protein * ingredient.quantity).reduce((acc, el) => acc + el, 0).toFixed(1))}</span>
+                                    <span className="recipe-nutrition">Carbs: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.carb * ingredient.quantity).reduce((acc, el) => acc + el, 0).toFixed(1))}</span>
+                                    <span className="recipe-nutrition">Fats: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.fat * ingredient.quantity).reduce((acc, el) => acc + el, 0).toFixed(1))}</span>
+                                </div>
+                                <div className="recipe-detail-time"><i className="far fa-clock"></i> {recipe.cooktime} mins</div>
+                                <div className="recipe-detail-serving">
+                                    <p>{recipe.serving} Serving</p>
+                                </div>
+                            </div>
+                            <p className="recipe-description">{recipe.description}</p>
+                            <div className="recipe-detail-page">
+                                <div className="recipe-ingredient">
+                                    <h3>Ingredients </h3>
+                                    {recipe.ingredients.map(ingredient => (
+                                        <div className="recipe-ingredient-list">
+                                            <p>{ingredient.name}</p>
+                                            <p>{(ingredient.quantity * ingredient.measurement).toFixed(1)} g</p>
+                                        </div>
+                                    ))}
+                                </div>
+                                <div className="recipe-instruction">
+                                    <h3>Instructions </h3>
+                                    {recipe.instruction.split("\\").map((instruction, i) => (
+                                        <div className="recipe-instruction-list">
+                                            <div className="reicpe-instruction-number">{i + 1}</div>
+                                            <div className="recipe-instructions" key={instruction}>{instruction}</div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
                             <div>
-                                {recipe.types.map(type => (
-                                    <>
-                                        <img src={type.img} alt={type.types} height={36} width={36} className="recipe-types" />
-                                    </>
-                                ))}
+                                <OpenModalButton
+                                    buttonText="Log in"
+                                    modalComponent={<LoginFormModal />}
+                                /> or <OpenModalButton
+                                    buttonText="Sign up"
+                                    modalComponent={<SignupFormModal />}
+                                /> to Leave a Review</div>
+                            <div>
+                                <ReviewbyRecipe recipe={recipe} />
                             </div>
-                            <div className="recipe-nutrion-list">
-                                <span>Cals: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.calorie * ingredient.quantity).reduce((acc, el) => acc + el, 0).toFixed(1))}</span>
-                                <span className="recipe-nutrition">Protein: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.protein * ingredient.quantity).reduce((acc, el) => acc + el, 0).toFixed(1))}</span>
-                                <span className="recipe-nutrition">Carbs: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.carb * ingredient.quantity).reduce((acc, el) => acc + el, 0).toFixed(1))}</span>
-                                <span className="recipe-nutrition">Fats: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.fat * ingredient.quantity).reduce((acc, el) => acc + el, 0).toFixed(1))}</span>
-                            </div>
-                            <div className="recipe-detail-time"><i className="far fa-clock"></i> {recipe.cooktime} mins</div>
-                            <div className="recipe-detail-serving">
-                                <p>{recipe.serving} Serving</p>
-                            </div>
-                        </div>
-                        <p className="recipe-description">{recipe.description}</p>
-                        <div className="recipe-detail-page">
-                            <div className="recipe-ingredient">
-                                <h3>Ingredients </h3>
-                                {recipe.ingredients.map(ingredient => (
-                                    <div className="recipe-ingredient-list">
-                                        <p>{ingredient.name}</p>
-                                        <p>{(ingredient.quantity * ingredient.measurement).toFixed(1)} g</p>
-                                    </div>
-                                ))}
-                            </div>
-                            <div className="recipe-instruction">
-                            <h3>Instructions </h3>
-                                {recipe.instruction.split("\\").map((instruction, i) => (
-                                    <div className="recipe-instruction-list">
-                                        <div className="reicpe-instruction-number">{i + 1}</div>
-                                        <div className="recipe-instructions" key={instruction}>{instruction}</div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </>
-                )
-            }
-        </div >)
+                        </>
+                    )
+                }
+            </div >)
     )
 };
 

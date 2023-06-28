@@ -33,10 +33,10 @@ function App() {
           {/* <Route exact path="/" >
             <HomePage />
           </Route> */}
-          <Route path="/login" >
+          <Route exact path="/login" >
             <LoginFormPage />
           </Route>
-          <Route path="/signup">
+          <Route exact path="/signup">
             <SignupFormPage />
           </Route>
           <Route exact path="/ingredients">

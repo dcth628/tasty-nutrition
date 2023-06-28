@@ -47,6 +47,9 @@ const CreateIngredientFormModal = () => {
         {
             value: "Dairy",
         },
+        {
+            value: "Other",
+        },
     ];
     useEffect(() => {
         const validationErrors = [];

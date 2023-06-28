@@ -37,6 +37,9 @@
 .dairy {
     background-color: #4F82C0;
 }
+.other {
+    background-color: #d7bc47;
+}
 
 .ingredient-list {
     display: flex;
@@ -56,14 +59,21 @@
     min-width: 150px;
 }
 
-.ingredients:hover {
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, .1);
+.ingredient-name:hover {
+    box-shadow: inset 170px 20px 20px 0 #7da3eb;
+    border-radius: 20px;
     transform: translateY(-1px);
+}
+.ingredients button:hover {
+    color: white;
 }
 
 .ingredient-name {
     background-color: transparent;
+    width:130px;
     font-size: 16px;
     border: none;
     text-align: left;
+    padding-left: 2%;
+    transition: color .3s ease-in-out   , box-shadow .3s ease-in-out;
 }

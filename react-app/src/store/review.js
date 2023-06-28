@@ -56,12 +56,12 @@ export const getAllReviewsByUser = () => async (dispatch) => {
 
 
 export const createReview = (reviews) => async (dispatch) => {
-    const { review, star, userId, recipeId } = reviews
-    const response = await fetch(`/api/recipes/${recipeId}/reviews`, {
+    const { recipe_id, user_id,  review, star } = reviews
+    const response = await fetch(`/api/recipes/${recipe_id}/reviews`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            review, star, userId, recipeId
+            recipe_id, user_id, review, star
         })
     });
 
