@@ -10,6 +10,8 @@ import { getAllTypes } from "../../../store/type";
 import CreateReview from "../../Review/ReviewCreate/ReviewCreate";
 import LoginFormModal from "../../LoginFormModal";
 import SignupFormModal from "../../SignupFormModal";
+import { getAllReivewsByRecipe } from "../../../store/review";
+import Tooltip from '@mui/material/Tooltip';
 import './RecipeDetail.css'
 
 const RecipeDetail = () => {
@@ -19,14 +21,14 @@ const RecipeDetail = () => {
     const recipe = useSelector(state => state?.recipe[recipeId]);
     const sessionUser = useSelector(state => state.session.user)
     let reviews = useSelector(state => Object.values(state?.review));
-    reviews = reviews.filter(review => review.recipe_id === recipeId)
     let sessionUserReview;
     if (sessionUser) sessionUserReview = reviews.filter(review => review.user_id === sessionUser.id)
-    console.log(reviews, '--review')
+    console.log(sessionUserReview, '--review')
 
     useEffect(() => {
         dispatch(getRecipeDetail(recipeId))
         dispatch(getAllTypes())
+        dispatch(getAllReivewsByRecipe(recipeId))
     }, [dispatch, recipeId]);
 
     const handleRedirect = (e) => {
@@ -51,7 +53,9 @@ const RecipeDetail = () => {
                             <div>
                                 {recipe.types.map(type => (
                                     <>
+                                    <Tooltip title={type.types} arrow>
                                         <img src={type.img} alt={type.types} height={36} width={36} className="recipe-types" />
+                                        </Tooltip>
                                     </>
                                 ))}
                             </div>
@@ -101,7 +105,10 @@ const RecipeDetail = () => {
                         </div>
                         <div>
                             {sessionUserReview.length > 0 || sessionUser.id === recipe.user_id ?
-                                <></> :
+                                sessionUser.id === recipe.user_id ?
+                                <>You Can Not Review Your Recipe</> :
+                                <>You Have Left a Review</>
+                                :
                                 <CreateReview recipeId={recipe.id} />}
                         </div>
                         <div>
@@ -128,7 +135,9 @@ const RecipeDetail = () => {
                                 <div>
                                     {recipe.types.map(type => (
                                         <>
+                                        <Tooltip title={type.types} arrow>
                                             <img src={type.img} alt={type.types} height={36} width={36} className="recipe-types" />
+                                            </Tooltip>
                                         </>
                                     ))}
                                 </div>

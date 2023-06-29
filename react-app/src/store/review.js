@@ -72,6 +72,36 @@ export const createReview = (reviews) => async (dispatch) => {
     };
 };
 
+export const editReview = (reviews) => async (dispatch) => {
+    const { id, recipe_id, user_id, review, star } = reviews
+    const response = await fetch(`/api/reviews/${id}`, {
+        method: "PUT",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            id: id,
+            recipe_id, user_id, review, star
+        })
+    });
+
+    if (response.ok) {
+        const review = await response.json();
+        dispatch(edit(review))
+        return review
+    };
+};
+
+export const deleteReview = (reviewId) => async (dispatch) => {
+    const response = await fetch(`/api/reviews/${reviewId}`, {
+        method: "DELETE"
+    });
+
+    if (response.ok) {
+        const review = await response.json();
+        dispatch(remove(reviewId));
+        return review
+    }
+}
+
 const initialState = {}
 
 const reviewReducer = (state = initialState, action) => {
@@ -80,6 +110,12 @@ const reviewReducer = (state = initialState, action) => {
             return {...state, ...action.review}
         case CREATE_REVIEW:
             return {...state, [action.review.id]: action.review}
+        case EDIT_REVIEW:
+            return {...state, [action.review.id]: action.review}
+        case REMOVE_REVIEW:
+            const newState = {...state};
+            delete newState[action.reviewId]
+            return newState
         default:
             return state
     }

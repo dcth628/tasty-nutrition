@@ -54,6 +54,7 @@
 .dropbtn {
   border: none;
   font-size: 25px;
+  background-color: transparent;
 }
 
 .profile-dropdown button {

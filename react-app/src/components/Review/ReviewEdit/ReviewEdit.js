@@ -1,38 +1,34 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useModal } from "../../../context/Modal";
 import { useDispatch, useSelector } from "react-redux";
-import { createReview, getAllReivewsByRecipe } from "../../../store/review";
-import { getRecipeDetail } from "../../../store/recipe";
+import { editReview } from "../../../store/review";
+import { getAllReivewsByRecipe } from "../../../store/review";
 import Tooltip from '@mui/material/Tooltip';
 
-
-const CreateReview = ({ recipeId }) => {
+const EditReview = ({reviews, recipeId}) => {
     const dispatch = useDispatch();
+    const {closeModal } = useModal();
     const sessionUser = useSelector(state => state?.session.user)
 
-    const [review, setReview] = useState("");
-    const [star, setStar] = useState(0);
+    const [review, setReview] = useState(reviews.review);
+    const [star , setStar ] = useState(reviews.star);
     const [errors, setErrors] = useState([]);
 
+    console.log(reviews.id, '--reicpe')
     const updateReview = (e) => setReview(e.target.value);
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        const newReview = {
+        const editedReview = {
+            id: reviews.id,
             recipe_id: recipeId,
             user_id: sessionUser.id,
-            review,
-            star
+            review, star
         };
-
-        return dispatch(createReview(newReview))
-            .then(dispatch(getAllReivewsByRecipe(recipeId)))
-            .then(dispatch(getRecipeDetail(recipeId)))
-            .catch(async (res) => {
-                const data = await res.json();
-                if (data && data.errors) setErrors(data.errors)
-            })
+        let updatedReview = await dispatch(editReview(editedReview));
+        if (updatedReview) {
+            closeModal();
+            dispatch(getAllReivewsByRecipe())
+        }
     };
 
     const onChange = (e) => {
@@ -41,10 +37,15 @@ const CreateReview = ({ recipeId }) => {
         // setRating(parseInt(number));
     };
 
+    const handleCancelClick = (e) => {
+        e.preventDefault();
+        closeModal();
+    };
+
     return (
         <section>
             <form onSubmit={handleSubmit}>
-                <h3>Rate and review this recipe!</h3>
+                <h3>Update Your Review</h3>
                 <ul>
                     {errors.map((error, idx) =>
                         <li key={idx}>{error}</li>
@@ -127,10 +128,12 @@ const CreateReview = ({ recipeId }) => {
                         onChange={updateReview} />
                     <label>Please write a review</label>
                 </div>
-                <button className='confrim-buttons' type="submit">Submit</button>
+                <button className='confrim-buttons' type="submit">Update</button>
+                <button className='create-buttons' type="button" onClick={handleCancelClick}>Cancel</button>
             </form>
         </section>
     )
+
 };
 
-export default CreateReview
+export default EditReview

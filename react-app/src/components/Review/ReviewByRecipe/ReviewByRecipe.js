@@ -1,31 +1,80 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import { useModal } from "../../../context/Modal";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllReivewsByRecipe } from "../../../store/review";
 import OpenModalButton from "../../OpenModalButton";
-import LoginFormModal from "../../LoginFormModal";
-import SignupFormModal from "../../SignupFormModal";
+import EditReview from "../ReviewEdit/ReviewEdit";
+import DeleteReviewModal from "../ReviewDelete/ReviewDelete";
 import './ReviewByRecipe.css'
 
 const ReviewbyRecipe = ({ recipe }) => {
   const dispatch = useDispatch();
   const { recipeId } = useParams();
+  const [showMenu, setShowMenu] = useState(false);
+  const ulRef = useRef(null);
+  const { closeModal } = useModal();
+
   let reviews = useSelector(state => Object.values(state?.review)).reverse();
   reviews = reviews.filter(review => review.recipe_id === recipe.id)
   const sessionUser = useSelector(state => state?.session.user);
 
-  console.log(reviews, '-- reviews')
+  const openMenu = () => {
+    if (showMenu) return;
+    setShowMenu(true);
+  };
+
   useEffect(() => {
+
     dispatch(getAllReivewsByRecipe(recipeId))
-  }, [dispatch])
+    if (!showMenu) return;
+
+    const closeMenu = (e) => {
+
+      if (ulRef.current && !ulRef.current.contains(e.target)) {
+        setShowMenu(false);
+      }
+    };
+
+    document.addEventListener("click", closeMenu);
+
+    return () => document.removeEventListener("click", closeMenu);
+  }, [dispatch, showMenu])
+
+  const ulClassName = "dropdown" + (showMenu ? "" : " hidden");
+  const closeMenu = () => setShowMenu(false);
 
   return (
     <div>
       {reviews && (reviews.length > 0 ?
         <div>
           {reviews.map(review =>
-
             <div key={review.id}>
+              {sessionUser && review.user_id === sessionUser.id ?
+                <div>
+                  <button className="dropbtns" onClick={openMenu}>
+                    <i className="fas fa-ellipsis-h" />
+                  </button>
+                  <div className={ulClassName} ref={ulRef}>
+                    <div className="reviewbtns">
+                  <OpenModalButton
+                    buttonText='EDIT REVIEW'
+                    onItemClick={closeMenu}
+                    modalComponent={<EditReview reviews={review} recipeId={recipeId} />}
+                  />
+                    </div>
+                  <div className="reviewbtns">
+                  <OpenModalButton
+                    buttonText="DELETE REVIEW"
+                    onItemClick={closeMenu}
+                    modalComponent={<DeleteReviewModal reviewId={review.id} recipeId={recipeId} />}
+                    />
+                  </div>
+                  </div>
+                </div>
+                :
+                <></>
+              }
               <div >{review && review.username}</div>
               <div >{new Date(review.createdAt).toDateString().split(" ")[1]} {new Date(review.createdAt).toDateString().split(" ")[3]}</div>
               <div className="rating-input">
@@ -66,27 +115,6 @@ const ReviewbyRecipe = ({ recipe }) => {
                 </div>
               </div>
               <div >{review.review}</div>
-
-              {/* {sessionUser && sessionUser.id === review.userId ?
-                <div>
-                  <button className="review-action-button">
-                    <OpenModalMenuItem
-                      itemText="Edit Review"
-                      onItemClick={closeMenu}
-                      modalComponent={<EditReviewForm reviews={reviews} />}
-                    />
-                  </button>
-                  <button className="review-action-button">
-                    <OpenModalMenuItem
-                      itemText="Delete Review"
-                      onItemClick={closeMenu}
-                      modalComponent={<DeleteReview reviewId={review.id} spotId={spotId} />}
-                    />
-                  </button>
-                </div>
-                :
-                <></>
-              } */}
             </div>
           )}
         </div>

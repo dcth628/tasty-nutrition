@@ -31,6 +31,8 @@ function OpenModalButton({
     return (<button onClick={onClick} className='dropdown'>{buttonText}</button>)
   } else if (buttonText === 'Log in' || buttonText === 'Sign up') {
     return (<button onClick={onClick} className='no-border'>{buttonText}</button>)
+  } else if (buttonText === 'EDIT REVIEW' || buttonText === 'DELETE REVIEW') {
+    return (<button onClick={onClick} className='reviewbtn'>{buttonText}</button>)
   }
   return (
     <button className='ingredient-name' onClick={onClick}>{buttonText}</button>

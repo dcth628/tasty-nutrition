@@ -10,7 +10,7 @@
 .rating-input {
     display: flex;
     margin-right: 4px;
-  }
+}
 
 .no-border {
     border: none;
@@ -25,4 +25,56 @@
     font-size: 16px;
     color: red;
     text-decoration: underline;
+}
+
+.dropdown {
+    position: absolute;
+    background-color: rgb(249, 249, 249);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: start;
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, .1);
+    border: rgb(240, 243, 243) 0.5px solid;
+    width: 150px;
+    height: 70px;
+}
+
+.hidden {
+    display: none;
+}
+
+.dropbtns {
+    border: none;
+    font-size: 25px;
+    background-color: transparent;
+    height:30px;
+    width:30px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dropbtns:hover {
+    background-color: #ede9e9;
+}
+
+.fa-ellipsis-h {
+    font-size: 15px;
+    color: #bdbaba;
+}
+
+.reviewbtn {
+    border: none;
+    color: #8F8F8F;
+    background-color: transparent;
+    margin-left: 14px;
+}
+
+.reviewbtns:hover {
+    background-color: #e9e7e7;
+    width: 150px;
+    border-radius: 20px;
 }
