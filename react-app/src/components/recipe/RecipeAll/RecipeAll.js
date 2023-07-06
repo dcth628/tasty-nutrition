@@ -18,6 +18,32 @@ const AllRecipes = () => {
     const userCookbooks = useSelector(state => state?.cookbook)
     const types = useSelector(state => state?.type)
 
+    const cooktimeLength = (data) => {
+        const min = data % 60
+        const hour = (data - min) / 60
+        if (min === 0 && hour === 1) {
+            return `${hour} hour 00 min`
+        }
+        if (min < 10 && hour === 1) {
+            return `${hour} hour 0${min} min`
+        }
+        if (min >= 10 && hour === 1) {
+            return `${hour} hour ${min} mins`
+        }
+        if (hour > 1 && min < 10) {
+            return `${hour} hours 0${min} min`
+        }
+        if (hour > 1 && min === 0) {
+            return `${hour} hours 00 min`
+        }
+        if (hour === 0 && min < 10) {
+            return `0${min} mins`
+        }
+        if (hour === 0 && min >= 10) {
+            return `${min} mins`
+        }
+        return `${hour} hours ${min} mins`
+    };
 
     useEffect(() => {
         dispatch(getAllRecipes())
@@ -59,7 +85,7 @@ const AllRecipes = () => {
                         <p className="recipe-name">{recipe.name}</p>
                         <p className="recipe-descripiton">Serving: {recipe.serving}</p>
                         <div className="recipe-time">
-                            <i className="far fa-clock"></i> {recipe.cooktime} mins
+                            <i className="far fa-clock"></i> {cooktimeLength(recipe.cooktime)}
                         </div>
                         <div className="types-list">
                             {recipe.types.map(type =>
@@ -110,7 +136,7 @@ const AllRecipes = () => {
                     <p className="recipe-name">{recipe.name}</p>
                     <p className="recipe-descripiton">Serving: {recipe.serving}</p>
                     <div className="recipe-time">
-                        <i className="far fa-clock"></i> {recipe.cooktime} mins
+                        <i className="far fa-clock"></i> {cooktimeLength(recipe.cooktime)}
                     </div>
                     <div className="types-list">
                         {recipe.types.map(type =>

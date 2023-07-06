@@ -14,7 +14,6 @@ const EditReview = ({reviews, recipeId}) => {
     const [star , setStar ] = useState(reviews.star);
     const [errors, setErrors] = useState([]);
 
-    console.log(reviews.id, '--reicpe')
     const updateReview = (e) => setReview(e.target.value);
 
     const handleSubmit = async (e) => {

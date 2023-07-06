@@ -114,7 +114,7 @@ input#file-upload-button {
     font-size: 16px;
     color: rgb(48, 48, 48);
     padding: 10px 10px 10px 10px;
-    background-color: transparent;
+    background-color: white;
     border: 1.2px solid rgb(177, 175, 175);
     outline: none;
     border-radius: 5px;
@@ -132,6 +132,7 @@ input#file-upload-button {
     top:0;
     font-size: 12px;
     background-color: white;
+    color:rgb(100, 100, 245)
 }
 
 .error-list li{

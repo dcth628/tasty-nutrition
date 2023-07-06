@@ -11,6 +11,7 @@ import CreateReview from "../../Review/ReviewCreate/ReviewCreate";
 import LoginFormModal from "../../LoginFormModal";
 import SignupFormModal from "../../SignupFormModal";
 import { getAllReivewsByRecipe } from "../../../store/review";
+import { getAllReviews } from "../../../store/review";
 import Tooltip from '@mui/material/Tooltip';
 import './RecipeDetail.css'
 
@@ -20,10 +21,37 @@ const RecipeDetail = () => {
     const { recipeId } = useParams();
     const recipe = useSelector(state => state?.recipe[recipeId]);
     const sessionUser = useSelector(state => state.session.user)
-    let reviews = useSelector(state => Object.values(state?.review));
+    let review = useSelector(state => Object.values(state?.review));
+    let reviews = review.filter(review => review.recipe_id == recipeId)
     let sessionUserReview;
     if (sessionUser) sessionUserReview = reviews.filter(review => review.user_id === sessionUser.id)
-    console.log(sessionUserReview, '--review')
+
+    const cooktimeLength = (data) => {
+        const min = data % 60
+        const hour = (data - min) / 60
+        if (min === 0 && hour === 1) {
+            return `${hour} hour 00 min`
+        }
+        if (min < 10 && hour === 1) {
+            return `${hour} hour 0${min} min`
+        }
+        if (min >= 10 && hour === 1) {
+            return `${hour} hour ${min} mins`
+        }
+        if (hour > 1 && min < 10) {
+            return `${hour} hours 0${min} min`
+        }
+        if (hour > 1 && min === 0) {
+            return `${hour} hours 00 min`
+        }
+        if (hour === 0 && min < 10) {
+            return `0${min} mins`
+        }
+        if (hour === 0 && min >= 10) {
+            return `${min} mins`
+        }
+        return `${hour} hours ${min} mins`
+    };
 
     useEffect(() => {
         dispatch(getRecipeDetail(recipeId))
@@ -53,8 +81,8 @@ const RecipeDetail = () => {
                             <div>
                                 {recipe.types.map(type => (
                                     <>
-                                    <Tooltip title={type.types} arrow>
-                                        <img src={type.img} alt={type.types} height={36} width={36} className="recipe-types" />
+                                        <Tooltip title={type.types} arrow>
+                                            <img src={type.img} alt={type.types} height={36} width={36} className="recipe-types" />
                                         </Tooltip>
                                     </>
                                 ))}
@@ -65,7 +93,7 @@ const RecipeDetail = () => {
                                 <span className="recipe-nutrition">Carbs: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.carb * ingredient.quantity).reduce((acc, el) => acc + el, 0).toFixed(1))}</span>
                                 <span className="recipe-nutrition">Fats: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.fat * ingredient.quantity).reduce((acc, el) => acc + el, 0).toFixed(1))}</span>
                             </div>
-                            <div className="recipe-detail-time"><i className="far fa-clock"></i> {recipe.cooktime} mins</div>
+                            <div className="recipe-detail-time"><i className="far fa-clock"></i> {cooktimeLength(recipe.cooktime)}</div>
                             <div className="recipe-detail-serving">
                                 <p>{recipe.serving} Serving</p>
                             </div>
@@ -103,16 +131,18 @@ const RecipeDetail = () => {
                                 ))}
                             </div>
                         </div>
-                        <div>
-                            {sessionUserReview.length > 0 || sessionUser.id === recipe.user_id ?
-                                sessionUser.id === recipe.user_id ?
-                                <>You Can Not Review Your Recipe</> :
-                                <>You Have Left a Review</>
-                                :
-                                <CreateReview recipeId={recipe.id} />}
-                        </div>
-                        <div>
-                            <ReviewbyRecipe recipe={recipe} />
+                        <div className="recipe-detail-page">
+                            <div>
+                                {sessionUserReview.length > 0 || sessionUser.id === recipe.user_id ?
+                                    sessionUser.id === recipe.user_id ?
+                                        <div className="review-not-create">You Can Not Review Your Recipe</div> :
+                                        <div className="review-not-create">You Have Left a Review</div>
+                                    :
+                                    <CreateReview recipeId={recipe.id} />}
+                            </div>
+                            <div className="review-list">
+                                <ReviewbyRecipe recipe={recipe} />
+                            </div>
                         </div>
                     </>
                 )
@@ -135,8 +165,8 @@ const RecipeDetail = () => {
                                 <div>
                                     {recipe.types.map(type => (
                                         <>
-                                        <Tooltip title={type.types} arrow>
-                                            <img src={type.img} alt={type.types} height={36} width={36} className="recipe-types" />
+                                            <Tooltip title={type.types} arrow>
+                                                <img src={type.img} alt={type.types} height={36} width={36} className="recipe-types" />
                                             </Tooltip>
                                         </>
                                     ))}
@@ -147,7 +177,7 @@ const RecipeDetail = () => {
                                     <span className="recipe-nutrition">Carbs: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.carb * ingredient.quantity).reduce((acc, el) => acc + el, 0).toFixed(1))}</span>
                                     <span className="recipe-nutrition">Fats: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.fat * ingredient.quantity).reduce((acc, el) => acc + el, 0).toFixed(1))}</span>
                                 </div>
-                                <div className="recipe-detail-time"><i className="far fa-clock"></i> {recipe.cooktime} mins</div>
+                                <div className="recipe-detail-time"><i className="far fa-clock"></i> {cooktimeLength(recipe.cooktime)}</div>
                                 <div className="recipe-detail-serving">
                                     <p>{recipe.serving} Serving</p>
                                 </div>
@@ -173,6 +203,7 @@ const RecipeDetail = () => {
                                     ))}
                                 </div>
                             </div>
+                            <div className="recipe-detail-page">
                             <div>
                                 <OpenModalButton
                                     buttonText="Log in"
@@ -180,9 +211,11 @@ const RecipeDetail = () => {
                                 /> or <OpenModalButton
                                     buttonText="Sign up"
                                     modalComponent={<SignupFormModal />}
-                                /> to Leave a Review</div>
-                            <div>
+                                /> to Leave a Review
+                            </div>
+                            <div className="review-list">
                                 <ReviewbyRecipe recipe={recipe} />
+                            </div>
                             </div>
                         </>
                     )

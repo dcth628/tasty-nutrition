@@ -18,16 +18,16 @@ function Navigation({ isLoaded }) {
 				</div> */}
 					{isLoaded && (
 						<>
-							<div>
+							<div className='nav-title'>
 								<NavLink exact to='/'>Profile</NavLink>
 							</div>
-							<div>
+							<div className='nav-title'>
 								<NavLink exact to="/recipes">Recipes</NavLink>
 							</div>
-							<div>
+							<div className='nav-title'>
 								<NavLink exact to="/ingredients">Ingredients</NavLink>
 							</div>
-							<div>
+							<div className='nav-title'>
 								<NavLink exact to="/cookbooks">Cookbooks</NavLink>
 							</div>
 							<div>

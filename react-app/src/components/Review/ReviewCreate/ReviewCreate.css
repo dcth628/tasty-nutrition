@@ -1,0 +1,47 @@
+.review-create {
+    margin-top: 40px;
+    width: 350px;
+    height: 300px;
+    padding: 20px 30px 15px 30px;
+    background-color: #F4F4F4;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.review-create div {
+    margin: 5px 0px;
+}
+
+.review-create textarea {
+    background-color: white;
+}
+
+.review-create .rating-input {
+    text-align: center;
+    width: 150px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.review-create h3 {
+    color: #4E4E4E;
+}
+
+.fa-star {
+    font-size: 20px;
+}
+
+.review-not-create {
+    width: 350px;
+    height: 100px;
+    padding: 20px 30px 15px 30px;
+    background-color: #F4F4F4;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}

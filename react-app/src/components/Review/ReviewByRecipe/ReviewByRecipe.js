@@ -47,36 +47,37 @@ const ReviewbyRecipe = ({ recipe }) => {
   return (
     <div>
       {reviews && (reviews.length > 0 ?
-        <div>
+        <div >
           {reviews.map(review =>
-            <div key={review.id}>
-              {sessionUser && review.user_id === sessionUser.id ?
-                <div>
-                  <button className="dropbtns" onClick={openMenu}>
-                    <i className="fas fa-ellipsis-h" />
-                  </button>
-                  <div className={ulClassName} ref={ulRef}>
-                    <div className="reviewbtns">
-                  <OpenModalButton
-                    buttonText='EDIT REVIEW'
-                    onItemClick={closeMenu}
-                    modalComponent={<EditReview reviews={review} recipeId={recipeId} />}
-                  />
-                    </div>
-                  <div className="reviewbtns">
-                  <OpenModalButton
-                    buttonText="DELETE REVIEW"
-                    onItemClick={closeMenu}
-                    modalComponent={<DeleteReviewModal reviewId={review.id} recipeId={recipeId} />}
+            <div className="review-list" key={review.id}>
+              <div className="review-title">
+              <h4>{review && review.username}</h4>
+                {sessionUser && review.user_id === sessionUser.id ?
+                  <div className="review-menu">
+                    <button className="dropbtns" onClick={openMenu}>
+                      <i className="fas fa-ellipsis-h" />
+                    </button>
+                    <div className={ulClassName} ref={ulRef}>
+                      <div className="reviewbtns">
+                    <OpenModalButton
+                      buttonText='EDIT REVIEW'
+                      onItemClick={closeMenu}
+                      modalComponent={<EditReview reviews={review} recipeId={recipeId} />}
                     />
+                      </div>
+                    <div className="reviewbtns">
+                    <OpenModalButton
+                      buttonText="DELETE REVIEW"
+                      onItemClick={closeMenu}
+                      modalComponent={<DeleteReviewModal reviewId={review.id} recipeId={recipeId} />}
+                      />
+                    </div>
+                    </div>
                   </div>
-                  </div>
-                </div>
-                :
-                <></>
-              }
-              <div >{review && review.username}</div>
-              <div >{new Date(review.createdAt).toDateString().split(" ")[1]} {new Date(review.createdAt).toDateString().split(" ")[3]}</div>
+                  :
+                  <></>
+                }
+              </div>
               <div className="rating-input">
                 <div>
                   <i className={
@@ -120,9 +121,8 @@ const ReviewbyRecipe = ({ recipe }) => {
         </div>
         :
         <>
-          <div>
-
-            <i className="fa fa-star no-review-star"> <span >NEW!</span></i>
+          <div className="no-review">
+            <i className="fa fa-star"> <span >NEW!</span></i>
           </div>
         </>
       )}

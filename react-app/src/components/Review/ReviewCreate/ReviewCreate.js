@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createReview, getAllReivewsByRecipe } from "../../../store/review";
 import { getRecipeDetail } from "../../../store/recipe";
 import Tooltip from '@mui/material/Tooltip';
+import './ReviewCreate.css'
 
 
 const CreateReview = ({ recipeId }) => {
@@ -43,7 +44,7 @@ const CreateReview = ({ recipeId }) => {
 
     return (
         <section>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="review-create">
                 <h3>Rate and review this recipe!</h3>
                 <ul>
                     {errors.map((error, idx) =>

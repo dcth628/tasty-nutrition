@@ -50,6 +50,7 @@
 
 .recipe-detail-page {
     display: flex;
+    margin-top: 40px;
 }
 
 .recipe-ingredient {

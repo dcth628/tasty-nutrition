@@ -78,3 +78,23 @@
     width: 150px;
     border-radius: 20px;
 }
+.review-list {
+    width: 500px;
+    margin-left: 30px;
+    margin-bottom: 20px;
+}
+
+.review-list .rating-input{
+    margin: 10px 0px;
+}
+.review-title {
+    display: flex;
+    align-items: center;
+}
+.review-menu {
+    margin-left: 20px;
+}
+
+.no-review {
+    color: #b4b3b3;
+}

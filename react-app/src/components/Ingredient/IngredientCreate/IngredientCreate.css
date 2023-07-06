@@ -22,7 +22,7 @@
     color: #666666;
     padding: 0 5px;
     pointer-events: none;
-    transition: .5s;
+    transition: .3s;
 }
 
 .input-group input {
@@ -31,13 +31,13 @@
     font-size: 16px;
     color: rgb(48, 48, 48);
     padding: 0 10px;
-    background-color: transparent;
+    background-color: white;
     border: 1.2px solid rgb(177, 175, 175);
     outline: none;
     border-radius: 5px;
 }
 .input-group input:hover {
-    border: 1.2px solid rgb(111, 110, 110);
+    border: 1.4px solid rgb(74, 74, 74);
 }
 
 .input-group input:focus {
@@ -50,6 +50,7 @@
     top:0;
     font-size: 12px;
     background-color: white;
+    color:rgb(100, 100, 245)
 }
 
 .form-title {
