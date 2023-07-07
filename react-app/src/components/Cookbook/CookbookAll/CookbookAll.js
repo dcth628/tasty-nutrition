@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllCookbook } from "../../../store/cookbook";
 import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
+import Tooltip from '@mui/material/Tooltip';
 import DeleteCookbookModal from "../CookbookDelete/CookbookDelete";
 import OpenModalButton from "../../OpenModalButton";
 
@@ -43,7 +44,7 @@ const AllCookbooks = () => {
 
     return (
         <div>
-            {cookbooks &&  (
+            {cookbooks && (
                 <div className="cookbook-page">
                     <h2 className="cookbook-page-title">Cookbooks</h2>
                     {Object.values(cookbooks).map(cookbook => (
@@ -66,15 +67,21 @@ const AllCookbooks = () => {
                                     <NavLink to={`/recipes/${recipe.id}`}>
                                         <table className="cookbook-table">
                                             <tbody>
-                                            <tr className="recipe-list">
-                                                <th>{recipe.name}</th>
-                                                {/* <th className="last-column">by {recipe.username}</th> */}
-                                                <th>
-                                                    {recipe.types.map(type => <img className="recipe-type" id={type.id}src={type.img} width={30} height={30} />)}
-                                                </th>
-                                                <th className="last-column">Serving: {recipe.serving}</th>
-                                                <th className="last-column"><i className="far fa-clock"></i> {cooktimeLength(recipe.cooktime)}</th>
-                                            </tr>
+                                                <tr className="recipe-list">
+                                                    <th>{recipe.name}</th>
+                                                    {/* <th className="last-column">by {recipe.username}</th> */}
+                                                    <th>
+                                                        {recipe.types.map(type => (
+                                                            <>
+                                                                <Tooltip title={type.types} arrow>
+                                                                    <img className="recipe-type" id={type.id} src={type.img} width={23} height={23} />
+                                                                </Tooltip>
+                                                            </>
+                                                        ))}
+                                                    </th>
+                                                    <th className="last-column">Serving: {recipe.serving}</th>
+                                                    <th className="last-column"><i className="far fa-clock"></i> {cooktimeLength(recipe.cooktime)}</th>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </NavLink>
@@ -85,7 +92,7 @@ const AllCookbooks = () => {
                         </div>
                     ))}
                 </div>
-            ) }
+            )}
         </div>
     )
 };

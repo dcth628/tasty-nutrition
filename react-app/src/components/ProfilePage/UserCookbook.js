@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 import { currentUserCookbook, getAllCookbook } from "../../store/cookbook";
 import DeleteCookbookModal from "../Cookbook/CookbookDelete/CookbookDelete";
 import OpenModalButton from "../OpenModalButton";
+import Tooltip from '@mui/material/Tooltip';
 import DeleteRecipeCookbookModal from "../Cookbook/CookbookDetail/RemoveRecipe";
 import './UserCookbook.css'
 
@@ -79,7 +80,13 @@ const UserCookbook = () => {
                                                     <th className="first-column">{recipe.name}</th>
                                                     {/* <th className="last-column">by {recipe.username}</th> */}
                                                     <th>
-                                                        {recipe.types.map(type => <img className="recipe-type" id={type.id} src={type.img} width={23} height={23} />)}
+                                                        {recipe.types.map(type => (
+                                                            <>
+                                                                <Tooltip title={type.types} arrow>
+                                                                    <img className="recipe-type" id={type.id} src={type.img} width={23} height={23} />
+                                                                </Tooltip>
+                                                            </>
+                                                        ))}
                                                     </th>
                                                     <th className="last-column">Serving: {recipe.serving}</th>
                                                     <th className="last-column"><i className="far fa-clock"></i> {cooktimeLength(recipe.cooktime)}</th>

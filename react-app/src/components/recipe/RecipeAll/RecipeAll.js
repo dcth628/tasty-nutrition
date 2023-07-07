@@ -9,6 +9,7 @@ import AddRecipeToCookbook from "./RecipeAddCookbook";
 import { getAllTypes } from "../../../store/type";
 import SimpleImageSlider from "react-simple-image-slider";
 import { borderRadius } from "@mui/system";
+import Tooltip from '@mui/material/Tooltip';
 import './RecipeAll.css'
 
 const AllRecipes = () => {
@@ -64,11 +65,6 @@ const AllRecipes = () => {
             {recipes && (Object.values(recipes).map(recipe =>
                 <div className="recipe-card">
                     <NavLink to={`/recipes/${recipe.id}`}>
-                        {/* <div className="recipe-image-box">
-                            {recipe.images.map((image) => (
-                                <img src={image.image} alt={recipe.name} className="recipe-card-image" />
-                            ))}
-                        </div> */}
                         <div className="recipe-image-box">
                                     <SimpleImageSlider
                                     className="recipe-card-image"
@@ -90,7 +86,9 @@ const AllRecipes = () => {
                         <div className="types-list">
                             {recipe.types.map(type =>
                                 <>
+                                <Tooltip title={type.types} arrow>
                                     <img src={type.img} alt={type.types} height={26} width={26} className="recipe-type" />
+                                </Tooltip>
                                 </>
                             )}
                         </div>
@@ -141,7 +139,9 @@ const AllRecipes = () => {
                     <div className="types-list">
                         {recipe.types.map(type =>
                             <>
+                            <Tooltip title={type.types} arrow>
                                 <img src={type.img} alt={type.types} height={26} width={26} className="recipe-type" />
+                            </Tooltip>
                             </>
                         )}
                     </div>

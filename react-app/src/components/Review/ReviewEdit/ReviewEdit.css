@@ -1,0 +1,17 @@
+.review-edit-page {
+    width: 500px;
+    height: 350px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    padding: 30px 0;
+}
+
+.review-edit-page .rating-input {
+    margin: 10px 0px;
+}
+
+.rating-input div {
+    margin: 0px 5px;
+}

@@ -7,6 +7,7 @@ import DeleteRecipeModal from "../recipe/RecipeDelete/RecipeDelete";
 import './UserRecipe.css'
 import SimpleImageSlider from "react-simple-image-slider";
 import { borderRadius } from "@mui/system";
+import Tooltip from '@mui/material/Tooltip';
 
 const UserRecipe = () => {
     const dispatch = useDispatch()
@@ -85,7 +86,9 @@ const UserRecipe = () => {
                                 <div className="types-list">
                                     {recipe.types.map(type =>
                                         <>
+                                        <Tooltip title={type.types} arrow>
                                             <img key={type.id} src={type.img} alt={type.types} height={24} width={24} className="recipe-type" />
+                                        </Tooltip>
                                         </>
                                     )}
                                 </div>

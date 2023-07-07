@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 import EditCookbookModal from "../CookbookEdit/CookbookEdit";
 import OpenModalButton from "../../OpenModalButton";
 import { getAllRecipes } from "../../../store/recipe";
+import Tooltip from '@mui/material/Tooltip';
 import './CookbookDetail.css'
 
 const CookbookDetail = () => {
@@ -80,7 +81,9 @@ const CookbookDetail = () => {
                         <div>
                             {recipe.types.map(type =>
                                 <>
+                                <Tooltip title={type.types} arrow>
                                     <img src={type.img} alt={type.types} height={26} width={26} className="recipe-type" />
+                                </Tooltip>
                                 </>
                             )}
                         </div>
@@ -117,7 +120,9 @@ const CookbookDetail = () => {
                         <div>
                             {recipe.types.map(type =>
                                 <>
+                                <Tooltip title={type.types} arrow>
                                     <img src={type.img} alt={type.types} height={26} width={26} className="recipe-type" />
+                                </Tooltip>
                                 </>
                             )}
                         </div>

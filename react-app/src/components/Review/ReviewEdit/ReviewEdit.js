@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { editReview } from "../../../store/review";
 import { getAllReivewsByRecipe } from "../../../store/review";
 import Tooltip from '@mui/material/Tooltip';
+import './ReviewEdit.css'
 
 const EditReview = ({reviews, recipeId}) => {
     const dispatch = useDispatch();
@@ -42,8 +43,7 @@ const EditReview = ({reviews, recipeId}) => {
     };
 
     return (
-        <section>
-            <form onSubmit={handleSubmit}>
+            <form className="review-edit-page" onSubmit={handleSubmit}>
                 <h3>Update Your Review</h3>
                 <ul>
                     {errors.map((error, idx) =>
@@ -120,17 +120,18 @@ const EditReview = ({reviews, recipeId}) => {
                 <div className="input-group">
                     <textarea
                         type="text"
-                        rows={4}
-                        cols={30}
+                        rows={6}
+                        cols={40}
                         required
                         value={review}
                         onChange={updateReview} />
                     <label>Please write a review</label>
                 </div>
+                <div className="form-button">
                 <button className='confrim-buttons' type="submit">Update</button>
                 <button className='create-buttons' type="button" onClick={handleCancelClick}>Cancel</button>
+                </div>
             </form>
-        </section>
     )
 
 };
