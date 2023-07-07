@@ -206,10 +206,10 @@ const RecipeDetail = () => {
                             <div className="recipe-detail-page">
                             <div>
                                 <OpenModalButton
-                                    buttonText="Log in"
+                                    buttonText="LOG IN"
                                     modalComponent={<LoginFormModal />}
                                 /> or <OpenModalButton
-                                    buttonText="Sign up"
+                                    buttonText="SIGN UP"
                                     modalComponent={<SignupFormModal />}
                                 /> to Leave a Review
                             </div>

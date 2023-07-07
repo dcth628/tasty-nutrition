@@ -67,12 +67,12 @@ function ProfileButton({ user }) {
           <>
             <p>{user.username}</p>
             <p>{user.email}</p>
-            <div>
+            <div className="drop-menu">
               <button onClick={handleLogout}>Log Out</button>
             </div>
           </>
         ) : (
-          <div >
+          <div className="drop-menu">
             <div>
             <OpenModalButton
               buttonText="Log In"

@@ -27,7 +27,7 @@
     text-decoration: underline;
 }
 
-.dropdown {
+.dropdowns {
     position: absolute;
     background-color: rgb(249, 249, 249);
     display: flex;

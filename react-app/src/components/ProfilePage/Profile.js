@@ -53,10 +53,10 @@ const ProfilePage = () => {
                     </div>
                 </div>) :
                 <p className="profile-page">Please <OpenModalButton
-                buttonText="Log in"
+                buttonText="LOG IN"
                 modalComponent={<LoginFormModal />}
               /> or <OpenModalButton
-              buttonText="Sign up"
+              buttonText="SIGN UP"
               modalComponent={<SignupFormModal />}
             /></p>}
         </div>

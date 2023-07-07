@@ -41,7 +41,7 @@ const ReviewbyRecipe = ({ recipe }) => {
     return () => document.removeEventListener("click", closeMenu);
   }, [dispatch, showMenu])
 
-  const ulClassName = "dropdown" + (showMenu ? "" : " hidden");
+  const ulClassName = "dropdowns" + (showMenu ? "" : " hidden");
   const closeMenu = () => setShowMenu(false);
 
   return (
