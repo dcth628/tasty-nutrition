@@ -14,7 +14,7 @@ const CreateIngredientFormModal = () => {
     const [name, setName] = useState("");
     const [type, setType] = useState("");
     const [measurement, setMeasurement] = useState("");
-    const [img, setImg] = useState("");
+    const [img, setImg] = useState(null);
     const [calorie, setCalorie] = useState("");
     const [carb, setCarb] = useState("");
     const [protein, setProtein] = useState("");
@@ -25,7 +25,7 @@ const CreateIngredientFormModal = () => {
     const updateName = (e) => setName(e.target.value);
     const updateType = (e) => setType(e.target.value);
     const updateMeasurement = (e) => setMeasurement(e.target.value)
-    const updateImg = (e) => setImg(e.target.value);
+    // const updateImg = (e) => setImg(e.target.value);
     const updateCalorie = (e) => setCalorie(e.target.value);
     const updateCarb = (e) => setCarb(e.target.value);
     const updateProtein = (e) => setProtein(e.target.value);
@@ -86,23 +86,41 @@ const CreateIngredientFormModal = () => {
         setErrors(validationErrors);
     }, [carb, calorie, protein, fat,measurement])
 
+    const updateFile = (e) => {
+        const file = e.target.files[0];
+        if (file) setImg(file);
+      };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors([]);
 
-        const newIngredient = {
-            name, type, measurement, img, calorie, carb, protein, fat
-        };
+        const formData = new FormData();
+        formData.append('image', img)
 
-        let createdIngredient = await dispatch(createIngredient(newIngredient)).catch(async (res) => {
-            const data = await res.json();
-            if (data && data.errors) setErrors(data.errors);
+        const response = await fetch(`/api/recipes/images/url`, {
+            method: 'POST',
+            body: formData
         })
 
-        if (createdIngredient) {
-            closeModal();
-            history.push(`/ingredients/`);
+        if (response.ok) {
+            let url = await response.json()
+            let img = url.url
 
+            const newIngredient = {
+                name, type, measurement, img, calorie, carb, protein, fat
+            };
+
+            let createdIngredient = await dispatch(createIngredient(newIngredient)).catch(async (res) => {
+                const data = await res.json();
+                if (data && data.errors) setErrors(data.errors);
+            })
+
+            if (createdIngredient) {
+                closeModal();
+                history.push(`/ingredients/`);
+
+            }
         }
     };
 
@@ -110,7 +128,7 @@ const CreateIngredientFormModal = () => {
         e.preventDefault();
         closeModal();
     }
-
+    console.log(img, '--image')
     return (
         // <>Test</>
         <form className="ingredient-form" onSubmit={handleSubmit}>
@@ -148,13 +166,11 @@ const CreateIngredientFormModal = () => {
                     renderInput={(params) => <TextField {...params} label="Type" />}
                 />
             </div>
-            <div className="input-group">
+            <div className="add-ingredient">
                 <input
-                    type='text'
+                    type='file'
                     required
-                    value={img}
-                    onChange={updateImg} />
-                <label>Image</label>
+                    onChange={updateFile} />
             </div>
             <div className="input-group">
                 <input

@@ -43,14 +43,15 @@
 .input-group input:focus {
     border: 2px solid rgb(50, 69, 241);
 }
-
+.input-group input:focus~label {
+    color:rgb(100, 100, 245)
+}
 
 .input-group input:focus~label,
 .input-group input:valid~label {
     top:0;
     font-size: 12px;
     background-color: white;
-    color:rgb(100, 100, 245)
 }
 
 .form-title {
@@ -63,4 +64,13 @@
 
 #modal-content {
     border-radius: 20px;
+}
+
+input::file-selector-button {
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    background-color: black;
+    padding: 0.5em;
+    border: thin solid grey;
+    border-radius: 5px;
 }

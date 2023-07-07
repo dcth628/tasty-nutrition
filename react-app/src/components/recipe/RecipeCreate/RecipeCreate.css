@@ -127,12 +127,15 @@ input#file-upload-button {
     border: 2px solid rgb(50, 69, 241);
 }
 
+.input-group input:focus~label {
+    color:rgb(100, 100, 245)
+}
+
 .input-group textarea:focus~label,
 .input-group textarea:valid~label {
     top:0;
     font-size: 12px;
     background-color: white;
-    color:rgb(100, 100, 245)
 }
 
 .error-list li{
