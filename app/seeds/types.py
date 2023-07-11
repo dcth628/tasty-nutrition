@@ -3,62 +3,62 @@ from sqlalchemy.sql import text
 
 type_1 = Type(
     type='Air Fryer',
-    img='https://res.cloudinary.com/ddxewbhmy/image/upload/v1684993821/AF_rrcwyl.png'
+    img='https://res.cloudinary.com/ddxewbhmy/image/upload/v1689015417/airfryer_ybihlz.png'
 )
 
 type_2 = Type(
     type='Keto',
-    img='https://res.cloudinary.com/ddxewbhmy/image/upload/v1684993822/K_dfszow.png'
+    img='https://res.cloudinary.com/ddxewbhmy/image/upload/v1689015418/keto_mgvkin.png'
 )
 
 type_3 = Type(
     type='Slow Cooker',
-    img='https://res.cloudinary.com/ddxewbhmy/image/upload/v1684993822/SC_d3tghg.png'
+    img='https://res.cloudinary.com/ddxewbhmy/image/upload/v1689015417/slowcooker_khnohj.png'
 )
 
 type_4 = Type(
     type='Vegan',
-    img='https://res.cloudinary.com/ddxewbhmy/image/upload/v1684993822/V_cqso0f.png'
+    img='https://res.cloudinary.com/ddxewbhmy/image/upload/v1689015417/vegan_nxf9kw.png'
 )
 
 type_5 = Type(
     type='High Protein',
-    img='https://res.cloudinary.com/ddxewbhmy/image/upload/v1684993821/HP_t18d4j.png'
+    img='https://res.cloudinary.com/ddxewbhmy/image/upload/v1689015417/highprotein_kebkyq.png'
 )
 
 type_6 = Type(
     type='Gluten Free',
-    img='https://res.cloudinary.com/ddxewbhmy/image/upload/v1684993821/GF_xxif9o.png'
+    img='https://res.cloudinary.com/ddxewbhmy/image/upload/v1689015417/glutenfree_qpswz5.png'
 )
 
 type_7 = Type(
     type='Low Carb',
-    img='https://res.cloudinary.com/ddxewbhmy/image/upload/v1684993822/LC_u6bqaj.png'
+    img='https://res.cloudinary.com/ddxewbhmy/image/upload/v1689015417/lowcarb_ozewim.png'
 )
 
 type_8 = Type(
     type='Dessert',
-    img='https://res.cloudinary.com/ddxewbhmy/image/upload/v1684993821/D_cvnzz8.png'
+    img='https://res.cloudinary.com/ddxewbhmy/image/upload/v1689015418/dessert_u2erdt.png'
 )
 
 type_9 = Type(
     type='Dairy Free',
-    img='https://res.cloudinary.com/ddxewbhmy/image/upload/v1684993821/DF_zcgpw3.png'
+    img='https://res.cloudinary.com/ddxewbhmy/image/upload/v1689015418/DairyFree_ap3qqd.png'
 )
 
 type_10 = Type(
     type='Instant Pot',
-    img='https://res.cloudinary.com/ddxewbhmy/image/upload/v1684993821/IP_qfqzkq.png'
+    img='https://res.cloudinary.com/ddxewbhmy/image/upload/v1689015418/instantpot_tigwsp.png'
 )
 
 type_11 = Type(
     type='Vegetarian',
-    img='https://res.cloudinary.com/ddxewbhmy/image/upload/v1684993822/VG_h7my8y.png'
+    img='https://res.cloudinary.com/ddxewbhmy/image/upload/v1689015418/vegetarian_ux5lyx.png'
 )
 
 type_12 = Type(
     type='Quick Recipe',
-    img='https://res.cloudinary.com/ddxewbhmy/image/upload/v1684993822/Q_lpkutv.png'
+    img='https://res.cloudinary.com/ddxewbhmy/image/upload/v1689015418/quick_azeas4.png'
 )
 
 def seed_types():

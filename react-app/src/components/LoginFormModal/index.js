@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./LoginForm.css";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import OpenModalButton from "../OpenModalButton";
+import SignupFormModal from "../SignupFormModal";
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -25,7 +27,10 @@ function LoginFormModal() {
   };
 
   return (
-    <>
+    <div className="signup">
+      <div className="login-img">
+        <img src="https://res.cloudinary.com/ddxewbhmy/image/upload/v1689050385/Savory-Cottage-Cheese-Bowl-2_yzhg9q.webp"></img>
+      </div>
       <form className="login-form" onSubmit={handleSubmit}>
       <h3 className="form-title">Log In</h3>
         <ul>
@@ -52,8 +57,9 @@ function LoginFormModal() {
           <label>Password</label>
         </div>
         <button className='sign-up' type="submit">Log In</button>
+        <div>Don't have an account? <OpenModalButton buttonText="SIGN UP" modalComponent={<SignupFormModal />}/></div>
       </form>
-    </>
+    </div>
   );
 }
 
