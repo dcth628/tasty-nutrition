@@ -58,7 +58,7 @@ function ProfileButton({ user }) {
   const closeMenu = () => setShowMenu(false);
 
   return (
-    <div className="dropdown">
+    <div>
       <button className="dropbtn" onClick={openMenu}>
         <i className="fas fa-user-circle" />
       </button>
@@ -67,12 +67,12 @@ function ProfileButton({ user }) {
           <>
             <p>{user.username}</p>
             <p>{user.email}</p>
-            <div>
+            <div className="drop-menu">
               <button onClick={handleLogout}>Log Out</button>
             </div>
           </>
         ) : (
-          <div className="dropdown">
+          <div className="drop-menu">
             <div>
             <OpenModalButton
               buttonText="Log In"

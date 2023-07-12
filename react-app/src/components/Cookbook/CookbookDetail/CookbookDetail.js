@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 import EditCookbookModal from "../CookbookEdit/CookbookEdit";
 import OpenModalButton from "../../OpenModalButton";
 import { getAllRecipes } from "../../../store/recipe";
+import Tooltip from '@mui/material/Tooltip';
 import './CookbookDetail.css'
 
 const CookbookDetail = () => {
@@ -17,7 +18,34 @@ const CookbookDetail = () => {
     let recipeCookbook = []
     if (cookbook) {
         recipeCookbook = Object.values(cookbook)[2]
-    }
+    };
+
+    const cooktimeLength = (data) => {
+        const min = data % 60
+        const hour = (data - min) / 60
+        if (min === 0 && hour === 1) {
+            return `${hour} hour 00 min`
+        }
+        if (min < 10 && hour === 1) {
+            return `${hour} hour 0${min} min`
+        }
+        if (min >= 10 && hour === 1) {
+            return `${hour} hour ${min} mins`
+        }
+        if (hour > 1 && min < 10) {
+            return `${hour} hours 0${min} min`
+        }
+        if (hour > 1 && min === 0) {
+            return `${hour} hours 00 min`
+        }
+        if (hour === 0 && min < 10) {
+            return `0${min} mins`
+        }
+        if (hour === 0 && min >= 10) {
+            return `${min} mins`
+        }
+        return `${hour} hours ${min} mins`
+    };
 
 
     useEffect(() => {
@@ -48,12 +76,14 @@ const CookbookDetail = () => {
                         <p className="recipe-name">{recipe.name}</p>
                         <p className="recipe-descripiton">Serving: {recipe.serving}</p>
                         <div className="recipe-time">
-                            <i className="far fa-clock"></i> {recipe.cooktime} mins
+                            <i className="far fa-clock"></i> {cooktimeLength(recipe.cooktime)}
                         </div>
                         <div>
                             {recipe.types.map(type =>
                                 <>
+                                <Tooltip title={type.types} arrow>
                                     <img src={type.img} alt={type.types} height={26} width={26} className="recipe-type" />
+                                </Tooltip>
                                 </>
                             )}
                         </div>
@@ -85,12 +115,14 @@ const CookbookDetail = () => {
                         <p className="recipe-name">{recipe.name}</p>
                         <p className="recipe-descripiton">Serving: {recipe.serving}</p>
                         <div className="recipe-time">
-                            <i className="far fa-clock"></i> {recipe.cooktime} mins
+                            <i className="far fa-clock"></i> {cooktimeLength(recipe.cooktime)}
                         </div>
                         <div>
                             {recipe.types.map(type =>
                                 <>
+                                <Tooltip title={type.types} arrow>
                                     <img src={type.img} alt={type.types} height={26} width={26} className="recipe-type" />
+                                </Tooltip>
                                 </>
                             )}
                         </div>

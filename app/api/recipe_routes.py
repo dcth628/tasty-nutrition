@@ -224,6 +224,12 @@ def delete_image(image_id):
 
     return jsonify({'message':'Sucessfully Deleted'})
 
+#Get all review by recipe id
+@recipes_routes.route('/<int:id>/reviews')
+def all_review(id):
+    reviews = Review.query.filter_by(recipe_id = id)
+    return {review.id: review.to_dict() for review in reviews}
+
 #Create a review
 @recipes_routes.route('/<int:id>/reviews', methods=['POST'])
 @login_required

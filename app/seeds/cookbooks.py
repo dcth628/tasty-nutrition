@@ -22,7 +22,7 @@ cookbook_4 = Cookbook(
 )
 
 cookbook_5 = Cookbook(
-    name = 'Fruit Salad',
+    name = 'July 4th BBQ',
     user_id = 1
 )
 
@@ -37,7 +37,7 @@ cookbook_6 = Cookbook(
 )
 
 cookbook_7 = Cookbook(
-    name = 'Sweet',
+    name = 'Desserts',
     user_id = 1
 )
 

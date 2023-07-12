@@ -39,11 +39,18 @@
   align-items: center;
 }
 
+
 .nav-bar div {
-  font-size: 18px;
-  padding: 10px;
+  font-size: 16px;
+  padding: 20px;
   justify-content: baseline;
 }
+
+.nav-title:hover {
+  text-decoration: underline;
+
+}
+
 
 .nav-bar p {
   font-size: 14px;
@@ -54,6 +61,7 @@
 .dropbtn {
   border: none;
   font-size: 25px;
+  background-color: transparent;
 }
 
 .profile-dropdown button {
@@ -101,4 +109,13 @@
 .footer p {
   font-size: 10px;
   margin-right: 20px;
+}
+
+.drop-menu div {
+  padding: 10px;
+}
+
+.drop-menu button:hover {
+  background-color: lightgray;
+  color: white;
 }

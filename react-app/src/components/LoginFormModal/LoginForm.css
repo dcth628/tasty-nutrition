@@ -1,9 +1,26 @@
 .login-form {
     width: 400px;
-    height: 250px;
+    height: 400px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+.login-img {
+    height: 400px;
+    width: 400px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-left-radius:20px ;
+    border-bottom-left-radius: 20px;
+}
+
+.login-img img {
+    height: auto;
+    width: 100%;
+    object-fit: contain;
 }

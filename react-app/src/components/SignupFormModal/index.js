@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { signUp } from "../../store/session";
+import OpenModalButton from "../OpenModalButton";
+import LoginFormModal from "../LoginFormModal";
 import "./SignupForm.css";
 
 function SignupFormModal() {
@@ -33,7 +35,10 @@ function SignupFormModal() {
 	};
 
 	return (
-		<>
+		<div className="signup">
+			<div className="signup-img">
+		<img src="https://res.cloudinary.com/ddxewbhmy/image/upload/v1689048389/Spicy-Vodka-Chicken-Parmesan-8_dvytmj.jpg"></img>
+			</div>
 			<form className="signup-form" onSubmit={handleSubmit}>
 			<h3 className="form-title">Sign Up</h3>
 				<ul>
@@ -104,9 +109,10 @@ function SignupFormModal() {
 					/>
 					<label>Confirm Password</label>
 				</div>
-				<button className='confrim-buttons' type="submit">Sign Up</button>
+				<button className='sign-up' type="submit">Sign Up</button>
+			<div>Have an account? <OpenModalButton buttonText="LOG IN" modalComponent={<LoginFormModal />}/></div>
 			</form>
-		</>
+		</div>
 	);
 }
 

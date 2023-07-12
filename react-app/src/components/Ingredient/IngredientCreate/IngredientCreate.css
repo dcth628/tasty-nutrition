@@ -22,7 +22,7 @@
     color: #666666;
     padding: 0 5px;
     pointer-events: none;
-    transition: .5s;
+    transition: .3s;
 }
 
 .input-group input {
@@ -31,19 +31,21 @@
     font-size: 16px;
     color: rgb(48, 48, 48);
     padding: 0 10px;
-    background-color: transparent;
+    background-color: white;
     border: 1.2px solid rgb(177, 175, 175);
     outline: none;
     border-radius: 5px;
 }
 .input-group input:hover {
-    border: 1.2px solid rgb(111, 110, 110);
+    border: 1.4px solid rgb(74, 74, 74);
 }
 
 .input-group input:focus {
     border: 2px solid rgb(50, 69, 241);
 }
-
+.input-group input:focus~label {
+    color:rgb(100, 100, 245)
+}
 
 .input-group input:focus~label,
 .input-group input:valid~label {
@@ -62,4 +64,13 @@
 
 #modal-content {
     border-radius: 20px;
+}
+
+input::file-selector-button {
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    background-color: black;
+    padding: 0.5em;
+    border: thin solid grey;
+    border-radius: 5px;
 }

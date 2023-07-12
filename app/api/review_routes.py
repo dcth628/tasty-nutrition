@@ -31,8 +31,8 @@ def review_detail(id):
 @reviews_routes.route('/<int:id>', methods=["PUT"])
 def edit_review(id):
     form = CreateReviewForm()
-    review = Review.query.get(id)
-    if not review:
+    edit_review = Review.query.get(id)
+    if not edit_review:
         return jsonify({"error": "Review not found"}), 404
 
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -40,10 +40,10 @@ def edit_review(id):
         review = form.data['review']
         star = form.data['star']
 
-        review.review = review
-        review.star = star
+        edit_review.review = review
+        edit_review.star = star
         db.session.commit()
-        return review.to_dict()
+        return edit_review.to_dict()
 
 #Delete a review
 @reviews_routes.route('/<int:id>', methods=['DELETE'])

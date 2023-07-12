@@ -37,6 +37,7 @@ const EditIngredientModal = ({ingredient}) => {
         { value: "Protein",},
         { value: "Grains",},
         { value: "Dairy",},
+        { value: "Other",},
     ];
 
     useEffect(() => {

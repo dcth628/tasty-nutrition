@@ -216,6 +216,7 @@ const CreateRecipeModal = () => {
         }
     }
 
+    console.log(image, '--image')
     return (
         // <>Test</>
         <form className="recipe-create-page" onSubmit={handleSubmit} >

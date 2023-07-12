@@ -48,7 +48,7 @@ const EditRecipeModal = ({recipe}) => {
         await setImage(deleteVal)
         const imageIds = [...deleteImageId]
         imageIds.push(id)
-        setDeleteImageId(imageIds)
+        await setDeleteImageId(imageIds)
     };
     const handleImageAdd = (e) => {
         e.preventDefault()
@@ -170,6 +170,8 @@ const EditRecipeModal = ({recipe}) => {
             if (data && data.errors) setErrors(data.errors);
         });
         await dispatch(addIngredientRecipe(mergedArray, updatedRecipe.id))
+        //Image file send to AWS then return URL
+        //Use response URL to dispatch create image thunk.
         for (let i = 0; i < editImage.length; i++) {
             let file = editImage[i];
 
@@ -202,13 +204,22 @@ const EditRecipeModal = ({recipe}) => {
         closeModal();
     };
 
+    //Modify ingredient list when user already select ingredients.
+    //User won't be able to select same ingredient.
     for( var i=ingredients.length - 1; i>=0; i--){
         for( var j=0; j<recipe.ingredients.length; j++){
             if(ingredients[i] && (ingredients[i].name === recipe.ingredients[j].name)){
                 ingredients.splice(i, 1);
-            }
-        }
-    }
+            };
+        };
+    };
+    for( var i=ingredients.length - 1; i>=0; i--){
+        for( var j=0; j<editIngredient.length; j++){
+            if(ingredients[i] && (ingredients[i].name === editIngredient[j].name)){
+                ingredients.splice(i, 1);
+            };
+        };
+    };
 
     return (
         <form className="recipe-edit-page" onSubmit={handleSubmit} >

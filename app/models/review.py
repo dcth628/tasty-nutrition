@@ -22,5 +22,6 @@ class Review(db.Model):
             "review": self.review,
             "star": self.star,
             "user_id": self.user_id,
-            "recipe_id": self.recipe_id
+            "recipe_id": self.recipe_id,
+            "username": self.owner.username
         }
