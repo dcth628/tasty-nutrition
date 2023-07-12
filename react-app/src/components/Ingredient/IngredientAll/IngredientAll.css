@@ -66,6 +66,7 @@
 }
 .ingredients button:hover {
     color: white;
+    border-radius: 20px;
 }
 
 .ingredient-name {

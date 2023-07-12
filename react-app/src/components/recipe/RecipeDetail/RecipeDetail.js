@@ -135,8 +135,8 @@ const RecipeDetail = () => {
                             <div>
                                 {sessionUserReview.length > 0 || sessionUser.id === recipe.user_id ?
                                     sessionUser.id === recipe.user_id ?
-                                        <div className="review-not-create">You Can Not Review Your Recipe</div> :
-                                        <div className="review-not-create">You Have Left a Review</div>
+                                        <div className="review-not-create">You can not review your recipe</div> :
+                                        <div className="review-not-create">You have left a review</div>
                                     :
                                     <CreateReview recipeId={recipe.id} />}
                             </div>
