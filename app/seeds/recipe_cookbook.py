@@ -3,12 +3,12 @@ from sqlalchemy.sql import text
 
 recipe_cookbook_1 = RecipeCookbook(
     cookbook_id = 1,
-    recipe_id = 1
+    recipe_id = 5
 )
 
 recipe_cookbook_2 = RecipeCookbook(
     cookbook_id = 2,
-    recipe_id = 2
+    recipe_id = 1
 )
 
 recipe_cookbook_3 = RecipeCookbook(
@@ -23,12 +23,12 @@ recipe_cookbook_4 = RecipeCookbook(
 
 recipe_cookbook_5 = RecipeCookbook(
     cookbook_id = 5,
-    recipe_id = 5
+    recipe_id = 1
 )
 
 recipe_cookbook_6 = RecipeCookbook(
     cookbook_id = 2,
-    recipe_id = 1
+    recipe_id = 5
 )
 
 recipe_cookbook_7 = RecipeCookbook(
@@ -37,8 +37,8 @@ recipe_cookbook_7 = RecipeCookbook(
 )
 
 recipe_cookbook_8 = RecipeCookbook(
-    cookbook_id = 3,
-    recipe_id = 1
+    cookbook_id = 5,
+    recipe_id = 5
 )
 
 recipe_cookbook_9 = RecipeCookbook(
