@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useModal } from "../../../context/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { editReview } from "../../../store/review";
@@ -6,7 +6,7 @@ import { getAllReivewsByRecipe } from "../../../store/review";
 import Tooltip from '@mui/material/Tooltip';
 import './ReviewEdit.css'
 
-const EditReview = ({reviews, recipeId}) => {
+const EditReview = ({reviews, recipeId, changeClassName, setShowMenu}) => {
     const dispatch = useDispatch();
     const {closeModal } = useModal();
     const sessionUser = useSelector(state => state?.session.user)
@@ -40,6 +40,8 @@ const EditReview = ({reviews, recipeId}) => {
     const handleCancelClick = (e) => {
         e.preventDefault();
         closeModal();
+        // setShowMenu(false);
+        // changeClassName('dropdowns hidden');
     };
 
     return (

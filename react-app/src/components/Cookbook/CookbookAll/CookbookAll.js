@@ -1,15 +1,13 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllCookbook } from "../../../store/cookbook";
 import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 import Tooltip from '@mui/material/Tooltip';
-import DeleteCookbookModal from "../CookbookDelete/CookbookDelete";
-import OpenModalButton from "../../OpenModalButton";
+
 
 const AllCookbooks = () => {
     const dispatch = useDispatch();
     const cookbooks = useSelector(state => state?.cookbook);
-    const sessionUser = useSelector(state => state?.session.user);
 
     useEffect(() => {
         dispatch(getAllCookbook())
@@ -74,7 +72,7 @@ const AllCookbooks = () => {
                                                         {recipe.types.map(type => (
                                                             <>
                                                                 <Tooltip title={type.types} arrow>
-                                                                    <img className="recipe-type" id={type.id} src={type.img} width={23} height={23} />
+                                                                    <img className="recipe-type" id={type.id} src={type.img} width={23} height={23} alt={type.types} />
                                                                 </Tooltip>
                                                             </>
                                                         ))}

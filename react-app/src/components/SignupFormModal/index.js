@@ -37,7 +37,7 @@ function SignupFormModal() {
 	return (
 		<div className="signup">
 			<div className="signup-img">
-		<img src="https://res.cloudinary.com/ddxewbhmy/image/upload/v1689048389/Spicy-Vodka-Chicken-Parmesan-8_dvytmj.jpg"></img>
+		<img src="https://res.cloudinary.com/ddxewbhmy/image/upload/v1689048389/Spicy-Vodka-Chicken-Parmesan-8_dvytmj.jpg" alt="food pic"></img>
 			</div>
 			<form className="signup-form" onSubmit={handleSubmit}>
 			<h3 className="form-title">Sign Up</h3>

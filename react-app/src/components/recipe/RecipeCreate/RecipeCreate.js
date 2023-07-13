@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useNavigate} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useModal } from "../../../context/Modal";
 import { createRecipe } from "../../../store/recipe";
 import { getAllTypes } from "../../../store/type";
@@ -216,7 +216,6 @@ const CreateRecipeModal = () => {
         }
     }
 
-    console.log(image, '--image')
     return (
         // <>Test</>
         <form className="recipe-create-page" onSubmit={handleSubmit} >
@@ -260,7 +259,7 @@ const CreateRecipeModal = () => {
                                             loading="lazy"
                                             width="40"
                                             src={option.img}
-                                            alt=""
+                                            alt={i}
                                         />
                                         {option.name}    ({option.measurement}g)
                                     </Box>
@@ -341,7 +340,7 @@ const CreateRecipeModal = () => {
                             required
                             onChange={e => handleTypeClick(e)}
                         />
-                        <img src={type.img} height={30} width={30} />
+                        <img alt={type.types} src={type.img} height={30} width={30} />
                         <p className="type-list">{type.type}</p>
                     </div>
                 )))}

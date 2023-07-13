@@ -29,7 +29,7 @@ function LoginFormModal() {
   return (
     <div className="signup">
       <div className="login-img">
-        <img src="https://res.cloudinary.com/ddxewbhmy/image/upload/v1689050385/Savory-Cottage-Cheese-Bowl-2_yzhg9q.webp"></img>
+        <img src="https://res.cloudinary.com/ddxewbhmy/image/upload/v1689050385/Savory-Cottage-Cheese-Bowl-2_yzhg9q.webp" alt="food pic"></img>
       </div>
       <form className="login-form" onSubmit={handleSubmit}>
       <h3 className="form-title">Log In</h3>

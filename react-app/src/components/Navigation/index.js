@@ -40,10 +40,10 @@ function Navigation({ isLoaded }) {
 			</div>
 			<div className="footer">
 				<div>
-					<a href='https://github.com/dcth628/' target="_blank">
+					<a href='https://github.com/dcth628/' target="_blank"  rel="noreferrer">
 						<i className='fab fa-github'></i>
 					</a>
-					<a href='https://www.linkedin.com/in/deanhsieh/' target="_blank">
+					<a href='https://www.linkedin.com/in/deanhsieh/' target="_blank"  rel="noreferrer">
 						<i className='fab fa-linkedin-in'></i>
 					</a>
 				</div>

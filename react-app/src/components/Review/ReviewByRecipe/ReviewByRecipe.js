@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useModal } from "../../../context/Modal";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllReivewsByRecipe } from "../../../store/review";
@@ -12,8 +11,8 @@ const ReviewbyRecipe = ({ recipe }) => {
   const dispatch = useDispatch();
   const { recipeId } = useParams();
   const [showMenu, setShowMenu] = useState(false);
+  // const [ulClassName, setUlClassName] = useState('dropdowns hidden')
   const ulRef = useRef(null);
-  const { closeModal } = useModal();
 
   let reviews = useSelector(state => Object.values(state?.review)).reverse();
   reviews = reviews.filter(review => review.recipe_id === recipe.id)
@@ -22,7 +21,14 @@ const ReviewbyRecipe = ({ recipe }) => {
   const openMenu = () => {
     if (showMenu) return;
     setShowMenu(true);
+    // setUlClassName('dropdowns')
   };
+
+  // const closeMenu = () => {
+  //   setShowMenu(false)
+  //   setUlClassName('dropdowns hidden')
+  //   console.log(ulClassName, '--classname')
+  // };
 
   useEffect(() => {
 
@@ -39,7 +45,7 @@ const ReviewbyRecipe = ({ recipe }) => {
     document.addEventListener("click", closeMenu);
 
     return () => document.removeEventListener("click", closeMenu);
-  }, [dispatch, showMenu])
+  }, [dispatch, showMenu, recipeId])
 
   const ulClassName = "dropdowns" + (showMenu ? "" : " hidden");
   const closeMenu = () => setShowMenu(false);
@@ -51,27 +57,31 @@ const ReviewbyRecipe = ({ recipe }) => {
           {reviews.map(review =>
             <div className="review-list" key={review.id}>
               <div className="review-title">
-              <h4>{review && review.username}</h4>
+                <h4>{review && review.username}</h4>
                 {sessionUser && review.user_id === sessionUser.id ?
                   <div className="review-menu">
                     <button className="dropbtns" onClick={openMenu}>
                       <i className="fas fa-ellipsis-h" />
                     </button>
-                    <div className={ulClassName} ref={ulRef}>
+                    <div  className={ulClassName} ref={ulRef}>
                       <div className="reviewbtns">
-                    <OpenModalButton
-                      buttonText='EDIT REVIEW'
-                      onItemClick={closeMenu}
-                      modalComponent={<EditReview reviews={review} recipeId={recipeId} />}
-                    />
+                        <OpenModalButton
+                          buttonText='EDIT REVIEW'
+                          onItemClick={closeMenu}
+                          // onBlur={() => console.log('hi')}
+                          modalComponent={<EditReview reviews={review} recipeId={recipeId}
+                          setShowMenu={setShowMenu}
+                          // changeClassName={ulClassName}
+                          />}
+                        />
                       </div>
-                    <div className="reviewbtns">
-                    <OpenModalButton
-                      buttonText="DELETE REVIEW"
-                      onItemClick={closeMenu}
-                      modalComponent={<DeleteReviewModal reviewId={review.id} recipeId={recipeId} />}
-                      />
-                    </div>
+                      <div className="reviewbtns">
+                        <OpenModalButton
+                          buttonText="DELETE REVIEW"
+                          onItemClick={closeMenu}
+                          modalComponent={<DeleteReviewModal reviewId={review.id} recipeId={recipeId} />}
+                        />
+                      </div>
                     </div>
                   </div>
                   :

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createReview, getAllReivewsByRecipe } from "../../../store/review";
 import { getRecipeDetail } from "../../../store/recipe";

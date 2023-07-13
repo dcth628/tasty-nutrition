@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { useSelector, useDispatch } from "react-redux";
 import { getIngredientDetail } from "../../../store/ingredient";
@@ -9,7 +9,6 @@ import './IngredientDetail.css'
 const IngredientDetail = ({ ingredient }) => {
     const dispatch = useDispatch();
     const { ingredientId } = useParams()
-    const ingredients = useSelector(state => state?.ingredient[ingredientId])
     const sessionUser = useSelector((state) => state?.session.user);
 
     useEffect(() => {

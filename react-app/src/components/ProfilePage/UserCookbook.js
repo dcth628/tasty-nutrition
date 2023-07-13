@@ -83,7 +83,7 @@ const UserCookbook = () => {
                                                         {recipe.types.map(type => (
                                                             <>
                                                                 <Tooltip title={type.types} arrow>
-                                                                    <img className="recipe-type" id={type.id} src={type.img} width={23} height={23} />
+                                                                    <img className="recipe-type" alt={type.tpyes} id={type.id} src={type.img} width={23} height={23} />
                                                                 </Tooltip>
                                                             </>
                                                         ))}

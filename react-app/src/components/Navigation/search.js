@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
-import { Search } from "@mui/icons-material";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { search } from "../../store/search";
 import './Search.css'
 
 const SearchBar = () => {
-    const sessionUser = useSelector(state => state.session.user);
     const dispatch = useDispatch();
     const history = useHistory();
     const [input , setInput ] = useState("");
@@ -44,7 +42,6 @@ const SearchBar = () => {
         setInput("")
     };
 
-    console.log(cookbooks, '--cookbook')
     return (
         <div className="search-bar">
             <input

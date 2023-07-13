@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { useSelector, useDispatch } from "react-redux";
 import { getCookbookDetail } from "../../../store/cookbook";
@@ -14,7 +14,6 @@ const CookbookDetail = () => {
     const { cookbookId } = useParams();
     const cookbook = useSelector(state => state?.cookbook[cookbookId]);
     const sessionUser = useSelector(state=> state?.session.user)
-    const recipes = useSelector(state => state?.recipe)
     let recipeCookbook = []
     if (cookbook) {
         recipeCookbook = Object.values(cookbook)[2]

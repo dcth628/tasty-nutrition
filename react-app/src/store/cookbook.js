@@ -4,7 +4,7 @@ const CREATE_COOKBOOK = 'cookbook/CREATE_COOKBOOK'
 const EDIT_COOKBOOK = 'cookbook/EDIT_COOKBOOK'
 const REMOVE_COOKBOOK = 'cookbook/REMOVE_COOKBOOK'
 const ADD_RECIPE = 'cookbook/ADD_RECIPE'
-const REMOVE_RECIPE = 'cookbook/RECIPE'
+
 
 const load = (cookbook) => ({
     type: LOAD_COOKBOOK,

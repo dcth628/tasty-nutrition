@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { useModal } from "../../../context/Modal";
 import { createIngredient } from "../../../store/ingredient";
 import './IngredientCreate.css'
-import { Autocomplete, Button } from "@mui/material";
+import { Autocomplete } from "@mui/material";
 import { TextField } from "@mui/material";
 
 const CreateIngredientFormModal = () => {
@@ -23,7 +23,6 @@ const CreateIngredientFormModal = () => {
     const { closeModal } = useModal();
 
     const updateName = (e) => setName(e.target.value);
-    const updateType = (e) => setType(e.target.value);
     const updateMeasurement = (e) => setMeasurement(e.target.value)
     // const updateImg = (e) => setImg(e.target.value);
     const updateCalorie = (e) => setCalorie(e.target.value);
@@ -127,8 +126,8 @@ const CreateIngredientFormModal = () => {
     const handleCancelClick = (e) => {
         e.preventDefault();
         closeModal();
-    }
-    console.log(img, '--image')
+    };
+
     return (
         // <>Test</>
         <form className="ingredient-form" onSubmit={handleSubmit}>

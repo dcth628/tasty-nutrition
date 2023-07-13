@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { editIngredient } from "../../../store/ingredient";
 import { getIngredientDetail } from "../../../store/ingredient";
-import { Autocomplete, Button, TextField } from "@mui/material";
+import { Autocomplete, TextField } from "@mui/material";
 
 
 const EditIngredientModal = ({ingredient}) => {
@@ -23,7 +23,6 @@ const EditIngredientModal = ({ingredient}) => {
     const { closeModal } = useModal();
 
     const updateName = (e) => setName(e.target.value);
-    const updateType = (e) => setType(e.target.value);
     const updateMeasurement = (e) => setMeasurement(e.target.value)
     const updateImg = (e) => setImg(e.target.value);
     const updateCalorie = (e) => setCalorie(e.target.value);
@@ -73,7 +72,7 @@ const EditIngredientModal = ({ingredient}) => {
             validationErrors.push("Fats can not be 0")
         }
         setErrors(validationErrors);
-    }, [carb, calorie, protein, fat])
+    }, [measurement, carb, calorie, protein, fat])
 
     const handleSubmit = async (e) => {
         e.preventDefault();

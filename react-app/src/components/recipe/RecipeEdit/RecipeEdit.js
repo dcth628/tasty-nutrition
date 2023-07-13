@@ -6,7 +6,7 @@ import { getRecipeDetail, deleteIngredientRecipe, addIngredientRecipe } from "..
 import { getAllTypes } from "../../../store/type";
 import { getAllIngredients } from "../../../store/ingredient";
 import { createImageRecipe, deleteImage} from "../../../store/image";
-import { Checkbox, TextField } from "@mui/material";
+import {  TextField } from "@mui/material";
 import { Autocomplete, Box } from "@mui/material";
 import './RecipeEdit.css'
 
@@ -116,7 +116,7 @@ const EditRecipeModal = ({recipe}) => {
 
     const updateName = (e) => setName(e.target.value);
     const updateDescription = (e) => setDescription(e.target.value);
-    const updateInstruction = (e) => setInstruction(e.target.value);
+    // const updateInstruction = (e) => setInstruction(e.target.value);
     const updateServing = (e) => setServing(e.target.value);
     const updateCooktime = (e) => setCooktime(e.target.value);
 

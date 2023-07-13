@@ -1,7 +1,6 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllIngredients } from "../../../store/ingredient";
-import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 import DeleteIngredientModal from "../IngredientDelete/IngredientDelete";
 import IngredientDetail from "../IngredientDetail/IngredientDetail";
 import OpenModalButton from "../../OpenModalButton";

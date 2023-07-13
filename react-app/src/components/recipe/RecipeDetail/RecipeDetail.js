@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { useSelector, useDispatch } from "react-redux";
 import { getRecipeDetail } from "../../../store/recipe";
@@ -11,13 +11,11 @@ import CreateReview from "../../Review/ReviewCreate/ReviewCreate";
 import LoginFormModal from "../../LoginFormModal";
 import SignupFormModal from "../../SignupFormModal";
 import { getAllReivewsByRecipe } from "../../../store/review";
-import { getAllReviews } from "../../../store/review";
 import Tooltip from '@mui/material/Tooltip';
 import './RecipeDetail.css'
 
 const RecipeDetail = () => {
     const dispatch = useDispatch();
-    const history = useHistory();
     const { recipeId } = useParams();
     const recipe = useSelector(state => state?.recipe[recipeId]);
     const sessionUser = useSelector(state => state.session.user)
@@ -58,11 +56,6 @@ const RecipeDetail = () => {
         dispatch(getAllTypes())
         dispatch(getAllReivewsByRecipe(recipeId))
     }, [dispatch, recipeId]);
-
-    const handleRedirect = (e) => {
-        e.preventDefault();
-        history.push('/recipes/edit')
-    }
 
     return (
         sessionUser ? (<div className="recipe-page">

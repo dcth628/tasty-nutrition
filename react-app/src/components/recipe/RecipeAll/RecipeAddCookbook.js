@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { currentUserCookbook, addRecipeCookbook } from "../../../store/cookbook";
-import { Checkbox, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import { Autocomplete, Box } from "@mui/material";
 
 const AddRecipeToCookbook = ({ recipeId }) => {
