@@ -4,10 +4,15 @@ import { useModal } from "../../context/Modal";
 import { signUp } from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
+import { currentUserCookbook } from "../../store/cookbook";
+import { currentUserRecipes } from "../../store/recipe";
+import * as seesionActions from '../../store/session'
 import "./SignupForm.css";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function SignupFormModal() {
 	const dispatch = useDispatch();
+	const history = useHistory();
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [image, setImage] = useState("");
@@ -32,6 +37,15 @@ function SignupFormModal() {
 				"Confirm Password field must be the same as the Password field",
 			]);
 		}
+	};
+
+	const demoUserLogin = async (e) => {
+		e.preventDefault();
+		return dispatch(seesionActions.login('demo@aa.io', 'password'))
+		.then(closeModal)
+		.then(dispatch(currentUserCookbook()))
+		.then(dispatch(currentUserRecipes()))
+		.then(history.push('/'))
 	};
 
 	return (
@@ -111,6 +125,7 @@ function SignupFormModal() {
 				</div>
 				<button className='sign-up' type="submit">Sign Up</button>
 			<div>Have an account? <OpenModalButton buttonText="LOG IN" modalComponent={<LoginFormModal />}/></div>
+			<div >Log in as a <button className="demo" onClick={demoUserLogin} >Demo User</button></div>
 			</form>
 		</div>
 	);

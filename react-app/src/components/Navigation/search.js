@@ -45,11 +45,12 @@ const SearchBar = () => {
     return (
         <div className="search-bar">
             <input
-            type="text"
+            type="search"
             className="search-input"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onFocus={() => show()}
+            onBlur={(e)=> hide(e)}
             placeholder="Search..."
              />
             <div className="search-container" onBlur={(e) => hide(e)}>

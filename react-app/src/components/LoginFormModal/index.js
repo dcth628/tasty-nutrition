@@ -6,6 +6,9 @@ import "./LoginForm.css";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import OpenModalButton from "../OpenModalButton";
 import SignupFormModal from "../SignupFormModal";
+import { currentUserCookbook } from "../../store/cookbook";
+import { currentUserRecipes } from "../../store/recipe";
+import * as seesionActions from '../../store/session'
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -25,6 +28,15 @@ function LoginFormModal() {
         history.push('/')
     }
   };
+
+  const demoUserLogin = async (e) => {
+    e.preventDefault();
+    return dispatch(seesionActions.login('demo@aa.io', 'password'))
+    .then(closeModal)
+    .then(dispatch(currentUserCookbook()))
+    .then(dispatch(currentUserRecipes()))
+    .then(history.push('/'))
+};
 
   return (
     <div className="signup">
@@ -58,6 +70,7 @@ function LoginFormModal() {
         </div>
         <button className='sign-up' type="submit">Log In</button>
         <div>Don't have an account? <OpenModalButton buttonText="SIGN UP" modalComponent={<SignupFormModal />}/></div>
+        <div >Log in as a <button className="demo" onClick={demoUserLogin} >Demo User</button></div>
       </form>
     </div>
   );
