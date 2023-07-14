@@ -78,7 +78,7 @@ function SignupFormModal() {
 					/>
 					<label>Last Name</label>
 				</div>
-				<div className="input-group">
+				{/* <div className="input-group">
 					<input
 						type="text"
 						value={image}
@@ -86,7 +86,7 @@ function SignupFormModal() {
 						onChange={(e) => setImage(e.target.value)}
 					/>
 					<label>Profile Photo</label>
-				</div>
+				</div> */}
 				<div className="input-group">
 					<input
 						type="text"
