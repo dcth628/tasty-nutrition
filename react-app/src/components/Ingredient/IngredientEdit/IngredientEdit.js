@@ -113,6 +113,24 @@ const EditIngredientModal = ({ingredient}) => {
                 closeModal();
                 await dispatch(getIngredientDetail(ingredient.id))
             }
+        } else {
+            const newIngredient = {
+                id: ingredient.id,
+                name,
+                type,
+                measurement,
+                img,
+                calorie,
+                carb,
+                protein,
+                fat
+            };
+
+            let updatedIngredient = await dispatch(editIngredient(newIngredient))
+            if (updatedIngredient) {
+                closeModal();
+                await dispatch(getIngredientDetail(ingredient.id))
+            }
         }
     };
 
@@ -121,7 +139,6 @@ const EditIngredientModal = ({ingredient}) => {
         closeModal();
     };
 
-    console.log(img, '--img')
     return (
         // <>Test</>
         <form className="ingredient-form" onSubmit={handleSubmit}>
