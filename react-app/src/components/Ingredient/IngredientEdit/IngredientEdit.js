@@ -164,7 +164,6 @@ const EditIngredientModal = ({ingredient}) => {
                     <img src={img} value={img} width={80} height={80} />
                 <input
                     type='file'
-                    required
                     onChange={updateFile} />
             </div>
             <div className="input-group">
