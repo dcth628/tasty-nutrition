@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useModal } from "../../../context/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { editReview } from "../../../store/review";
-import { getAllReivewsByRecipe } from "../../../store/review";
 import Tooltip from '@mui/material/Tooltip';
 import './ReviewEdit.css'
 
@@ -27,7 +26,6 @@ const EditReview = ({reviews, recipeId, changeClassName, setShowMenu}) => {
         let updatedReview = await dispatch(editReview(editedReview));
         if (updatedReview) {
             closeModal();
-            dispatch(getAllReivewsByRecipe())
         }
     };
 

@@ -19,7 +19,7 @@ const ReviewbyRecipe = ({ recipe }) => {
   const sessionUser = useSelector(state => state?.session.user);
 
   const openMenu = () => {
-    if (showMenu) return;
+    // if (showMenu) return;
     setShowMenu(true);
     // setUlClassName('dropdowns')
   };
@@ -33,11 +33,11 @@ const ReviewbyRecipe = ({ recipe }) => {
   useEffect(() => {
 
     dispatch(getAllReivewsByRecipe(recipeId))
-    if (!showMenu) return;
+    // if (!showMenu) return;
 
     const closeMenu = (e) => {
 
-      if (ulRef.current && !ulRef.current.contains(e.target)) {
+      if (showMenu && !e.target.closest(".dropbtns")) {
         setShowMenu(false);
       }
     };

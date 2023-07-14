@@ -60,13 +60,11 @@
 }
 
 .ingredient-name:hover {
-    box-shadow: inset 170px 20px 20px 0 #7da3eb;
-    border-radius: 20px;
+    box-shadow: inset 170px 20px 20px 0 #cacaca;
     transform: translateY(-1px);
 }
 .ingredients button:hover {
     color: white;
-    border-radius: 20px;
 }
 
 .ingredient-name {
@@ -77,4 +75,5 @@
     text-align: left;
     padding-left: 2%;
     transition: color .3s ease-in-out   , box-shadow .3s ease-in-out;
+    color: rgb(86, 86, 86);
 }

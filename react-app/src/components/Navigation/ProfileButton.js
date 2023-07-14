@@ -19,17 +19,24 @@ function ProfileButton({ user }) {
   const { closeModal } = useModal();
 
   const openMenu = () => {
-    if (showMenu) return;
+    // if (showMenu) return;
     setShowMenu(true);
   };
 
 
   useEffect(() => {
-    if (!showMenu) return;
+    // if (!showMenu) return;
+
+    // const closeMenu = (e) => {
+
+    //   if (ulRef.current && !ulRef.current.contains(e.target)) {
+    //     setShowMenu(false);
+    //   }
+    // };
 
     const closeMenu = (e) => {
 
-      if (ulRef.current && !ulRef.current.contains(e.target)) {
+      if (showMenu && !e.target.closest(".dropbtn")) {
         setShowMenu(false);
       }
     };

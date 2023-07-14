@@ -52,7 +52,7 @@ const CreateIngredientFormModal = () => {
     ];
     useEffect(() => {
         const validationErrors = [];
-        if (measurement.length && /^-?\d+(\.\d+)?$/.test(measurement) === false ) {
+        if (measurement.length && /^-?\d+(\.\d+)?$/.test(measurement) === false) {
             validationErrors.push("Please enter correct info for measurement")
         }
         if (carb.length && /^-?\d+(\.\d+)?$/.test(carb) === false) {
@@ -83,12 +83,12 @@ const CreateIngredientFormModal = () => {
             validationErrors.push("Fats can not be 0")
         }
         setErrors(validationErrors);
-    }, [carb, calorie, protein, fat,measurement])
+    }, [carb, calorie, protein, fat, measurement])
 
     const updateFile = (e) => {
         const file = e.target.files[0];
         if (file) setImg(file);
-      };
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();

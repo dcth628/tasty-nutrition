@@ -20,16 +20,16 @@ function Navigation({ isLoaded }) {
 					{isLoaded && (
 						<>
 							<div className='nav-title'>
-								<NavLink exact to='/'>Profile</NavLink>
+								<NavLink exact to='/'>PROFILE</NavLink>
 							</div>
 							<div className='nav-title'>
-								<NavLink exact to="/recipes">Recipes</NavLink>
+								<NavLink exact to="/recipes">RECIPES</NavLink>
 							</div>
 							<div className='nav-title'>
-								<NavLink exact to="/ingredients">Ingredients</NavLink>
+								<NavLink exact to="/ingredients">INGREDIENTS</NavLink>
 							</div>
 							<div className='nav-title'>
-								<NavLink exact to="/cookbooks">Cookbooks</NavLink>
+								<NavLink exact to="/cookbooks">COOKBOOKS</NavLink>
 							</div>
 							<div>
 								<ProfileButton user={sessionUser} />

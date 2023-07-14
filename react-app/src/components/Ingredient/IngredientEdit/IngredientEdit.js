@@ -15,6 +15,7 @@ const EditIngredientModal = ({ingredient}) => {
     const [type, setType] = useState(ingredient.type)
     const [measurement, setMeasurement] = useState(ingredient.measurement)
     const [img, setImg] = useState(ingredient.img)
+    const [editImg , setEditImg ] = useState(null)
     const [calorie, setCalorie] = useState(ingredient.calorie)
     const [carb, setCarb] = useState(ingredient.carb)
     const [protein, setProtein] = useState(ingredient.protein)
@@ -72,27 +73,46 @@ const EditIngredientModal = ({ingredient}) => {
             validationErrors.push("Fats can not be 0")
         }
         setErrors(validationErrors);
-    }, [measurement, carb, calorie, protein, fat])
+    }, [measurement, carb, calorie, protein, fat]);
+
+    const updateFile = (e) => {
+        const file = e.target.files[0];
+        if (file) setEditImg(file);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors([]);
 
-        const newIngredient = {
-            id: ingredient.id,
-            name,
-            type,
-            measurement,
-            img,
-            calorie,
-            carb,
-            protein,
-            fat
-        };
-        let updatedIngredient = await dispatch(editIngredient(newIngredient))
-        if (updatedIngredient) {
-            closeModal();
-            await dispatch(getIngredientDetail(ingredient.id))
+        const formData = new FormData();
+        formData.append('image', editImg)
+
+        const response = await fetch(`/api/recipes/images/url`, {
+            method: 'POST',
+            body: formData
+        })
+
+        if (response.ok) {
+            let url = await response.json()
+            let img = url.url
+
+            const newIngredient = {
+                id: ingredient.id,
+                name,
+                type,
+                measurement,
+                img,
+                calorie,
+                carb,
+                protein,
+                fat
+            };
+
+            let updatedIngredient = await dispatch(editIngredient(newIngredient))
+            if (updatedIngredient) {
+                closeModal();
+                await dispatch(getIngredientDetail(ingredient.id))
+            }
         }
     };
 
@@ -101,6 +121,7 @@ const EditIngredientModal = ({ingredient}) => {
         closeModal();
     };
 
+    console.log(img, '--img')
     return (
         // <>Test</>
         <form className="ingredient-form" onSubmit={handleSubmit}>
@@ -132,13 +153,19 @@ const EditIngredientModal = ({ingredient}) => {
                     renderInput={(params) => <TextField {...params} label="Type" />}
                 />
             </div>
-            <div className="input-group">
-                <input
+
+                {/* <input
                     type='text'
                     required
                     value={img}
                     onChange={updateImg} />
-                    <label>Image</label>
+                    <label>Image</label> */}
+            <div className="add-ingredient">
+                    <img src={img} value={img} width={80} height={80} />
+                <input
+                    type='file'
+                    required
+                    onChange={updateFile} />
             </div>
             <div className="input-group">
                 <input

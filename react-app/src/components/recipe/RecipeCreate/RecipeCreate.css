@@ -142,3 +142,8 @@ input#file-upload-button {
     margin-left: 20px;
     margin-top: 10px;
 }
+
+.add-ingredient img {
+    margin-right: 20px;
+    margin-bottom: 10px;
+}

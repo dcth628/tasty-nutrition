@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { search } from "../../store/search";
+import OpenModalButton from "../OpenModalButton";
+import IngredientDetail from "../Ingredient/IngredientDetail/IngredientDetail";
 import './Search.css'
 
 const SearchBar = () => {
@@ -10,7 +12,7 @@ const SearchBar = () => {
     const [input , setInput ] = useState("");
 
     const results = useSelector(state => state.search);
-    // const ingredients = results.ingredients;
+    const ingredients = results.ingredients;
     const recipes = results.recipes;
     const cookbooks = results.cookbooks;
 

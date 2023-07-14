@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import {  useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import UserRecipe from "./UserRecipe";
 import UserCookbook from "./UserCookbook";
 import CreateIngredientFormModal from '../Ingredient/IngredientCreate/IngredientCreate';
@@ -49,13 +49,17 @@ const ProfilePage = () => {
                         <UserRecipe />
                     </div>
                 </div>) :
-                <p className="profile-page">Please <OpenModalButton
-                buttonText="LOG IN"
-                modalComponent={<LoginFormModal />}
-              /> or <OpenModalButton
-              buttonText="SIGN UP"
-              modalComponent={<SignupFormModal />}
-            /></p>}
+                <div className="profile-page">
+                    <img src="https://res.cloudinary.com/ddxewbhmy/image/upload/v1689288084/Ddobar-2000x1125_qesa2b.jpg" alt="food" />
+                    <div >Please <OpenModalButton
+                        buttonText="LOG IN"
+                        modalComponent={<LoginFormModal />}
+                    /> or <OpenModalButton
+                            buttonText="SIGN UP"
+                            modalComponent={<SignupFormModal />}
+                        /></div>
+                </div>
+                    }
         </div>
     )
 };
