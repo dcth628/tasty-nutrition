@@ -127,7 +127,7 @@ const AllIngredients = () => {
         (<div className="ingredient-page">
             <div className="ingredient-title">
                 <h3 className="ingredient-circle fruit">F</h3>
-                <h3>Fruti</h3>
+                <h3>Fruit</h3>
             </div>
             <div className="ingredient-list">
                 {fruits.map(fruit => (
