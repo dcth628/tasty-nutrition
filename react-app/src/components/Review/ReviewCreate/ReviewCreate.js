@@ -59,7 +59,7 @@ const CreateReview = ({ recipeId }) => {
                                 ? "filled"
                                 : "empty"
                         }
-                        onClick={() => onChange(1)}
+                        onClick={() => setStar(1)}
                     >
                         <i className="fa fa-star"></i>
                     </div>
@@ -72,7 +72,7 @@ const CreateReview = ({ recipeId }) => {
                                 ? "filled"
                                 : "empty"
                         }
-                        onClick={() => onChange(2)}
+                        onClick={() => setStar(2)}
                     >
                         <i className="fa fa-star"></i>
                     </div>
@@ -85,7 +85,7 @@ const CreateReview = ({ recipeId }) => {
                                 ? "filled"
                                 : "empty"
                         }
-                        onClick={() => onChange(3)}
+                        onClick={() => setStar(3)}
                     >
                         <i className="fa fa-star"></i>
                     </div>
@@ -98,7 +98,7 @@ const CreateReview = ({ recipeId }) => {
                                 ? "filled"
                                 : "empty"
                         }
-                        onClick={() => onChange(4)}
+                        onClick={() => setStar(4)}
                     >
                         <i className="fa fa-star"></i>
                     </div>
@@ -111,7 +111,7 @@ const CreateReview = ({ recipeId }) => {
                                 ? "filled"
                                 : "empty"
                         }
-                        onClick={() => onChange(5)}
+                        onClick={() => setStar(5)}
                     >
                         <i className="fa fa-star"></i>
                     </div>

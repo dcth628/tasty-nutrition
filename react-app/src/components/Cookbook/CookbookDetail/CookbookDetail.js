@@ -6,6 +6,8 @@ import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 import EditCookbookModal from "../CookbookEdit/CookbookEdit";
 import OpenModalButton from "../../OpenModalButton";
 import { getAllRecipes } from "../../../store/recipe";
+import SimpleImageSlider from "react-simple-image-slider";
+import { borderRadius } from "@mui/system";
 import Tooltip from '@mui/material/Tooltip';
 import './CookbookDetail.css'
 
@@ -67,11 +69,24 @@ const CookbookDetail = () => {
             {recipeCookbook && recipeCookbook.length > 0 ? (recipeCookbook.map(recipe =>
                 <div className="recipe-card">
                     <NavLink to={`/recipes/${recipe.id}`}>
-                        <div className="recipe-image-box">
+                        {/* <div className="recipe-image-box">
                             {recipe.images.map((image) => (
                                 <img src={image.image} alt={recipe.name} className="recipe-card-image" />
                             ))}
-                        </div>
+                        </div> */}
+                        <div className="recipe-image-box">
+                                    <SimpleImageSlider
+                                    className="recipe-card-image"
+                                    style={borderRadius}
+
+                                        navSize={20}
+                                        width={220}
+                                        height={220}
+                                        bgColor={"#ffffff"}
+                                        images={recipe.images.map(image => image.image)}
+                                        showNavs={false}
+                                    />
+                                </div>
                         <p className="recipe-name">{recipe.name}</p>
                         <p className="recipe-descripiton">Serving: {recipe.serving}</p>
                         <div className="recipe-time">
