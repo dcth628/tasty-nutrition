@@ -68,7 +68,6 @@ const ReviewbyRecipe = ({ recipe }) => {
                         <OpenModalButton
                           buttonText='EDIT REVIEW'
                           onItemClick={closeMenu}
-                          // onBlur={() => console.log('hi')}
                           modalComponent={<EditReview reviews={review} recipeId={recipeId}
                           setShowMenu={setShowMenu}
                           // changeClassName={ulClassName}
