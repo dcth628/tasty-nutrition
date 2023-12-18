@@ -13,7 +13,6 @@ def all_cookbooks():
 
 #Get all cookbooks for the current user
 @cookbooks_routes.route('/current')
-@login_required
 def user_cookbooks():
     user_id = current_user.get_id()
     cookbooks = Cookbook.query.filter_by(user_id = user_id)

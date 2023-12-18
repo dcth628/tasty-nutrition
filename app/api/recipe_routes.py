@@ -18,7 +18,6 @@ def all_recipes():
 
 #Get all recipes for the current user
 @recipes_routes.route('/current')
-@login_required
 def user_recipes():
     """
     Queries for all recipes for the user and return in a list
