@@ -20,23 +20,32 @@ const UserCookbook = () => {
         if (min === 0 && hour === 1) {
             return `${hour} hour 00 min`
         }
-        if (min < 10 && hour === 1) {
-            return `${hour} hour 0${min} min`
+        if (min < 10 && min > 1 && hour === 1) {
+            return `${hour} hour 0${min} mins`
+        }
+        if (min === 1 && hour === 1) {
+            return `${hour} hour 01 min`
         }
         if (min >= 10 && hour === 1) {
             return `${hour} hour ${min} mins`
         }
-        if (hour > 1 && min < 10) {
-            return `${hour} hours 0${min} min`
+        if (hour > 1 && min > 1 && min < 10) {
+            return `${hour} hours 0${min} mins`
         }
         if (hour > 1 && min === 0) {
-            return `${hour} hours 00 min`
+            return `${hour} hours`
+        }
+        if (hour > 1 && min === 1) {
+            return `${hour} hours 01 min`
         }
         if (hour === 0 && min < 10) {
             return `0${min} mins`
         }
         if (hour === 0 && min >= 10) {
             return `${min} mins`
+        }
+        if (hour === 0 && min === 1) {
+            return `1 min`
         }
         return `${hour} hours ${min} mins`
     };
