@@ -95,7 +95,7 @@ const RecipeDetail = () => {
                                 <span className="recipe-nutrition">Carbs: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.carb * ingredient.quantity).reduce((acc, el) => acc + el, 0).toFixed(1))}</span>
                                 <span className="recipe-nutrition">Fats: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.fat * ingredient.quantity).reduce((acc, el) => acc + el, 0).toFixed(1))}</span>
                             </div>
-                            <div className="recipe-detail-time"><i className="far fa-clock"></i> {cooktimeLength(recipe.cooktime)}</div>
+                            <div className="recipe-detail-time"><i className="far fa-clock"></i>{cooktimeLength(recipe.cooktime)}</div>
                             <div className="recipe-detail-serving">
                                 <p>{recipe.serving} Serving</p>
                             </div>
