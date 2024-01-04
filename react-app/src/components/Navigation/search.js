@@ -44,6 +44,12 @@ const SearchBar = () => {
         setInput("")
     };
 
+    const reset3 = (id) => {
+        document.querySelector(".search-results").classList.add("hidden");
+        history.push(`/ingredients/`);
+        setInput("")
+    };
+
     return (
         <div className="search-bar">
             <input
@@ -80,6 +86,18 @@ const SearchBar = () => {
                     </div>
                     : (input?.length > 0 ? <div className="search-none">No Cookbook Match</div> :
                     <div className="search-none hidden">No Cookbook Match</div>)
+                    )}
+                    {ingredients && (ingredients.length > 0 && input?.length > 0 ?
+                    <div>
+                        <div className="search-card-title" onMouseDown={(e) => hide(e)}>Ingredients</div>
+                    {ingredients.map((ingredient) => (
+                        <div key={ingredient.id} className="search-card" onMouseDown={() => reset3(ingredient.id)}>
+                            {ingredient.name}
+                        </div>
+                    )) }
+                    </div>
+                    : (input?.length > 0 ? <div className="search-none">No Ingredient Match</div> :
+                    <div className="search-none hidden">No Ingredient Match</div>)
                     )}
                 </div>
             </div>
