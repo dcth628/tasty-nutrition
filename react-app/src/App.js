@@ -15,6 +15,7 @@ import CookbookDetail from "./components/Cookbook/CookbookDetail/CookbookDetail"
 import CreateRecipeModal from "./components/recipe/RecipeCreate/RecipeCreate";
 import EditRecipeModal from "./components/recipe/RecipeEdit/RecipeEdit";
 import ReviewbyRecipe from "./components/Review/ReviewByRecipe/ReviewByRecipe";
+import USDAFoodNutrition from "./components/FoodAPI/FoodAPI";
 
 function App() {
   const dispatch = useDispatch();
@@ -33,6 +34,9 @@ function App() {
           </Route>
           <Route exact path="/signup">
             <SignupFormPage />
+          </Route>
+          <Route exact path='/api'>
+            <USDAFoodNutrition />
           </Route>
           <Route exact path="/ingredients">
             <AllIngredients />
