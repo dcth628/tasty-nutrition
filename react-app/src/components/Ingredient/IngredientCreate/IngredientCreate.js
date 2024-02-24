@@ -7,18 +7,42 @@ import './IngredientCreate.css'
 import { Autocomplete } from "@mui/material";
 import { TextField } from "@mui/material";
 
-const CreateIngredientFormModal = () => {
+const CreateIngredientFormModal = ({nutritionInfo, foodName}) => {
     const dispatch = useDispatch();
     const history = useHistory();
-
-    const [name, setName] = useState("");
+    console.log(nutritionInfo, '--------nutrition')
+    let initialname = '';
+    if (foodName) {
+        initialname = foodName;
+    } else {
+        initialname = '';
+    }
+    const [name, setName] = useState(initialname);
     const [type, setType] = useState("");
-    const [measurement, setMeasurement] = useState("");
+    let initialMeasurement = '';
+    let initialCalorie = '';
+    let initialCarbs = '';
+    let initialProtein = '';
+    let initialFats = '';
+    if (nutritionInfo) {
+        initialMeasurement = '100';
+        initialCalorie = nutritionInfo.calories;
+        initialCarbs = nutritionInfo.carbohydrates;
+        initialFats = nutritionInfo.fat;
+        initialProtein = nutritionInfo.protein;
+    } else {
+        initialMeasurement = '';
+        initialCalorie = '';
+        initialCarbs = '';
+        initialProtein = '';
+        initialFats = '';
+    }
+    const [measurement, setMeasurement] = useState(initialMeasurement);
     const [img, setImg] = useState(null);
-    const [calorie, setCalorie] = useState("");
-    const [carb, setCarb] = useState("");
-    const [protein, setProtein] = useState("");
-    const [fat, setFat] = useState("");
+    const [calorie, setCalorie] = useState(initialCalorie);
+    const [carb, setCarb] = useState(initialCarbs);
+    const [protein, setProtein] = useState(initialProtein);
+    const [fat, setFat] = useState(initialFats);
     const [errors, setErrors] = useState([]);
     const { closeModal } = useModal();
 

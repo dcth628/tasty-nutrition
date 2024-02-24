@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux';
 import SearchBar from './search';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
+import OpenModalButton from '../OpenModalButton';
+import USDAFoodNutrition from '../FoodAPI/FoodAPI';
 
 
 function Navigation({ isLoaded }) {
@@ -37,6 +39,11 @@ function Navigation({ isLoaded }) {
 						</>
 					)}
 				</div>
+			</div>
+			<div className='search-api'>
+				<OpenModalButton
+					buttonText={'search'}
+					modalComponent={<USDAFoodNutrition />} />
 			</div>
 			<div className="footer">
 				<div>

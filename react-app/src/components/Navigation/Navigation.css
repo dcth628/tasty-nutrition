@@ -119,3 +119,19 @@
   background-color: lightgray;
   color: white;
 }
+
+.search-api {
+  position: fixed;
+  right: 1%;
+  bottom: 8%;
+}
+
+.fa-search {
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  color: white;
+  background-color: rgb(66, 66, 246);
+  border: 1px solid gray;
+  border-radius: 50%
+}

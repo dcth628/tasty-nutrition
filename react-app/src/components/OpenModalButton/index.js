@@ -33,6 +33,8 @@ function OpenModalButton({
     return (<button onClick={onClick} className='no-border'>{buttonText}</button>)
   } else if (buttonText === 'EDIT REVIEW' || buttonText === 'DELETE REVIEW') {
     return (<button onClick={onClick} className='reviewbtn'>{buttonText}</button>)
+  } else if (buttonText === 'search') {
+    return (<button onClick={onClick} className='fas fa-search' />)
   }
   return (
     <button className='ingredient-name' onClick={onClick}>{buttonText}</button>

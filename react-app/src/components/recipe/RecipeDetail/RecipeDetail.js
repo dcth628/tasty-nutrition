@@ -90,10 +90,10 @@ const RecipeDetail = () => {
                                 ))}
                             </div>
                             <div className="recipe-nutrion-list">
-                                <span>Cals: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.calorie * ingredient.quantity).reduce((acc, el) => acc + el, 0).toFixed(1))}</span>
-                                <span className="recipe-nutrition">Protein: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.protein * ingredient.quantity).reduce((acc, el) => acc + el, 0).toFixed(1))}</span>
-                                <span className="recipe-nutrition">Carbs: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.carb * ingredient.quantity).reduce((acc, el) => acc + el, 0).toFixed(1))}</span>
-                                <span className="recipe-nutrition">Fats: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.fat * ingredient.quantity).reduce((acc, el) => acc + el, 0).toFixed(1))}</span>
+                                <span>Cals: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.calorie * ingredient.quantity).reduce((acc, el) => acc + el, 0).toFixed(1))} kcal</span>
+                                <span className="recipe-nutrition">Protein: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.protein * ingredient.quantity).reduce((acc, el) => acc + el, 0).toFixed(1))} g</span>
+                                <span className="recipe-nutrition">Carbs: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.carb * ingredient.quantity).reduce((acc, el) => acc + el, 0).toFixed(1))} g</span>
+                                <span className="recipe-nutrition">Fats: {recipe.ingredients && (recipe.ingredients.map(ingredient => ingredient?.fat * ingredient.quantity).reduce((acc, el) => acc + el, 0).toFixed(1))} g</span>
                             </div>
                             <div className="recipe-detail-time"><i className="far fa-clock"></i>{cooktimeLength(recipe.cooktime)}</div>
                             <div className="recipe-detail-serving">

@@ -46,11 +46,11 @@ const IngredientDetail = ({ ingredient }) => {
                             <img src={ingredient.img} alt={ingredient.name} className="recipe-card-image" />
                         </div>
                         <div className="nutrition-facts">
-                            <p>Weight: {ingredient.measurement}g</p>
-                            <p>Calories: {ingredient.calorie}</p>
-                            <p>Carbs: {ingredient.carb}g</p>
-                            <p>Protein: {ingredient.protein}g</p>
-                            <p>Fats: {ingredient.fat}g</p>
+                            <p>Weight: {ingredient.measurement} g</p>
+                            <p>Calories: {ingredient.calorie} kcal</p>
+                            <p>Carbs: {ingredient.carb} g</p>
+                            <p>Protein: {ingredient.protein} g</p>
+                            <p>Fats: {ingredient.fat} g</p>
                         </div>
                         </div>
                     </div>
