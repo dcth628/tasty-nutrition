@@ -122,16 +122,16 @@
 
 .search-api {
   position: fixed;
-  right: 1%;
+  right: 5%;
   bottom: 8%;
 }
 
 .fa-search {
-  width: 40px;
-  height: 40px;
-  font-size: 20px;
+  width: 55px;
+  height: 55px;
+  font-size: 30px;
   color: white;
-  background-color: rgb(66, 66, 246);
-  border: 1px solid gray;
+  background-color: rgb(91, 91, 243);
+  border: 2px solid rgb(244, 238, 85);
   border-radius: 50%
 }

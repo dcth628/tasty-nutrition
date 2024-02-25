@@ -68,7 +68,7 @@ const SearchBar = () => {
                             <div className="search-card-title" onMouseDown={(e) => hide(e)}>Recipes</div>
                             {recipes.map((recipe) => (
                                 <div key={recipe.id} className="search-card" onMouseDown={() => reset1(recipe.id)}>
-                                    {recipe.name}
+                                    {recipe.name.toLowerCase().includes(input.toLowerCase()) && recipe.name}
                                 </div>
                             ))}
                         </div>
@@ -80,7 +80,7 @@ const SearchBar = () => {
                             <div className="search-card-title" onMouseDown={(e) => hide(e)}>Cookbooks</div>
                             {cookbooks.map((cookbook) => (
                                 <div key={cookbook.id} className="search-card" onMouseDown={() => reset2(cookbook.id)}>
-                                    {cookbook.name}
+                                    {cookbook.name.toLowerCase().includes(input.toLocaleLowerCase()) && cookbook.name}
                                 </div>
                             ))}
                         </div>
@@ -92,7 +92,7 @@ const SearchBar = () => {
                             <div className="search-card-title" onMouseDown={(e) => hide(e)}>Ingredients</div>
                             {ingredients.map((ingredient) => (
                                 <div key={ingredient.id} className="search-card" onMouseDown={() => reset3(ingredient.id)}>
-                                    {ingredient.name}
+                                    {ingredient.name.toLocaleLowerCase().includes(input.toLocaleLowerCase()) && ingredient.name}
                                 </div>
                             ))}
                         </div>
