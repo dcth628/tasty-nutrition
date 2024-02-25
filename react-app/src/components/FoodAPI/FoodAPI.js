@@ -41,8 +41,6 @@ function USDAFoodNutrition() {
         const nutrient = nutrients.find(nutrient => nutrient.nutrientName === name);
         return nutrient ? Math.abs(nutrient.value.toFixed(1)) : 'N/A';
     };
-
-    console.log(nutritionInfo, '----nutrition')
     return (
         <form onSubmit={handleSubmit}>
             <div className='search-form'>

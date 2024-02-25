@@ -10,7 +10,6 @@ import { TextField } from "@mui/material";
 const CreateIngredientFormModal = ({nutritionInfo, foodName}) => {
     const dispatch = useDispatch();
     const history = useHistory();
-    console.log(nutritionInfo, '--------nutrition')
     let initialname = '';
     if (foodName) {
         initialname = foodName;
