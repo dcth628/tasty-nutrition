@@ -12,17 +12,18 @@ function USDAFoodNutrition() {
         e.preventDefault();
         try {
             const apiKey = 'S6E7mcmZT2YcPxTvQWcb3ZtC9ZPEskXqshYIO3sH'; // Replace with your USDA API key
-            const response = await fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${apiKey}&query=${encodeURIComponent(foodName)}&dataType=Foundation`);
+            const response = await fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${apiKey}&query=${encodeURIComponent(foodName)}&dataType=SR%20Legacy`);
             const data = await response.json();
 
             if (data.foods && data.foods.length > 0) {
                 const food = data.foods[0];
                 const nutrients = food.foodNutrients;
+                console.log(nutrients,'----nutrition')
                 const nutritionData = {
-                    calories: getNutrientValue(nutrients, 'Energy (Atwater General Factors)'),
-                    protein: getNutrientValue(nutrients, 'Protein'),
-                    carbohydrates: getNutrientValue(nutrients, 'Carbohydrate, by difference'),
-                    fat: getNutrientValue(nutrients, 'Total lipid (fat)')
+                    calories: getNutrientValue(nutrients, 1008),
+                    protein: getNutrientValue(nutrients, 1003),
+                    carbohydrates: getNutrientValue(nutrients, 1005),
+                    fat: getNutrientValue(nutrients, 1004)
                 };
                 setNutritionInfo(nutritionData);
                 setError(null);
@@ -37,8 +38,8 @@ function USDAFoodNutrition() {
         }
     };
 
-    const getNutrientValue = (nutrients, name) => {
-        const nutrient = nutrients.find(nutrient => nutrient.nutrientName === name);
+    const getNutrientValue = (nutrients, nutrientId) => {
+        const nutrient = nutrients.find(nutrient => nutrient.nutrientId === nutrientId);
         return nutrient ? Math.abs(nutrient.value.toFixed(1)) : 'N/A';
     };
     return (
