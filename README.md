@@ -2,17 +2,16 @@
 
 * [Feature list document](https://github.com/dcth628/API-Project/wiki/Feature-List)
 * [Database Schema](https://github.com/dcth628/API-Project/wiki/Database-Schema)
-* Frontend routes document
 * [API routes document](https://github.com/dcth628/API-Project/wiki/API-Routes)
-
-
-
 * Name of the project: Tasty Nutrition
 * live site: https://tasty-nutrition.onrender.com/
 * Summary: Welcome to our user-friendly website, where you can create custom ingredients, track nutrition facts, and make informed choices about your diet. This platform provides comprehensive nutrition information for personalized recipes, including calories, protein, carbs, and fats. You can take control of your nutrition and enjoy the convenience of storing and accessing your favorite recipes in your own digital cookbook. Simplify your cooking experience and embrace a healthier lifestyle.
-* Screenshots of your app in action (once completed)
+* Screenshots of your app in action
+
+https://github.com/dcth628/tasty-nutrition/assets/109315871/a56b30f2-bec3-4333-a274-c337a81a4de6
+
+
 * List of techs/languages/plugins/APIs used: JavaScript, Python, Nodejs, Express, React, Redux, Flask, PostgreSQL
-* To-dos/future features: Implement the API from  USDA food data to get all kinds of food data
 
  
 # Flask React Project
