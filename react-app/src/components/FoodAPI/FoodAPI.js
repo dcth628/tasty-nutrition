@@ -15,6 +15,7 @@ function USDAFoodNutrition() {
             const response = await fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${apiKey}&query=${encodeURIComponent(foodName)}&dataType=SR%20Legacy`);
             const data = await response.json();
 
+
             if (data.foods && data.foods.length > 0) {
                 const food = data.foods[0];
                 const nutrients = food.foodNutrients;
