@@ -1,20 +1,7 @@
-* [Feature list document](https://github.com/dcth628/API-Project/wiki/Feature-List)
-* React Components list (if you used React)
-* [Database Schema](https://github.com/dcth628/API-Project/wiki/Database-Schema)
-* Frontend routes document
-* [API routes document](https://github.com/dcth628/API-Project/wiki/API-Routes)
-* Redux store tree document (if you used Redux)
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+Your React App will live here.  You will need to run `npm install` to install all your dependencies before starting up the application. While in development, run this application from this location using `npm start`.
 
-* Name of the project: Tasty Nutrition
-* Link to live site: https://tasty-nutrition.onrender.com/
-* Link to your backend repo if you have a separate one
-* Summary of what the project is and what it does: Welcome to our user-friendly website, where you can create custom ingredients, track nutrition facts, and make informed choices about your diet. This platform provides comprehensive nutrition information for personalized recipes, including calories, protein, carbs, and fats. You can take control of your nutrition and enjoy the convenience of storing and accessing your favorite recipes in your own digital cookbook. Simplify your cooking experience and embrace a healthier lifestyle.
-* Screenshots of your app in action (once completed)
-* Instructions on how to build/run the project:
-* List of techs/languages/plugins/APIs used: JavaScript, Python, Nodejs, Express, React, Redux, Flask, PostgreSQL
-* To-dos/future features: Implement the api from  USDA food data to get all kind of food data
-* Technical implementation details
-	* Anything you had to stop and think about before building
-	* Descriptions of particular challenges
-	* Snippets or links to see code for these
+No environment variables are needed to run this application in development, but be sure to set the REACT_APP_BASE_URL environment variable when you deploy!
+
+This app will be automatically built when you push to your main branch on Github.
