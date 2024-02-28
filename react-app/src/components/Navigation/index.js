@@ -13,7 +13,8 @@ function Navigation({ isLoaded }) {
 
 	return (
 		<div>
-			<div className='header'>
+			{ sessionUser ? (
+				<div><div className='header'>
 				<h3 className='logo'>Tasty Nutrition</h3>
 				<div className='nav-title'>
 					<SearchBar />
@@ -57,6 +58,44 @@ function Navigation({ isLoaded }) {
 				<div>Term of Use ・ Privacy Policy</div>
 				<p>&copy; 2023 Copyright Dean Hsieh </p>
 			</div>
+				</div>
+			) :
+			<div>
+				<div className='header'>
+				<h3 className='logo'>Tasty Nutrition</h3>
+				<div className='nav-title'>
+					<SearchBar />
+				</div>
+				<div className='nav-bar'>
+					{isLoaded && (
+						<>
+							<div>
+								<ProfileButton user={sessionUser} />
+							</div>
+						</>
+					)}
+				</div>
+			</div>
+			<div className='search-api'>
+				<OpenModalButton
+					buttonText={'search'}
+					modalComponent={<USDAFoodNutrition />} />
+			</div>
+			<div className="footer">
+				<div>
+					<a href='https://github.com/dcth628/' target="_blank"  rel="noreferrer">
+						<i className='fab fa-github'></i>
+					</a>
+					<a href='https://www.linkedin.com/in/deanhsieh/' target="_blank"  rel="noreferrer">
+						<i className='fab fa-linkedin-in'></i>
+					</a>
+				</div>
+				<div>Term of Use ・ Privacy Policy</div>
+				<p>&copy; 2023 Copyright Dean Hsieh </p>
+			</div>
+			</div>
+			}
+
 		</div>
 	);
 }
